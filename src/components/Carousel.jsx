@@ -12,12 +12,12 @@ export const Carousel = () => {
     };
 
     return (
-        <div className='py-2 flex flex-col p-7 rounded-md'>
+        <div className='px-7 rounded-md '>
             <Slider {...settings}>
                 {slides?.map(({ id, imageUrl }) => (
-                    <div key={id} className='w-full'>
+                    <div key={id}>
                         <img
-                            className='object-cover'
+                            className='w-full h-[350px] max-[700px]:h-[250px] max-[500px]:h-full'
                             src={imageUrl}
                         />
                     </div>

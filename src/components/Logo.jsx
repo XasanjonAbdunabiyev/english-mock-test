@@ -1,6 +1,5 @@
 import React from 'react'
 import { Image } from '@chakra-ui/react'
-
 import logo from "../assets/images/logo.svg"
 
 export const Logo = () => {
