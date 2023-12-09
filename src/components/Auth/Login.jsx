@@ -3,7 +3,6 @@ import {
     Button,
     Checkbox,
     Container,
-    Divider,
     FormControl,
     FormLabel,
     Heading,
@@ -12,7 +11,7 @@ import {
     Link,
     Stack,
     Text,
-} from '@chakra-ui/react'
+} from '@chakra-ui/react';
 import { Logo } from '../Logo'
 import { PasswordField } from './PasswordField'
 
