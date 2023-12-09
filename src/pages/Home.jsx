@@ -27,6 +27,15 @@ const Carousel = lazy(() =>
   })
 );
 
+
+const Mock = lazy(() =>
+  import("../components/Mock").then((module) => {
+    return {
+      default: module.Mock,
+    };
+  })
+);
+
 const Home = () => {
   const { isOpen, onClose } = useModal();
 
@@ -45,6 +54,7 @@ const Home = () => {
 
       <Layout>
         <Carousel />
+        <Mock />
       </Layout>
     </>
   );
