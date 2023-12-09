@@ -2,6 +2,7 @@
 import React from 'react';
 import Slider from 'react-slick';
 import { slides } from "../../db/carusel-data";
+import { Box } from '@chakra-ui/react';
 export const Carousel = () => {
     const settings = {
         dots: true,
@@ -15,12 +16,12 @@ export const Carousel = () => {
         <div className='px-7 rounded-md '>
             <Slider {...settings}>
                 {slides?.map(({ id, imageUrl }) => (
-                    <div key={id}>
+                    <Box key={id}>
                         <img
                             className='w-full h-[350px] max-[700px]:h-[250px] max-[500px]:h-full'
                             src={imageUrl}
                         />
-                    </div>
+                    </Box>
                 ))}
             </Slider>
         </div>

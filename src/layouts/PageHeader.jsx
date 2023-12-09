@@ -6,22 +6,35 @@ const Logo = lazy(() =>
   })
 );
 
+const ThemeButton = lazy(() =>
+  import("../components/ThemeBtn").then((module) => {
+    return { default: module.ThemeButton };
+  })
+);
+
 import { Button } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
-
+import { useColorMode } from "@chakra-ui/react";
 export const PageHeader = () => {
   const navigate = useNavigate();
+  const { colorMode } = useColorMode();
+
   return (
-    <header className="p-4 bg-white bg-opacity-25 backdrop-blur-xl sticky top-0 left-0 w-full z-50">
+    <header
+      className={`p-4 ${
+        colorMode === "dark" && "bg-gray-500"
+      } bg-opacity-25 backdrop-blur-xl sticky top-0 left-0 w-full z-50 border-b mb-5`}
+    >
       <div className="container mx-auto">
         <div className="flex justify-between items-center">
           <div className="logo">
             <Logo />
           </div>
-          <nav>
-            <Button colorScheme="blue" onClick={() => navigate("/login")}>
+          <nav className="flex items-center gap-x-6">
+            <Button colorScheme="telegram" color="white" onClick={() => navigate("/login")}>
               Login
             </Button>
+            <ThemeButton />
           </nav>
         </div>
       </div>

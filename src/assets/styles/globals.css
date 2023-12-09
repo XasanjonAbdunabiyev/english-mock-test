@@ -5,8 +5,9 @@
 
 
 .slick-dots li  {
-    background-color: #000;
     border-radius: 50%;
     width: 15px !important;
+    color: #aad5ff;
     height: 15px !important;
+    background-color: #000b20;
 }

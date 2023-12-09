@@ -1,18 +1,19 @@
-import { ChakraProvider } from '@chakra-ui/react';
-import * as ReactDOM from 'react-dom/client'
-import { App } from './app/App';
+import { ChakraProvider, CSSReset } from "@chakra-ui/react";
+import * as ReactDOM from "react-dom/client";
+import { App } from "./app/App";
 import "./assets/styles/globals.css";
 import { theme } from "./theme/config";
 
 import "slick-carousel/slick/slick.css";
-import { BrowserRouter } from "react-router-dom"
 import "slick-carousel/slick/slick-theme.css";
 
-const rootElement = document.getElementById('root')
+import { BrowserRouter as Router } from "react-router-dom";
+const rootElement = document.getElementById("root");
 ReactDOM.createRoot(rootElement).render(
-  <BrowserRouter>
+  <Router>
     <ChakraProvider theme={theme}>
+      <CSSReset />
       <App />
     </ChakraProvider>
-  </BrowserRouter>,
-)
+  </Router>
+);
