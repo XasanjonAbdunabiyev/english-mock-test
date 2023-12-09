@@ -3,7 +3,7 @@ import { Alert } from "../components/Alert";
 import { Layout } from "../layouts/Layout";
 import { Carousel } from "../components/Carousel";
 import { Logo } from "../components/Logo";
-export const Home = () => {
+const Home = () => {
     const { isOpen, onClose } = useModal();
 
     return (
@@ -21,3 +21,5 @@ export const Home = () => {
         </>
     )
 }
+
+export default Home

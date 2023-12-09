@@ -1,18 +1,31 @@
-import { useState, useEffect } from "react";
+import { Suspense, lazy } from "react";
+import { wait } from "../services/wait";
+import { Outlet, Route, Routes } from "react-router-dom";
 
-import { Route, Routes } from "react-router-dom";
-
-import { Home } from "../pages/Home";
-import { Login } from "../pages/Login";
-import { useGetDocs } from "../hooks/useGetDocs";
+const Home = lazy(() => wait(1000).then(() => import("../pages/Home")));
+const Login = lazy(() =>
+  wait(1000).then(() =>
+    import("../pages/Login").then((module) => {
+      return { default: module.Login };
+    })
+  )
+);
 
 export const App = () => {
-  const { loading, questions } = useGetDocs();
-  console.log(loading, "loaded", questions);
   return (
     <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/login" element={<Login />} />
+      <Route path="/" element={<LoadedPage />}>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+      </Route>
     </Routes>
   );
 };
+
+function LoadedPage() {
+  return (
+    <Suspense fallback={<p>Loading...</p>}>
+      <Outlet />
+    </Suspense>
+  );
+}
