@@ -1,25 +1,53 @@
+import { lazy } from "react";
 import { useModal } from "../hooks/useModal";
-import { Alert } from "../components/Alert";
-import { Layout } from "../layouts/Layout";
-import { Carousel } from "../components/Carousel";
-import { Logo } from "../components/Logo";
+
+const Alert = lazy(() =>
+  import("../components/UI/Alert").then((module) => {
+    return { default: module.Alert };
+  })
+);
+
+const Logo = lazy(() =>
+  import("../components/UI/Logo").then((module) => {
+    return { default: module.Logo };
+  })
+);
+
+const Layout = lazy(() =>
+  import("../layouts/Layout").then((module) => {
+    return { default: module.Layout };
+  })
+);
+
+const Carousel = lazy(() =>
+  import("../components/UI/Carousel").then((module) => {
+    return {
+      default: module.Carousel,
+    };
+  })
+);
+
 const Home = () => {
-    const { isOpen, onClose } = useModal();
+  const { isOpen, onClose } = useModal();
 
-    return (
-        <>
-            <Alert isOpen={isOpen} onClose={onClose} title="Welcome to Mock English Test" >
-                <Logo />
-                <div className='my-4 font-bold text-lg'>
-                    On this site, you can test your knowledge by taking an English test
-                </div>
-            </Alert>
+  return (
+    <>
+      <Alert
+        isOpen={isOpen}
+        onClose={onClose}
+        title="Welcome to Mock English Test"
+      >
+        <Logo />
+        <div className="my-4 font-bold text-lg">
+          On this site, you can test your knowledge by taking an English test
+        </div>
+      </Alert>
 
-            <Layout>
-                <Carousel />
-            </Layout>
-        </>
-    )
-}
+      <Layout>
+        <Carousel />
+      </Layout>
+    </>
+  );
+};
 
-export default Home
+export default Home;

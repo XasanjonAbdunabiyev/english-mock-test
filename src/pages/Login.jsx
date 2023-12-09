@@ -1,9 +1,14 @@
-import React from 'react'
-import { Login as ChakraLogin } from "../components/Auth/Login";
+import { lazy } from "react";
+
+const ChakraLogin = lazy(() =>
+  import("../components/Auth/Login").then((module) => {
+    return { default: module.Login };
+  })
+);
 export const Login = () => {
-    return (
-        <div>
-            <ChakraLogin />
-        </div>
-    )
-}
+  return (
+    <div className="login-page">
+      <ChakraLogin />
+    </div>
+  );
+};

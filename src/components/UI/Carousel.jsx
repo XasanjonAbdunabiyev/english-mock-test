@@ -1,7 +1,7 @@
 
 import React from 'react';
 import Slider from 'react-slick';
-import { slides } from "../db/carusel-data";
+import { slides } from "../../db/carusel-data";
 export const Carousel = () => {
     const settings = {
         dots: true,

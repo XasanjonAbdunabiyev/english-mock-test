@@ -1,13 +1,18 @@
-import React from 'react'
-import { PageHeader } from './PageHeader'
+import React, { lazy } from "react";
+
+const PageHeader = lazy(() =>
+  import("./PageHeader").then((module) => {
+    return {
+      default: module.PageHeader,
+    };
+  })
+);
 
 export const Layout = ({ children }) => {
-    return (
-        <>
-            <PageHeader />
-            <div className='pages'>
-                {children}
-            </div>
-        </>
-    )
-}
+  return (
+    <>
+      <PageHeader />
+      <div className="pages">{children}</div>
+    </>
+  );
+};
