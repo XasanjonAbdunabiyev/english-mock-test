@@ -1,9 +1,7 @@
-import { create } from "zustand";
+import { create } from 'zustand'
 
-export const useModal = create(
-    (set) => ({
-        isOpen: true, 
-        onClose: () => set(() => ({isOpen: false})), 
-        onOpen: () => set(() => ({isOpen: false})), 
-    })
-)
+export const useModal = create((set) => ({
+    isOpen: true,
+    onClose: () => set(() => ({ isOpen: false })),
+    onOpen: () => set(() => ({ isOpen: false })),
+}))

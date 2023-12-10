@@ -12,7 +12,7 @@ export const Layout = ({ children }) => {
   return (
     <>
       <PageHeader />
-      <Container maxW="container.xl" className="pages">{children}</Container>
+      <Container maxW="container.xl" className="pages" overflow={"hidden"}>{children}</Container>
     </>
   );
 };
