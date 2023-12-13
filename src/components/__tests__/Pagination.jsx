@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { Box, Button } from '@chakra-ui/react'
+import React, { useState } from "react"
+import { Box, Button } from "@chakra-ui/react"
 
 const itemsPerPage = 1 // Number of items to display per page
 
@@ -36,7 +36,7 @@ export const Pagination = ({ data }) => {
                 {pageNumbers.map((number) => (
                     <Button
                         key={number}
-                        variant={number === currentPage ? 'solid' : 'outline'}
+                        variant={number === currentPage ? "solid" : "outline"}
                         onClick={() => handlePageChange(number)}
                         mx={1}
                     >

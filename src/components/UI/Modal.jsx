@@ -1,4 +1,4 @@
-import React, { memo } from 'react'
+import React, { memo } from "react"
 
 import {
     Modal as ChakraUiModal,
@@ -8,8 +8,8 @@ import {
     ModalBody,
     ModalCloseButton,
     Button,
-} from '@chakra-ui/react'
-import { useNavigate } from 'react-router-dom'
+} from "@chakra-ui/react"
+import { useNavigate } from "react-router-dom"
 
 export const Modal = memo(function ({
     title,

@@ -1,25 +1,25 @@
-import { Suspense, lazy } from 'react'
-import { wait } from '../services/wait'
-import { Outlet, Route, Routes } from 'react-router-dom'
-import { PrivateRoute } from '../routes/PrivateRoute'
+import { Suspense, lazy } from "react"
+import { wait } from "../services/wait"
+import { Outlet, Route, Routes } from "react-router-dom"
+import { PrivateRoute } from "../routes/PrivateRoute"
 
-const Home = lazy(() => wait(1000).then(() => import('../pages/Home')))
-const TestPage = lazy(() => import('../pages/__tests__/Test'))
+const Home = lazy(() => wait(1000).then(() => import("../pages/Home")))
+const TestPage = lazy(() => import("../pages/__tests__/Test"))
 
 const Login = lazy(() =>
     wait(1000).then(() =>
-        import('../pages/Login').then((module) => {
+        import("../pages/Login").then((module) => {
             return { default: module.Login }
         })
     )
 )
 const Dashboard = lazy(() =>
-    wait(1000).then(() => import('../pages/(Dashboard)/Dashboard'))
+    wait(1000).then(() => import("../pages/(Dashboard)/Dashboard"))
 )
 
 const Speaking = lazy(() =>
     wait(1000).then(() =>
-        import('../pages/Speaking').then((module) => {
+        import("../pages/Speaking").then((module) => {
             return { default: module.Speaking }
         })
     )

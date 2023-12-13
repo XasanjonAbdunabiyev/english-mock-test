@@ -1,4 +1,4 @@
-import React, { memo } from 'react'
+import React, { memo } from "react"
 
 import {
     AlertDialog,
@@ -7,12 +7,12 @@ import {
     AlertDialogHeader,
     AlertDialogContent,
     AlertDialogOverlay,
-} from '@chakra-ui/react'
-import { Button } from '@chakra-ui/react'
+} from "@chakra-ui/react"
+import { Button } from "@chakra-ui/react"
 
 export const Alert = memo(function ({ isOpen, onClose, children, title }) {
-    const cancelRef = React.useRef();
-    
+    const cancelRef = React.useRef()
+
     return (
         <AlertDialog
             isOpen={isOpen}

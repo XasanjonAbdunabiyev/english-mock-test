@@ -2,9 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-
-
-.slick-dots li  {
+.slick-dots li {
     border-radius: 50%;
     width: 15px !important;
     color: #aad5ff;

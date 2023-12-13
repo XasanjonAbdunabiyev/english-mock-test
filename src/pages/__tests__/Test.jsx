@@ -1,9 +1,9 @@
-import { lazy } from 'react'
-import { wait } from '../../services/wait'
+import { lazy } from "react"
+import { wait } from "../../services/wait"
 
 const MainTestComponent = lazy(() =>
     wait(1000).then(() =>
-        import('../../components/__tests__/Test').then((module) => {
+        import("../../components/__tests__/Test").then((module) => {
             return { default: module.Test }
         })
     )

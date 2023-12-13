@@ -1,14 +1,14 @@
-import { lazy } from "react";
+import { lazy } from "react"
 
 const ChakraLogin = lazy(() =>
-  import("../components/Auth/Login").then((module) => {
-    return { default: module.Login };
-  })
-);
+    import("../components/Auth/Login").then((module) => {
+        return { default: module.Login }
+    })
+)
 export const Login = () => {
-  return (
-    <div className="login-page">
-      <ChakraLogin />
-    </div>
-  );
-};
+    return (
+        <div className="login-page">
+            <ChakraLogin />
+        </div>
+    )
+}

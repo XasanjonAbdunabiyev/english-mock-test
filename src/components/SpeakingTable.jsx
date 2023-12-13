@@ -1,4 +1,4 @@
-import React, { memo, useState } from 'react'
+import React, { memo, useState } from "react"
 
 import {
     Table,
@@ -11,9 +11,9 @@ import {
     Heading,
     Box,
     Button,
-} from '@chakra-ui/react'
-import { CiWarning } from 'react-icons/ci'
-import { TbClockHour3 } from 'react-icons/tb'
+} from "@chakra-ui/react"
+import { CiWarning } from "react-icons/ci"
+import { TbClockHour3 } from "react-icons/tb"
 
 const ITEMSPERPAGE = 1 /**## Number of question per page */
 
@@ -104,11 +104,11 @@ function Pagination({ data }) {
                     </Table>
                 )
             })}
-            <Box textAlign={'right'} my={4}>
+            <Box textAlign={"right"} my={4}>
                 {pageNumbers.map((number) => (
                     <Button
                         key={number}
-                        variant={number === currentPage ? 'solid' : 'outline'}
+                        variant={number === currentPage ? "solid" : "outline"}
                         onClick={() => handlePageChange(number)}
                         mx={1}
                     >

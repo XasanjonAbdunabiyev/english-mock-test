@@ -1,13 +1,13 @@
-import React, { lazy, useMemo } from 'react'
-import { useGetDocs } from '../hooks/useGetDocs'
+import React, { lazy, useMemo } from "react"
+import { useGetDocs } from "../hooks/useGetDocs"
 const Layout = lazy(() =>
-    import('../layouts/Layout').then((module) => {
+    import("../layouts/Layout").then((module) => {
         return { default: module.Layout }
     })
 )
 
 const SpeakingTable = lazy(() =>
-    import('../components/SpeakingTable').then((module) => {
+    import("../components/SpeakingTable").then((module) => {
         return { default: module.SpeakingTable }
     })
 )

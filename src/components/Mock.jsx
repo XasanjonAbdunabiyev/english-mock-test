@@ -1,9 +1,9 @@
-import { Heading, Image, StackDivider, VStack } from '@chakra-ui/react'
-import mock_ielts from '../assets/images/mock_ielts.jpg'
-import { MockTable } from './MockTable'
+import { Heading, Image, StackDivider, VStack } from "@chakra-ui/react"
+import mock_ielts from "../assets/images/mock_ielts.jpg"
+import { MockTable } from "./MockTable"
 
-import { Modal } from './UI/Modal'
-import { useSpeakingModal } from '../hooks/useSpeakingModal'
+import { Modal } from "./UI/Modal"
+import { useSpeakingModal } from "../hooks/useSpeakingModal"
 
 export const Mock = () => {
     const { isOpen, onClose } = useSpeakingModal()
@@ -20,7 +20,7 @@ export const Mock = () => {
                 <Image src={mock_ielts} alt="mock_test" />
                 <MockTable />
                 <Modal
-                    navigateUrl={'/speaking'}
+                    navigateUrl={"/speaking"}
                     isOpen={isOpen}
                     navigateTitle="Enter"
                     onClose={onClose}
