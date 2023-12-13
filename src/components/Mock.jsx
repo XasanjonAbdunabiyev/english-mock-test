@@ -12,7 +12,6 @@ export const Mock = () => {
             <Heading mt={6} mb={6} as="h4" size="lg" textAlign="center">
                 IELTS MOCK TESTS
             </Heading>
-
             <VStack
                 divider={<StackDivider borderColor="gray.200" />}
                 spacing={4}

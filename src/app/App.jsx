@@ -3,6 +3,7 @@ import { wait } from '../services/wait'
 import { Outlet, Route, Routes } from 'react-router-dom'
 
 const Home = lazy(() => wait(1000).then(() => import('../pages/Home')))
+const TestPage = lazy(() => import('../pages/__tests__/Test'))
 
 const Login = lazy(() =>
     wait(1000).then(() =>
@@ -27,6 +28,7 @@ export const App = () => {
                     <Route path="/" element={<Home />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/speaking" element={<Speaking />} />
+                    <Route path="/tests" element={<TestPage />} />
                 </Route>
             </Routes>
         </div>

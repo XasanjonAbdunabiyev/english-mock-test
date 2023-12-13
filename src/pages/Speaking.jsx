@@ -15,16 +15,10 @@ const SpeakingTable = lazy(() =>
 export const Speaking = () => {
     const { loading, questions } = useGetDocs()
     if (loading && questions.length == 0) return <p>Loading...</p>
-
-    const tasks = useMemo(() => {
-        return questions
-    }, []);
-
-    console.log(tasks);
     return (
         <div className="speaking-page">
             <Layout>
-                <SpeakingTable questions={tasks} />
+                <SpeakingTable questions={questions} />
             </Layout>
         </div>
     )

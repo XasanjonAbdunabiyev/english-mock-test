@@ -14,6 +14,7 @@ import { CiWarning } from 'react-icons/ci'
 import { TbClockHour3 } from 'react-icons/tb'
 
 export const SpeakingTable = memo(function ({ questions }) {
+    console.log(questions);
     return (
         <>
             <TableContainer className="my-5">

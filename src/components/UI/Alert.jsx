@@ -11,7 +11,8 @@ import {
 import { Button } from '@chakra-ui/react'
 
 export const Alert = memo(function ({ isOpen, onClose, children, title }) {
-    const cancelRef = React.useRef()
+    const cancelRef = React.useRef();
+    
     return (
         <AlertDialog
             isOpen={isOpen}
