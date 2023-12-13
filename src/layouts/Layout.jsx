@@ -8,6 +8,12 @@ const PageHeader = lazy(() =>
     })
 )
 
+const Footer = lazy(() =>
+    import('../layouts/Footer').then((module) => {
+        return { default: module.Footer }
+    })
+)
+
 export const Layout = ({ children }) => {
     return (
         <>
@@ -18,6 +24,7 @@ export const Layout = ({ children }) => {
                 overflow={'hidden'}
             >
                 {children}
+                <Footer />
             </Container>
         </>
     )
