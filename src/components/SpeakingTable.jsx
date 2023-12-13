@@ -39,18 +39,29 @@ function Pagination({ data }) {
     return (
         <>
             {currentItems?.map((question) => {
-                console.log(question)
                 return (
                     <Table key={question?.id}>
                         <Thead>
                             <Tr>
-                                <Th fontSize={25} fontWeight="bold">
+                                <Th
+                                    textAlign="center"
+                                    fontSize={25}
+                                    fontWeight="bold"
+                                >
                                     Time to think
                                 </Th>
-                                <Th fontSize={25} fontWeight="bold">
+                                <Th
+                                    fontSize={25}
+                                    textAlign="center"
+                                    fontWeight="bold"
+                                >
                                     Question
                                 </Th>
-                                <Th fontSize={25} fontWeight="bold">
+                                <Th
+                                    fontSize={25}
+                                    textAlign="center"
+                                    fontWeight="bold"
+                                >
                                     Time to answer
                                 </Th>
                             </Tr>
@@ -58,26 +69,35 @@ function Pagination({ data }) {
                         <Tbody>
                             <Tr>
                                 <Td>
-                                    <CiWarning fontSize={40} className="mb-3" />
-                                    <Heading fontSize={18}>
-                                        {question?.timeThink} second
-                                    </Heading>
+                                    <div className="flex items-center justify-center flex-col">
+                                        <CiWarning
+                                            fontSize={40}
+                                            className="mb-3"
+                                        />
+                                        <Heading fontSize={18}>
+                                            {question?.timeThink} second
+                                        </Heading>
+                                    </div>
                                 </Td>
 
                                 <Td>
-                                    <Heading fontSize={20}>
-                                        {question?.question_title}
-                                    </Heading>
+                                    <div className="flex items-center justify-center flex-col">
+                                        <Heading fontSize={20}>
+                                            {question?.question_title}
+                                        </Heading>
+                                    </div>
                                 </Td>
 
                                 <Td>
-                                    <TbClockHour3
-                                        fontSize={40}
-                                        className="mb-3"
-                                    />
-                                    <Heading fontSize={18}>
-                                        {question?.timeAnswer}
-                                    </Heading>
+                                    <div className="flex items-center justify-center flex-col">
+                                        <TbClockHour3
+                                            fontSize={40}
+                                            className="mb-3"
+                                        />
+                                        <Heading fontSize={18}>
+                                            {question?.timeAnswer}
+                                        </Heading>
+                                    </div>
                                 </Td>
                             </Tr>
                         </Tbody>
