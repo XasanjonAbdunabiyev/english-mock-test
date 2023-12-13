@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Box, Button } from '@chakra-ui/react'
 
-const itemsPerPage = 5 // Number of items to display per page
+const itemsPerPage = 1 // Number of items to display per page
 
 export const Pagination = ({ data }) => {
     const [currentPage, setCurrentPage] = useState(1)
