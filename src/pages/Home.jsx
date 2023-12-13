@@ -38,7 +38,7 @@ const Mock = lazy(() =>
 
 const Home = () => {
   const { isOpen, onClose } = useModal();
-
+  
   return (
     <>
       <Alert

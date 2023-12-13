@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { memo } from 'react'
 
 import {
     AlertDialog,
@@ -10,28 +10,28 @@ import {
 } from '@chakra-ui/react'
 import { Button } from '@chakra-ui/react'
 
-export function Alert({ isOpen, onClose, children, title }) {
+export const Alert = memo(function ({ isOpen, onClose, children, title }) {
     const cancelRef = React.useRef()
     return (
         <AlertDialog
             isOpen={isOpen}
             onClose={onClose}
             leastDestructiveRef={cancelRef}
-            motionPreset='slideInBottom'
+            motionPreset="slideInBottom"
             isCentered
         >
             <AlertDialogOverlay>
                 <AlertDialogContent>
-                    <AlertDialogHeader fontSize='lg' fontWeight='bold'>
-                       <h3 className='text-2xl font-bold underline'>{title}</h3>
+                    <AlertDialogHeader fontSize="lg" fontWeight="bold">
+                        <h3 className="text-2xl font-bold underline">
+                            {title}
+                        </h3>
                     </AlertDialogHeader>
 
-                    <AlertDialogBody>
-                        {children}
-                    </AlertDialogBody>
+                    <AlertDialogBody>{children}</AlertDialogBody>
 
                     <AlertDialogFooter>
-                        <Button colorScheme='blue' onClick={onClose} ml={3}>
+                        <Button colorScheme="blue" onClick={onClose} ml={3}>
                             close
                         </Button>
                     </AlertDialogFooter>
@@ -39,4 +39,4 @@ export function Alert({ isOpen, onClose, children, title }) {
             </AlertDialogOverlay>
         </AlertDialog>
     )
-}
+})

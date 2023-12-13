@@ -1,18 +1,24 @@
-import React, { lazy } from "react";
-import { Container } from "@chakra-ui/react";
+import React, { lazy } from 'react'
+import { Container } from '@chakra-ui/react'
 const PageHeader = lazy(() =>
-  import("./PageHeader").then((module) => {
-    return {
-      default: module.PageHeader,
-    };
-  })
-);
+    import('./PageHeader').then((module) => {
+        return {
+            default: module.PageHeader,
+        }
+    })
+)
 
 export const Layout = ({ children }) => {
-  return (
-    <>
-      <PageHeader />
-      <Container maxW="container.xl" className="pages" overflow={"hidden"}>{children}</Container>
-    </>
-  );
-};
+    return (
+        <>
+            <PageHeader />
+            <Container
+                maxW="container.xl"
+                className="pages"
+                overflow={'hidden'}
+            >
+                {children}
+            </Container>
+        </>
+    )
+}

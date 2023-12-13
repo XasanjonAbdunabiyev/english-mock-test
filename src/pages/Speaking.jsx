@@ -1,6 +1,5 @@
-import React, { lazy } from 'react'
-import { getQuestions } from '../services/docs'
-
+import React, { lazy, useMemo } from 'react'
+import { useGetDocs } from '../hooks/useGetDocs'
 const Layout = lazy(() =>
     import('../layouts/Layout').then((module) => {
         return { default: module.Layout }
@@ -14,18 +13,18 @@ const SpeakingTable = lazy(() =>
 )
 
 export const Speaking = () => {
-    const [questions, setQuestions] = React.useState([])
-    React.useEffect(() => {
-        getQuestions().then((data) => {
-            setQuestions(data)
-        })
+    const { loading, questions } = useGetDocs()
+    if (loading && questions.length == 0) return <p>Loading...</p>
+
+    const tasks = useMemo(() => {
+        return questions
     }, []);
 
-
+    console.log(tasks);
     return (
         <div className="speaking-page">
             <Layout>
-                <SpeakingTable />
+                <SpeakingTable questions={tasks} />
             </Layout>
         </div>
     )
