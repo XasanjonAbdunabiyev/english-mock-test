@@ -13,6 +13,7 @@ const Login = lazy(() =>
         })
     )
 )
+
 const Dashboard = lazy(() =>
     wait(1000).then(() => import("../pages/(Dashboard)/Dashboard"))
 )
