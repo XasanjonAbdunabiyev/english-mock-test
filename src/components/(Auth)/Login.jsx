@@ -31,8 +31,8 @@ export const Login = () => {
     const { register, handleSubmit } = useForm()
     const [loginData, setLoginData] = useState([])
 
-    const navigate = useNavigate();
-    
+    const navigate = useNavigate()
+
     useEffect(() => {
         const aboartController = new AbortController()
 
@@ -61,10 +61,10 @@ export const Login = () => {
                     draggable: true,
                     progress: undefined,
                     theme: "light",
-                });
+                })
 
-                navigate("/dashboard");
-                localStorage.setItem("token", "you_are_admin");
+                navigate("/dashboard")
+                localStorage.setItem("token", "you_are_admin")
             } else {
                 toast.error("Wrong login password", {
                     position: "top-right",
