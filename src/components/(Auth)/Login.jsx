@@ -1,18 +1,25 @@
 import {
     Box,
     Button,
-    Checkbox,
     Container,
-    FormControl,
     FormLabel,
     Heading,
-    HStack,
     Input,
-    Link,
     Stack,
 } from "@chakra-ui/react"
-import { PasswordField } from "./PasswordField"
-import { lazy } from "react"
+import { useNavigate } from "react-router-dom"
+
+import { lazy, useEffect, useState } from "react"
+
+import { toast } from "react-toastify"
+import { useForm } from "react-hook-form"
+import { getLoginData } from "../../services/docs"
+
+const PasswordField = lazy(() =>
+    import("./PasswordField").then((module) => {
+        return { default: module.PasswordField }
+    })
+)
 
 const Logo = lazy(() =>
     import("../UI/Logo").then((module) => {
@@ -21,6 +28,58 @@ const Logo = lazy(() =>
 )
 
 export const Login = () => {
+    const { register, handleSubmit } = useForm()
+    const [loginData, setLoginData] = useState([])
+
+    const navigate = useNavigate();
+    
+    useEffect(() => {
+        const aboartController = new AbortController()
+
+        try {
+            getLoginData().then((data) => {
+                setLoginData(data)
+            })
+        } catch (error) {
+            console.log("Fetch failted")
+        }
+
+        return () => {
+            aboartController.abort()
+        }
+    }, [])
+
+    const onSubmit = (data) => {
+        loginData?.map(({ password, email }) => {
+            if (password === data?.password && email === data?.email) {
+                toast.success("Login successfully", {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                });
+
+                navigate("/dashboard");
+                localStorage.setItem("token", "you_are_admin");
+            } else {
+                toast.error("Wrong login password", {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                })
+            }
+        })
+    }
+
     return (
         <Container
             maxW="lg"
@@ -79,18 +138,24 @@ export const Login = () => {
                 >
                     <Stack spacing="6">
                         <Stack spacing="5">
-                            <FormControl>
+                            <form
+                                onSubmit={handleSubmit((data) =>
+                                    onSubmit(data)
+                                )}
+                            >
                                 <FormLabel htmlFor="email">Email</FormLabel>
-                                <Input id="email" type="email" my={3} />
-                                <PasswordField />
+                                <Input
+                                    {...register("email")}
+                                    id="email"
+                                    type="email"
+                                    my={3}
+                                />
+                                <PasswordField {...register("password")} />
                                 <Button type="submit" width="100%" my={2}>
                                     Login
                                 </Button>
-                            </FormControl>
+                            </form>
                         </Stack>
-                        <HStack justify="space-between">
-                            <Checkbox defaultChecked>Remember me</Checkbox>
-                        </HStack>
                     </Stack>
                 </Box>
             </Stack>

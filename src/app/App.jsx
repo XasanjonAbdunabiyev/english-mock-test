@@ -3,6 +3,9 @@ import { wait } from "../services/wait"
 import { Outlet, Route, Routes } from "react-router-dom"
 import { PrivateRoute } from "../routes/PrivateRoute"
 
+import "react-toastify/dist/ReactToastify.css"
+import { ToastContainer } from "react-toastify"
+
 const Home = lazy(() => wait(1000).then(() => import("../pages/Home")))
 const TestPage = lazy(() => import("../pages/__tests__/Test"))
 
@@ -40,6 +43,18 @@ export const App = () => {
                     </Route>
                 </Route>
             </Routes>
+            <ToastContainer
+                position="top-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+            />
         </div>
     )
 }

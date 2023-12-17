@@ -1,9 +1,6 @@
 {
     "compilerOptions": {
         "target": "es2020", 
-        "baseUrl": ".",
-        "paths": {
-            "@/" : ["./src/*"]
-        }
+        "baseUrl": "src",
     }
 }
