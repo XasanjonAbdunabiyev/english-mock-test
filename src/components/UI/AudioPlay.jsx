@@ -12,9 +12,8 @@ export const AudioPlay = memo(function ({ src }) {
             }
         }
 
-        // Sahifa yuklanganda avtomatik ravishda audio eshitilsin
         playAudio()
-    }, []) // Bo'sh massiv, useEffect bir marta faqat o'zi yuklanadi
+    }, []) 
 
     return (
         <audio ref={audioRef} autoPlay={true} className="w-full my-3">
