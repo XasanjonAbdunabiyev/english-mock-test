@@ -18,7 +18,7 @@ const Login = lazy(() =>
 )
 
 const Dashboard = lazy(() =>
-    wait(1000).then(() => import("../pages/(Dashboard)/Dashboard"))
+    wait(1000).then(() => import("../pages/Dashboard/Dashboard"))
 )
 
 const Speaking = lazy(() =>
@@ -38,9 +38,14 @@ export const App = () => {
                     <Route path="/login" element={<Login />} />
                     <Route path="/speaking" element={<Speaking />} />
                     <Route path="/tests" element={<TestPage />} />
-                    <Route element={<PrivateRoute />}>
-                        <Route path="/dashboard" element={<Dashboard />} />
-                    </Route>
+                    <Route
+                        path="/dashboard"
+                        element={
+                            <PrivateRoute>
+                                <Dashboard />
+                            </PrivateRoute>
+                        }
+                    />
                 </Route>
             </Routes>
             <ToastContainer

@@ -14,7 +14,6 @@ const SpeakingTable = lazy(() =>
 
 export const Speaking = () => {
     const { loading, questions } = useGetDocs()
-    console.log(loading)
     if (loading) return <p>Loading...</p>
     return (
         <div className="speaking-page">
