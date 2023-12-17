@@ -39,7 +39,6 @@ export const PageHeader = () => {
                         >
                             Login
                         </Button>
-                        <ThemeButton />
                     </nav>
                 </div>
             </Container>

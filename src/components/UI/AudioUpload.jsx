@@ -1,9 +1,11 @@
 import React, { useState } from "react"
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage"
 import { storage } from "../../firebase/config"
+import { useGetAudioUrl } from "../../store/AudioUrl"
 
 const AudioUpload = () => {
     const [audioFile, setAudioFile] = useState(null)
+    const { changeAudioUrl } = useGetAudioUrl()
     const [audioUrl, setAudioUrl] = useState("")
 
     const handleFileChange = (e) => {
@@ -18,7 +20,7 @@ const AudioUpload = () => {
 
             uploadTask.on(
                 "state_changed",
-                (snapshot) => {
+                (_snapshot) => {
                     // Yüklennişini izlashingiz mumkin
                 },
                 (error) => {
@@ -30,10 +32,8 @@ const AudioUpload = () => {
                         uploadTask.snapshot.ref
                     )
                     setAudioUrl(downloadURL)
-                    console.log(
-                        "Audio file uploaded successfully. URL:",
-                        downloadURL
-                    )
+
+                    changeAudioUrl(audioUrl)
                 }
             )
         } else {
@@ -45,7 +45,6 @@ const AudioUpload = () => {
         <div>
             <input type="file" accept="audio/*" onChange={handleFileChange} />
             <button onClick={handleUpload}>Upload Audio</button>
-            {audioUrl && <audio controls src={audioUrl} />}
         </div>
     )
 }

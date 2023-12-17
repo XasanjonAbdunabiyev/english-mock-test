@@ -1,4 +1,4 @@
-import React, { memo, useState } from "react"
+import React, { lazy, memo, useState } from "react"
 
 import {
     Table,
@@ -14,6 +14,12 @@ import {
 } from "@chakra-ui/react"
 import { CiWarning } from "react-icons/ci"
 import { TbClockHour3 } from "react-icons/tb"
+
+const AudioPlay = lazy(() =>
+    import("../components/UI/AudioPlay").then((module) => {
+        return { default: module.AudioPlay }
+    })
+)
 
 const ITEMSPERPAGE = 1 /**## Number of question per page */
 
@@ -37,71 +43,79 @@ function Pagination({ data }) {
     )
 
     return (
-        <>
+        <div>
+            <Heading as="h3" size={23} textAlign="center" my={6}>
+                All Questions{data?.length}
+            </Heading>
             {currentItems?.map((question) => {
                 return (
-                    <Table key={question?.id}>
-                        <Thead>
-                            <Tr>
-                                <Th
-                                    textAlign="center"
-                                    fontSize={25}
-                                    fontWeight="bold"
-                                >
-                                    Time to think
-                                </Th>
-                                <Th
-                                    fontSize={25}
-                                    textAlign="center"
-                                    fontWeight="bold"
-                                >
-                                    Question
-                                </Th>
-                                <Th
-                                    fontSize={25}
-                                    textAlign="center"
-                                    fontWeight="bold"
-                                >
-                                    Time to answer
-                                </Th>
-                            </Tr>
-                        </Thead>
-                        <Tbody>
-                            <Tr>
-                                <Td>
-                                    <div className="flex items-center justify-center flex-col">
-                                        <CiWarning
-                                            fontSize={40}
-                                            className="mb-3"
-                                        />
-                                        <Heading fontSize={18}>
-                                            {question?.timeThink} second
-                                        </Heading>
-                                    </div>
-                                </Td>
+                    <div className="questions_table" key={question?.id}>
+                        <div className="my-5">
+                            <AudioPlay src={question?.questionAudio} />
+                        </div>
+                        <Table>
+                            <Thead>
+                                <Tr>
+                                    <Th
+                                        textAlign="center"
+                                        fontSize={25}
+                                        fontWeight="bold"
+                                    >
+                                        Time to think
+                                    </Th>
+                                    <Th
+                                        fontSize={25}
+                                        textAlign="center"
+                                        fontWeight="bold"
+                                    >
+                                        Question
+                                    </Th>
+                                    <Th
+                                        fontSize={25}
+                                        textAlign="center"
+                                        fontWeight="bold"
+                                    >
+                                        Time to answer
+                                    </Th>
+                                </Tr>
+                            </Thead>
+                            <Tbody>
+                                <Tr>
+                                    <Td>
+                                        <div className="flex items-center justify-center flex-col">
+                                            <CiWarning
+                                                fontSize={40}
+                                                className="mb-3"
+                                            />
+                                            <Heading fontSize={18}>
+                                                {question?.timeThink} second
+                                            </Heading>
+                                        </div>
+                                    </Td>
 
-                                <Td>
-                                    <div className="flex items-center justify-center flex-col">
-                                        <Heading fontSize={20}>
-                                            {question?.question_title}
-                                        </Heading>
-                                    </div>
-                                </Td>
+                                    <Td>
+                                        <div className="flex items-center justify-center flex-col">
+                                            <Heading fontSize={20}>
+                                                {question?.question_title}
+                                            </Heading>
+                                        </div>
+                                    </Td>
 
-                                <Td>
-                                    <div className="flex items-center justify-center flex-col">
-                                        <TbClockHour3
-                                            fontSize={40}
-                                            className="mb-3"
-                                        />
-                                        <Heading fontSize={18}>
-                                            {question?.timeAnswer}
-                                        </Heading>
-                                    </div>
-                                </Td>
-                            </Tr>
-                        </Tbody>
-                    </Table>
+                                    <Td>
+                                        <div className="flex items-center justify-center flex-col">
+                                            <TbClockHour3
+                                                fontSize={40}
+                                                className="mb-3"
+                                            />
+                                            <Heading fontSize={18}>
+                                                {question?.timeAnswer}
+                                            </Heading>
+                                        </div>
+                                    </Td>
+                                </Tr>
+                            </Tbody>
+                        </Table>
+                    </div>
                 )
             })}
             <Box textAlign={"right"} my={4}>
@@ -116,7 +130,7 @@ function Pagination({ data }) {
                     </Button>
                 ))}
             </Box>
-        </>
+        </div>
     )
 }
 
