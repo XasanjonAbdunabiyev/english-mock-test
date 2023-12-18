@@ -6,6 +6,7 @@ export const Logo = () => {
     const navigate = useNavigate()
     return (
         <Image
+            cursor={"pointer"}
             objectFit="cover"
             onClick={() => navigate("/")}
             boxSize="57%"

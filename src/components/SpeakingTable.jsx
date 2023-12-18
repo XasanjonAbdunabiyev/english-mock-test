@@ -50,8 +50,8 @@ function Pagination({ data }) {
 
     return (
         <div>
-            <Heading as="h3" size={23} textAlign="center" my={6}>
-                All Questions{data?.length}
+            <Heading as="h3" size={24} textAlign="center" my={6}>
+                All Questions: {data?.length}
             </Heading>
             {currentItems?.map((question) => {
                 return (

@@ -13,12 +13,14 @@ import { useSpeakingModal } from "../hooks/useSpeakingModal"
 
 import { MdOutlineKeyboardVoice } from "react-icons/md"
 import { FaBookOpen, FaHeadphones } from "react-icons/fa"
+import { usePaymentModal } from "../hooks/usePaymentModal"
+
 
 import { tableTd } from "../db/mockTableData"
 
 export const MockTable = () => {
-    const { onOpen } = useSpeakingModal()
-    const trowArr = Array.from([1, 2, 3, 4])
+    const { onOpen } = useSpeakingModal();
+    const { openPaymentModal } = usePaymentModal();
     return (
         <>
             <TableContainer>
@@ -76,7 +78,16 @@ export const MockTable = () => {
                                                 color="gray"
                                             />
                                             <Button
-                                                onClick={onOpen}
+                                                onClick={() => {
+                                                    if (
+                                                        mockTable.purchesed !==
+                                                        true
+                                                    ) {
+                                                        openPaymentModal();
+                                                    } else {
+                                                        onOpen()
+                                                    }
+                                                }}
                                                 colorScheme="telegram"
                                             >
                                                 Submission

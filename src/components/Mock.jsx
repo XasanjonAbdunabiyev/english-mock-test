@@ -4,9 +4,12 @@ import { MockTable } from "./MockTable"
 
 import { Modal } from "./UI/Modal"
 import { useSpeakingModal } from "../hooks/useSpeakingModal"
+import { usePaymentModal } from "../hooks/usePaymentModal"
 
 export const Mock = () => {
     const { isOpen, onClose } = useSpeakingModal()
+    const { onPaymentClose, isPaymentOpen } = usePaymentModal()
+
     return (
         <div className="my-[36px]">
             <Heading mt={6} mb={6} as="h4" size="lg" textAlign="center">
@@ -30,6 +33,18 @@ export const Mock = () => {
                         As soon as you log in, your profile will be opened. You
                         can follow the test results from your profile.
                     </p>
+                </Modal>
+
+                <Modal
+                    title="This mock test is not free"
+                    key={"20"}
+                    onClose={onPaymentClose}
+                    isOpen={isPaymentOpen}
+                >
+                    <b>
+                        To access this Mock Test you will have to pay the
+                        prescribed fee
+                    </b>
                 </Modal>
             </VStack>
         </div>
