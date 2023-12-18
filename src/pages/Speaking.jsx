@@ -1,4 +1,4 @@
-import React, { lazy, useMemo } from "react"
+import React, { lazy } from "react"
 import { useGetDocs } from "../hooks/useGetDocs"
 const Layout = lazy(() =>
     import("../layouts/Layout").then((module) => {
