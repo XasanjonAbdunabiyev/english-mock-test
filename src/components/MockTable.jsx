@@ -15,12 +15,11 @@ import { MdOutlineKeyboardVoice } from "react-icons/md"
 import { FaBookOpen, FaHeadphones } from "react-icons/fa"
 import { usePaymentModal } from "../hooks/usePaymentModal"
 
-
 import { tableTd } from "../db/mockTableData"
 
 export const MockTable = () => {
-    const { onOpen } = useSpeakingModal();
-    const { openPaymentModal } = usePaymentModal();
+    const { onOpen } = useSpeakingModal()
+    const { openPaymentModal } = usePaymentModal()
     return (
         <>
             <TableContainer>
@@ -83,7 +82,7 @@ export const MockTable = () => {
                                                         mockTable.purchesed !==
                                                         true
                                                     ) {
-                                                        openPaymentModal();
+                                                        openPaymentModal()
                                                     } else {
                                                         onOpen()
                                                     }

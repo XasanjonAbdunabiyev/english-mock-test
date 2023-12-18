@@ -13,7 +13,7 @@ export const AudioPlay = memo(function ({ src }) {
         }
 
         playAudio()
-    }, []) 
+    }, [])
 
     return (
         <audio ref={audioRef} autoPlay={true} className="w-full my-3">
