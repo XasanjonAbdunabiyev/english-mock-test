@@ -4,20 +4,27 @@ export const AudioPlay = memo(function ({ src }) {
     const audioRef = useRef(null)
 
     useEffect(() => {
-        const playAudio = async () => {
+        const playMusic = async () => {
+            const audio = audioRef?.current
             try {
-                await audioRef.current.play()
+                if (audio) {
+                    await audio.play()
+                }
             } catch (error) {
-                console.error("Audio playback error:", error.message)
+                console.error("Audio play failted")
             }
         }
 
-        playAudio()
-    }, [])
+        playMusic()
+    }, [src])
 
     return (
-        <audio ref={audioRef} autoPlay={true} className="w-full my-3">
-            <source src={src} type="audio/mpeg" />
-        </audio>
+        <audio
+            src={src}
+            controls
+            autoPlay={true}
+            ref={audioRef}
+            className="w-full my-3"
+        />
     )
 })

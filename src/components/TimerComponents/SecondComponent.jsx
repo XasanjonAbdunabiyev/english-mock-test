@@ -8,8 +8,7 @@ export const SecondComponent = ({ secund }) => {
     useEffect(() => {
         const timer = setInterval(() => {
             setSecound((prevSeconds) => prevSeconds - 1)
-        }, 1000)
-
+        }, 1000);
         return () => clearInterval(timer)
     }, [])
 
