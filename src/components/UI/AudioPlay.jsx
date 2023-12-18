@@ -14,7 +14,6 @@ export const AudioPlay = memo(function ({ src }) {
                 console.error("Audio play failted")
             }
         }
-
         playMusic()
     }, [src])
 

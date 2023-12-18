@@ -30,7 +30,7 @@ const SecondComponent = lazy(() =>
 const ITEMSPERPAGE = 1 /**## Number of question per page */
 
 function Pagination({ data }) {
-    const [currentPage, setCurrentPage] = useState(1);
+    const [currentPage, setCurrentPage] = useState(1)
     // Calculate the range of items to display on the current page
     const indexOfLastItem = currentPage * ITEMSPERPAGE
     const indexOfFirstItem = indexOfLastItem - ITEMSPERPAGE

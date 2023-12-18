@@ -8,9 +8,9 @@ export const SecondComponent = ({ secund }) => {
     useEffect(() => {
         const timer = setInterval(() => {
             setSecound((prevSeconds) => prevSeconds - 1)
-        }, 1000);
+        }, 1000)
         return () => clearInterval(timer)
     }, [])
 
-    return <Heading fontSize={20}>{secound} second</Heading>
+    return <Heading fontSize={20}>{Math.floor(secound)}: second</Heading>
 }
