@@ -17,7 +17,8 @@ import { toast } from "react-toastify"
 import { FaUpload } from "react-icons/fa6"
 import { TbBrandTelegram } from "react-icons/tb"
 
-import { useForm } from "react-hook-form"
+// ** Hook Form for CRUD
+import { useForm, Controller } from "react-hook-form"
 export const AddSpeakingData = () => {
     const [audioFile, setAudioFile] = useState(null)
     const [audioUrl, setAudioUrl] = useState("")
@@ -60,7 +61,9 @@ export const AddSpeakingData = () => {
             question_title: data?.first_question,
             timeAnswer: parseInt(data?.timeAnswer),
             timeThink: parseInt(data?.timeThink),
+            questionAudio: audioUrl ? audioUrl : ""
         }
+
         await addDoc(main_questions_collection, addquestions_data)
             .then((response) => {
                 console.log(response)
@@ -126,7 +129,7 @@ export const AddSpeakingData = () => {
             )}
 
             <div className="my-3 flex items-center gap-5">
-                <Input
+                {/* <Input
                     type="file"
                     accept="audio/*"
                     onChange={handleFileChange}
@@ -139,7 +142,20 @@ export const AddSpeakingData = () => {
                     variant="solid"
                 >
                     Upload Audio
-                </Button>
+                </Button> */}
+
+                <Input
+                    {...register("auidioUrl", { required: true })}
+                    type="file"
+                    onChange={(e) => handleFileChange(e)}
+                    accept="audio/*"
+                />
+
+                {errors.auidioUrl && (
+                    <span className="font-bold text-500-red">
+                        This is field required
+                    </span>
+                )}
             </div>
 
             <Button
