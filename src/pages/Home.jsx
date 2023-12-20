@@ -28,7 +28,7 @@ const Carousel = lazy(() =>
 )
 
 const Mock = lazy(() =>
-    import("../components/Mock").then((module) => {
+    import("../components/Views/Mock").then((module) => {
         return {
             default: module.Mock,
         }

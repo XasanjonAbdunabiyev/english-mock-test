@@ -11,9 +11,9 @@ import { useNavigate } from "react-router-dom"
 
 import { lazy, useEffect, useState } from "react"
 
-import { toast } from "react-toastify"
+
 import { useForm } from "react-hook-form"
-import { getLoginData } from "../../services/docs"
+import { getLoginData } from "../../../services/docs"
 
 const PasswordField = lazy(() =>
     import("./PasswordField").then((module) => {
@@ -22,7 +22,7 @@ const PasswordField = lazy(() =>
 )
 
 const Logo = lazy(() =>
-    import("../UI/Logo").then((module) => {
+    import("../../UI/Logo").then((module) => {
         return { default: module.Logo }
     })
 )

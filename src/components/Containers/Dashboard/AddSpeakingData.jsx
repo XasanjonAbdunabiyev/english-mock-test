@@ -4,10 +4,10 @@ import React, { useState } from "react"
 import { Button, Input, Textarea } from "@chakra-ui/react"
 
 /** Firebase */
-import { db } from "../../firebase/config"
+import { db } from "../../../firebase/config"
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage"
 import { addDoc, collection } from "firebase/firestore"
-import { storage } from "../../firebase/config"
+import { storage } from "../../../firebase/config"
 const main_questions_collection = collection(db, "mock_tests")
 
 /** Toast */
