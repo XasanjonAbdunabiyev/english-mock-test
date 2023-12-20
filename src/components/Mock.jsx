@@ -1,6 +1,16 @@
+import { lazy } from "react"
+
 import { Heading, Image, StackDivider, VStack } from "@chakra-ui/react"
 import mock_ielts from "../assets/images/mock_ielts.jpg"
-import { MockTable } from "./MockTable"
+import { wait } from "../services/wait"
+
+const MockTable = lazy(() =>
+    wait(1000).then(() =>
+        import("./UI/Tables/MockTable").then((module) => {
+            return { default: module.MockTable }
+        })
+    )
+)
 
 import { Modal } from "./UI/Modal"
 import { useSpeakingModal } from "../hooks/useSpeakingModal"

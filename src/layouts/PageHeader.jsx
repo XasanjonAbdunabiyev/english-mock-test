@@ -6,11 +6,6 @@ const Logo = lazy(() =>
     })
 )
 
-const ThemeButton = lazy(() =>
-    import("../components/ThemeBtn").then((module) => {
-        return { default: module.ThemeButton }
-    })
-)
 
 import { Button, Container } from "@chakra-ui/react"
 import { useNavigate } from "react-router-dom"

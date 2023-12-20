@@ -1,4 +1,7 @@
 import React, { lazy } from "react"
+
+import { wait } from "../services/wait"
+
 import { useGetDocs } from "../hooks/useGetDocs"
 const Layout = lazy(() =>
     import("../layouts/Layout").then((module) => {
@@ -7,9 +10,11 @@ const Layout = lazy(() =>
 )
 
 const SpeakingTable = lazy(() =>
-    import("../components/SpeakingTable").then((module) => {
-        return { default: module.SpeakingTable }
-    })
+    wait(1000).then(() =>
+        import("../components/UI/Tables/SpeakingTable").then((module) => {
+            return { default: module.SpeakingTable }
+        })
+    )
 )
 
 export const Speaking = () => {

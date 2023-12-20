@@ -16,16 +16,11 @@ import { CiWarning } from "react-icons/ci"
 import { TbClockHour3 } from "react-icons/tb"
 
 const AudioPlay = lazy(() =>
-    import("../components/UI/AudioPlay").then((module) => {
+    import("../AudioPlay").then((module) => {
         return { default: module.AudioPlay }
     })
 )
 
-const SecondComponent = lazy(() =>
-    import("../components/TimerComponents/SecondComponent").then((md) => {
-        return { default: md.SecondComponent }
-    })
-)
 
 const ITEMSPERPAGE = 1 /**## Number of question per page */
 
@@ -92,9 +87,7 @@ function Pagination({ data }) {
                                                 fontSize={40}
                                                 className="mb-3"
                                             />
-                                            <SecondComponent
-                                                secund={question?.timeThink}
-                                            />
+                                            {question?.timeThink}
                                         </div>
                                     </Td>
 
@@ -112,9 +105,7 @@ function Pagination({ data }) {
                                                 fontSize={40}
                                                 className="mb-3"
                                             />
-                                            <SecondComponent
-                                                secund={question?.timeAnswer}
-                                            />
+                                          {question?.timeAnswer}
                                         </div>
                                     </Td>
                                 </Tr>
