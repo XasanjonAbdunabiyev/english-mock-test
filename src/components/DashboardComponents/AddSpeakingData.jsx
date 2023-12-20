@@ -13,8 +13,7 @@ const main_questions_collection = collection(db, "mock_tests")
 /** Toast */
 import { toast } from "react-toastify"
 
-/** Icons */
-import { FaUpload } from "react-icons/fa6"
+/** Icons */ import { GrPowerReset } from "react-icons/gr"
 import { TbBrandTelegram } from "react-icons/tb"
 
 // ** Hook Form for CRUD
@@ -61,7 +60,7 @@ export const AddSpeakingData = () => {
             question_title: data?.first_question,
             timeAnswer: parseInt(data?.timeAnswer),
             timeThink: parseInt(data?.timeThink),
-            questionAudio: audioUrl ? audioUrl : ""
+            questionAudio: audioUrl ? audioUrl : "",
         }
 
         await addDoc(main_questions_collection, addquestions_data)
@@ -129,21 +128,6 @@ export const AddSpeakingData = () => {
             )}
 
             <div className="my-3 flex items-center gap-5">
-                {/* <Input
-                    type="file"
-                    accept="audio/*"
-                    onChange={handleFileChange}
-                />
-                <Button
-                    type="button"
-                    onClick={handleUpload}
-                    colorScheme="facebook"
-                    leftIcon={<FaUpload />}
-                    variant="solid"
-                >
-                    Upload Audio
-                </Button> */}
-
                 <Input
                     {...register("auidioUrl", { required: true })}
                     type="file"
@@ -165,6 +149,15 @@ export const AddSpeakingData = () => {
                 colorScheme="linkedin"
             >
                 Add Question
+            </Button>
+
+            <Button
+                type="reset"
+                mx={4}
+                rightIcon={<GrPowerReset />}
+                colorScheme="red"
+            >
+                Reset
             </Button>
         </form>
     )
