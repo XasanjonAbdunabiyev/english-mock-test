@@ -50,7 +50,7 @@ export const AddSpeakingData = () => {
                 async () => {
                     const downloadURL = await getDownloadURL(
                         uploadTask.snapshot.ref
-                    );
+                    )
 
                     console.log(setAudioUrl)
                     setAudioUrl(downloadURL)
@@ -80,9 +80,9 @@ export const AddSpeakingData = () => {
                     draggable: true,
                     progress: undefined,
                     theme: "light",
-                });
+                })
 
-                window.location.reload();
+                window.location.reload()
             })
             .catch((error) => {
                 console.log(error)
@@ -142,16 +142,19 @@ export const AddSpeakingData = () => {
                     accept="audio/*"
                 />
 
-                <Button colorScheme="linkedin" onClick={() => handleUpload()} leftIcon={<FaUpload />}>
+                <Button
+                    colorScheme="linkedin"
+                    onClick={() => handleUpload()}
+                    leftIcon={<FaUpload />}
+                >
                     Upload Audio
                 </Button>
-
-                {errors.auidioUrl && (
-                    <span className="font-bold text-500-red">
-                        This is field required
-                    </span>
-                )}
             </div>
+            {errors.auidioUrl && (
+                <p className="block font-bold text-red-500">
+                    This is audio required
+                </p>
+            )}
 
             <Button
                 type="submit"
