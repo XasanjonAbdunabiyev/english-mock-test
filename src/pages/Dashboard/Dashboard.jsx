@@ -1,6 +1,7 @@
 import React, { lazy } from "react"
 
 import { Box } from "@chakra-ui/react"
+import { wait } from "../../services/wait"
 
 const Layout = lazy(() =>
     import("../../layouts/Layout").then((module) => {
@@ -8,16 +9,18 @@ const Layout = lazy(() =>
     })
 )
 
-import AudioUpload from "../../components/UI/AudioUpload";
+const PageComponents = lazy(() =>
+    wait(1000).then(
+        () => import("../../components/(DashboardComponents)/index")
+    )
+)
 
-const Dashboard = () => {
+export default function Dashboard() {
     return (
         <Box>
             <Layout>
-                <AudioUpload />
+                <PageComponents />
             </Layout>
         </Box>
     )
 }
-
-export default Dashboard

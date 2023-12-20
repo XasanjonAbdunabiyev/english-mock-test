@@ -21,7 +21,6 @@ const AudioPlay = lazy(() =>
     })
 )
 
-
 const ITEMSPERPAGE = 1 /**## Number of question per page */
 
 function Pagination({ data }) {
@@ -40,13 +39,11 @@ function Pagination({ data }) {
     const pageNumbers = Array.from(
         { length: Math.ceil(data.length / ITEMSPERPAGE) },
         (_, index) => index + 1
-    )
+    );
+    
 
     return (
-        <div>
-            <Heading as="h3" size={24} textAlign="center" my={6}>
-                All Questions: {data?.length}
-            </Heading>
+        <div className="speaking__table">
             {currentItems?.map((question) => {
                 return (
                     <div className="questions_table" key={question?.id}>

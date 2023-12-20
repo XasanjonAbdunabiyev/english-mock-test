@@ -1,7 +1,11 @@
 import React from "react"
 
-const DashboardComponents = () => {
-    return <div>DashboardComponents</div>
-}
+import { AddSpeakingData } from "./AddSpeakingData"
 
-export default DashboardComponents
+export default function DashboardComponents() {
+    return (
+        <div className="dashboard-components">
+            <AddSpeakingData />
+        </div>
+    )
+}
