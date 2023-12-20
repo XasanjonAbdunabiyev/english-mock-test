@@ -1,21 +1,59 @@
-import React from "react"
+import React, { useState } from "react"
 
-import { Button, Input, Textarea, FormHelperText } from "@chakra-ui/react"
+/** Chakra UI */
+import { Button, Input, Textarea } from "@chakra-ui/react"
 
-import { useForm } from "react-hook-form"
+/** Firebase */
 import { db } from "../../firebase/config"
+import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage"
 import { addDoc, collection } from "firebase/firestore"
+import { storage } from "../../firebase/config"
+const main_questions_collection = collection(db, "mock_tests")
 
+/** Toast */
 import { toast } from "react-toastify"
 
+/** Icons */
+import { FaUpload } from "react-icons/fa6"
+import { TbBrandTelegram } from "react-icons/tb"
+
+import { useForm } from "react-hook-form"
 export const AddSpeakingData = () => {
+    const [audioFile, setAudioFile] = useState(null)
+    const [audioUrl, setAudioUrl] = useState("")
+
     const {
         register,
         handleSubmit,
         formState: { errors },
     } = useForm()
 
-    const main_questions_collection = collection(db, "mock_tests")
+    const handleFileChange = (e) => {
+        const file = e.target.files[0]
+        setAudioFile(file)
+    }
+
+    const handleUpload = async () => {
+        if (audioFile) {
+            const storageRef = ref(storage, `audio/${audioFile.name}`)
+            const uploadTask = uploadBytesResumable(storageRef, audioFile)
+
+            uploadTask.on(
+                "state_changed",
+                (error) => {
+                    console.error("Error uploading audio file", error)
+                },
+                async () => {
+                    const downloadURL = await getDownloadURL(
+                        uploadTask.snapshot.ref
+                    )
+                    setAudioUrl(downloadURL)
+                }
+            )
+        } else {
+            console.error("No audio file selected")
+        }
+    }
 
     const onSubmit = async (data) => {
         const addquestions_data = {
@@ -86,7 +124,30 @@ export const AddSpeakingData = () => {
                     This is field reqiired
                 </span>
             )}
-            <Button type="submit" my={4}>
+
+            <div className="my-3 flex items-center gap-5">
+                <Input
+                    type="file"
+                    accept="audio/*"
+                    onChange={handleFileChange}
+                />
+                <Button
+                    type="button"
+                    onClick={handleUpload}
+                    colorScheme="facebook"
+                    leftIcon={<FaUpload />}
+                    variant="solid"
+                >
+                    Upload Audio
+                </Button>
+            </div>
+
+            <Button
+                type="submit"
+                my={4}
+                rightIcon={<TbBrandTelegram />}
+                colorScheme="linkedin"
+            >
                 Add Question
             </Button>
         </form>
