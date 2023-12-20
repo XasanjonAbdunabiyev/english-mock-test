@@ -15,6 +15,7 @@ import { toast } from "react-toastify"
 
 /** Icons */ import { GrPowerReset } from "react-icons/gr"
 import { TbBrandTelegram } from "react-icons/tb"
+import { FaUpload } from "react-icons/fa"
 
 // ** Hook Form for CRUD
 import { useForm, Controller } from "react-hook-form"
@@ -40,13 +41,18 @@ export const AddSpeakingData = () => {
 
             uploadTask.on(
                 "state_changed",
+                (_snapshot) => {
+                    // Yüklennişini izlashingiz mumkin
+                },
                 (error) => {
                     console.error("Error uploading audio file", error)
                 },
                 async () => {
                     const downloadURL = await getDownloadURL(
                         uploadTask.snapshot.ref
-                    )
+                    );
+
+                    console.log(setAudioUrl)
                     setAudioUrl(downloadURL)
                 }
             )
@@ -65,7 +71,6 @@ export const AddSpeakingData = () => {
 
         await addDoc(main_questions_collection, addquestions_data)
             .then((response) => {
-                console.log(response)
                 toast.success("New Question Added successfully", {
                     position: "top-right",
                     autoClose: 5000,
@@ -75,7 +80,9 @@ export const AddSpeakingData = () => {
                     draggable: true,
                     progress: undefined,
                     theme: "light",
-                })
+                });
+
+                window.location.reload();
             })
             .catch((error) => {
                 console.log(error)
@@ -131,9 +138,13 @@ export const AddSpeakingData = () => {
                 <Input
                     {...register("auidioUrl", { required: true })}
                     type="file"
-                    onChange={(e) => handleFileChange(e)}
+                    onChange={handleFileChange}
                     accept="audio/*"
                 />
+
+                <Button colorScheme="linkedin" onClick={() => handleUpload()} leftIcon={<FaUpload />}>
+                    Upload Audio
+                </Button>
 
                 {errors.auidioUrl && (
                     <span className="font-bold text-500-red">
