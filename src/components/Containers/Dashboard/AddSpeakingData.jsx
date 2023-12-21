@@ -35,30 +35,31 @@ export const AddSpeakingData = () => {
     }
 
     const handleUpload = async () => {
-        if (audioFile) {
-            const storageRef = ref(storage, `audio/${audioFile.name}`)
-            const uploadTask = uploadBytesResumable(storageRef, audioFile)
+        // if (audioFile) {
+        //     const storageRef = ref(storage, `audio/${audioFile.name}`)
+        //     const uploadTask = uploadBytesResumable(storageRef, audioFile)
 
-            uploadTask.on(
-                "state_changed",
-                (_snapshot) => {
-                    // Yüklennişini izlashingiz mumkin
-                },
-                (error) => {
-                    console.error("Error uploading audio file", error)
-                },
-                async () => {
-                    const downloadURL = await getDownloadURL(
-                        uploadTask.snapshot.ref
-                    )
+        //     uploadTask.on(
+        //         "state_changed",
+        //         (_snapshot) => {
+        //             // Yüklennişini izlashingiz mumkin
+        //         },
+        //         (error) => {
+        //             console.error("Error uploading audio file", error)
+        //         },
+        //         async () => {
+        //             const downloadURL = await getDownloadURL(
+        //                 uploadTask.snapshot.ref
+        //             )
 
-                    console.log(setAudioUrl)
-                    setAudioUrl(downloadURL)
-                }
-            )
-        } else {
-            console.error("No audio file selected")
-        }
+        //             console.log(setAudioUrl)
+        //             setAudioUrl(downloadURL)
+        //         }
+        //     )
+        // } else {
+        //     console.error("No audio file selected")
+        // }
+        console.log("click")
     }
 
     const onSubmit = async (data) => {
@@ -144,8 +145,9 @@ export const AddSpeakingData = () => {
 
                 <Button
                     colorScheme="linkedin"
-                    onClick={() => handleUpload()}
+                    onClick={handleUpload}
                     leftIcon={<FaUpload />}
+                    isDisabled={Boolean(audioUrl) === true ? false : true}
                 >
                     Upload Audio
                 </Button>
