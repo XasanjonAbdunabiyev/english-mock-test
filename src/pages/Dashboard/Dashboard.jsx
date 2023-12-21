@@ -3,11 +3,26 @@ import React, { lazy } from "react"
 import { Box } from "@chakra-ui/react"
 import { wait } from "../../services/wait"
 
-import { AddSpeakingData } from "../../components/Containers/Dashboard/AddSpeakingData"
-import { DashboardSpeakingTable } from "../../components/Containers/Dashboard/DashboardSpeakingTable"
+const AddSpeakingData = lazy(() =>
+    wait(1000)
+        .then(() => import("@/components/Containers/Dashboard/AddSpeakingData"))
+        .then((module) => {
+            return { default: module.AddSpeakingData }
+        })
+)
+
+const DashboardSpeakingTable = lazy(() =>
+    wait(1000).then(() =>
+        import("@/components/Containers/Dashboard/DashboardSpeakingTable").then(
+            (module) => {
+                return { default: module.DashboardSpeakingTable }
+            }
+        )
+    )
+)
 
 const Layout = lazy(() =>
-    import("../../layouts/Layout").then((module) => {
+    import("@/layouts/Layout").then((module) => {
         return { default: module.Layout }
     })
 )
