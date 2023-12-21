@@ -1,6 +1,6 @@
 import { ChakraProvider, CSSReset } from "@chakra-ui/react"
 import * as ReactDOM from "react-dom/client"
-import { App } from "./app/App"
+import { App } from "./App";
 import "./assets/styles/globals.css"
 import { theme } from "./theme/config"
 

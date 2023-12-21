@@ -12,11 +12,11 @@ export default defineConfig({
     //** Adding import alias for dynamic  */
     resolve: {
         alias: {
-            "@": path.resolve(__dirname, "src"),
-            "@component": path.resolve(__dirname, "src/components"), 
-            "@pages": path.resolve(__dirname, "src/pages"),
-            "@utils": path.resolve(__dirname, "src/utils"),
-            "@hooks": path.resolve(__dirname, "src/hooks"),
+            "@": path.resolve(__dirname, "./src"),
+            "@component": path.resolve(__dirname, "./src/components"), 
+            "@pages": path.resolve(__dirname, "./src/pages"),
+            "@utils": path.resolve(__dirname, "./src/utils"),
+            "@hooks": path.resolve(__dirname, "./src/hooks"),
         },
     },
 })

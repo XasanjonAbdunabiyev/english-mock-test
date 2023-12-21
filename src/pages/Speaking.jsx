@@ -11,7 +11,7 @@ const Layout = lazy(() =>
 
 const SpeakingTable = lazy(() =>
     wait(1000).then(() =>
-        import("../components/UI/Tables/SpeakingTable").then((module) => {
+        import("@/components/Commons/Tables/SpeakingTable").then((module) => {
             return { default: module.SpeakingTable }
         })
     )

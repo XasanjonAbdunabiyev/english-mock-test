@@ -1,15 +1,13 @@
 import { lazy } from "react"
+import { Button, Container, useColorMode } from "@chakra-ui/react"
+import { useNavigate } from "react-router-dom"
 
 const Logo = lazy(() =>
-    import("../components/UI/Logo").then((module) => {
+    import("@/components/Commons/Logo").then((module) => {
         return { default: module.Logo }
     })
 )
 
-
-import { Button, Container } from "@chakra-ui/react"
-import { useNavigate } from "react-router-dom"
-import { useColorMode } from "@chakra-ui/react"
 
 export const PageHeader = () => {
     const navigate = useNavigate()

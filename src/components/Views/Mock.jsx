@@ -1,20 +1,20 @@
 import { lazy } from "react"
 
 import { Heading, Image, StackDivider, VStack } from "@chakra-ui/react"
-import mock_ielts from "../assets/images/mock_ielts.jpg"
+import mock_ielts from "@/assets/images/mock_ielts.jpg"
 import { wait } from "../../services/wait"
 
 const MockTable = lazy(() =>
     wait(1000).then(() =>
-        import("../UI/Tables/MockTable").then((module) => {
+        import("@/components/Commons/Tables/MockTable").then((module) => {
             return { default: module.MockTable }
         })
     )
 )
 
 import { Modal } from "../Commons/Modal"
-import { useSpeakingModal } from "../../hooks/useSpeakingModal"
-import { usePaymentModal } from "../../hooks/usePaymentModal"
+import { useSpeakingModal } from "@/hooks/useSpeakingModal"
+import { usePaymentModal } from "@/hooks/usePaymentModal"
 
 export const Mock = () => {
     const { isOpen, onClose } = useSpeakingModal()

@@ -2,13 +2,13 @@ import { lazy } from "react"
 import { useModal } from "../hooks/useModal"
 
 const Alert = lazy(() =>
-    import("../components/UI/Alert").then((module) => {
+    import("../components/Commons/Alert").then((module) => {
         return { default: module.Alert }
     })
 )
 
 const Logo = lazy(() =>
-    import("../components/UI/Logo").then((module) => {
+    import("@/components/Commons/Logo").then((module) => {
         return { default: module.Logo }
     })
 )
@@ -20,7 +20,7 @@ const Layout = lazy(() =>
 )
 
 const Carousel = lazy(() =>
-    import("../components/UI/Carousel").then((module) => {
+    import("../components/Commons/Carousel").then((module) => {
         return {
             default: module.Carousel,
         }
