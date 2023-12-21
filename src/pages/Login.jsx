@@ -1,7 +1,7 @@
 import { lazy } from "react"
 
 const ChakraLogin = lazy(() =>
-    import("../components/(Auth)/Login").then((module) => {
+    import("@/components/Containers/Auth/Login").then((module) => {
         return { default: module.Login }
     })
 )

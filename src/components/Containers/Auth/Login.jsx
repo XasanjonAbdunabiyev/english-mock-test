@@ -1,3 +1,5 @@
+import { lazy, useEffect, useState } from "react"
+
 import {
     Box,
     Button,
@@ -9,23 +11,16 @@ import {
 } from "@chakra-ui/react"
 import { useNavigate } from "react-router-dom"
 
-import { lazy, useEffect, useState } from "react"
-
-
 import { useForm } from "react-hook-form"
-import { getLoginData } from "../../../services/docs"
+import { getLoginData } from "@/services/docs"
+import { toastNotify } from "@/components/Commons/ToastNotify"
 
 const PasswordField = lazy(() =>
     import("./PasswordField").then((module) => {
         return { default: module.PasswordField }
     })
 )
-
-const Logo = lazy(() =>
-    import("../../UI/Logo").then((module) => {
-        return { default: module.Logo }
-    })
-)
+import { Logo } from "@/components/Commons/Logo"
 
 export const Login = () => {
     const { register, handleSubmit } = useForm()
@@ -47,35 +42,17 @@ export const Login = () => {
         return () => {
             aboartController.abort()
         }
-    }, [])
+    }, []);
+
 
     const onSubmit = (data) => {
         loginData?.map(({ password, email }) => {
             if (password === data?.password && email === data?.email) {
-                toast.success("Login successfully", {
-                    position: "top-right",
-                    autoClose: 5000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "light",
-                })
-
                 navigate("/dashboard")
+                toastNotify("succses", "Login successfull")
                 localStorage.setItem("token", "you_are_admin")
             } else {
-                toast.error("Wrong login password", {
-                    position: "top-right",
-                    autoClose: 5000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "light",
-                })
+                toastNotify("error", "Something went wrong")
             }
         })
     }

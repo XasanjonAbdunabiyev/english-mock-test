@@ -8,6 +8,7 @@ const Logo = lazy(() =>
     })
 )
 
+import { ThemeButton } from "@/components/Commons/ThemeButton"
 
 export const PageHeader = () => {
     const navigate = useNavigate()
@@ -32,6 +33,7 @@ export const PageHeader = () => {
                         >
                             Login
                         </Button>
+                        <ThemeButton />
                     </nav>
                 </div>
             </Container>
