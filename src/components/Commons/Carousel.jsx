@@ -1,6 +1,6 @@
 import React from "react"
 import Slider from "react-slick"
-import { slides } from "../../db/carusel-data"
+import { slides } from "@/db/carusel-data"
 import { Box } from "@chakra-ui/react"
 export const Carousel = () => {
     const settings = {
@@ -14,7 +14,7 @@ export const Carousel = () => {
     return (
         <Slider {...settings}>
             {slides?.map(({ id, imageUrl }) => (
-                <Box key={id}>
+                <Box key={id} mx={3} px={3}>
                     <img
                         className="w-full h-[350px] max-[700px]:h-[250px] max-[500px]:h-full"
                         src={imageUrl}

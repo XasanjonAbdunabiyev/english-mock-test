@@ -2,6 +2,7 @@ import { Suspense, lazy } from "react"
 import { wait } from "./services/wait"
 import { Outlet, Route, Routes } from "react-router-dom"
 import { PrivateRoute } from "./routes/PrivateRoute"
+import { PageLoading } from "@/components/Commons/Loading"
 
 import "react-toastify/dist/ReactToastify.css"
 
@@ -53,7 +54,7 @@ export const App = () => {
 
 function LoadedPage() {
     return (
-        <Suspense fallback={<p>Loading...</p>}>
+        <Suspense fallback={<PageLoading />}>
             <Outlet />
         </Suspense>
     )
