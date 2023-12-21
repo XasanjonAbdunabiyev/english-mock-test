@@ -26,8 +26,9 @@ export const Mock = () => {
                 IELTS MOCK TESTS
             </Heading>
 
-            <Image src={mock_ielts} alt="mock_test" />
+            <Image src={mock_ielts} alt="mock_test" my={3} mb={5}/>
             <MockTable />
+
             <Modal
                 navigateUrl={"/speaking"}
                 isOpen={isOpen}

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"
-import { getQuestions } from "../services/docs"
+import { getQuestions } from "@/services/docs"
 
 export const useGetDocs = () => {
     const [questions, setQuestions] = useState([])

@@ -4,20 +4,18 @@ import React, { useState } from "react"
 import { Button, Input, Textarea } from "@chakra-ui/react"
 
 /** Firebase */
-import { db } from "../../../firebase/config"
+import { db, storage } from "@/firebase/config"
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage"
 import { addDoc, collection } from "firebase/firestore"
-import { storage } from "../../../firebase/config"
 const main_questions_collection = collection(db, "mock_tests")
 
 /** Toast */
-import { toast } from "react-toastify"
+import { toastNotify } from "@/components/Commons/ToastNotify"
 
 /** Icons */ import { GrPowerReset } from "react-icons/gr"
 import { TbBrandTelegram } from "react-icons/tb"
 import { FaUpload } from "react-icons/fa"
 
-// ** Hook Form for CRUD
 import { useForm, Controller } from "react-hook-form"
 export const AddSpeakingData = () => {
     const [audioFile, setAudioFile] = useState(null)
@@ -35,31 +33,30 @@ export const AddSpeakingData = () => {
     }
 
     const handleUpload = async () => {
-        // if (audioFile) {
-        //     const storageRef = ref(storage, `audio/${audioFile.name}`)
-        //     const uploadTask = uploadBytesResumable(storageRef, audioFile)
+        if (audioFile) {
+            const storageRef = ref(storage, `audio/${audioFile.name}`)
+            const uploadTask = uploadBytesResumable(storageRef, audioFile)
 
-        //     uploadTask.on(
-        //         "state_changed",
-        //         (_snapshot) => {
-        //             // Yüklennişini izlashingiz mumkin
-        //         },
-        //         (error) => {
-        //             console.error("Error uploading audio file", error)
-        //         },
-        //         async () => {
-        //             const downloadURL = await getDownloadURL(
-        //                 uploadTask.snapshot.ref
-        //             )
+            uploadTask.on(
+                "state_changed",
+                (_snapshot) => {
+              
+                },
+                (error) => {
+                    console.error("Error uploading audio file", error)
+                },
+                async () => {
+                    const downloadURL = await getDownloadURL(
+                        uploadTask.snapshot.ref
+                    )
 
-        //             console.log(setAudioUrl)
-        //             setAudioUrl(downloadURL)
-        //         }
-        //     )
-        // } else {
-        //     console.error("No audio file selected")
-        // }
-        console.log("click")
+                    console.log(setAudioUrl)
+                    setAudioUrl(downloadURL)
+                }
+            )
+        } else {
+            console.error("No audio file selected")
+        }
     }
 
     const onSubmit = async (data) => {
@@ -71,31 +68,14 @@ export const AddSpeakingData = () => {
         }
 
         await addDoc(main_questions_collection, addquestions_data)
-            .then((response) => {
-                toast.success("New Question Added successfully", {
-                    position: "top-right",
-                    autoClose: 5000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "light",
-                })
+            .then((_response) => {
+                toastNotify("success", "New Question Added successfully")
 
                 window.location.reload()
             })
-            .catch((error) => {
-                console.log(error)
-                toast.error("Something went wrong", {
-                    position: "top-right",
-                    autoClose: 5000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    progress: undefined,
-                    theme: "light",
-                    draggable: true,
-                })
+            .catch((_error) => {
+                console.error("Fetching Error", _error)
+                toastNotify("error", "Something went wrong")
             })
     }
 
@@ -147,7 +127,7 @@ export const AddSpeakingData = () => {
                     colorScheme="linkedin"
                     onClick={handleUpload}
                     leftIcon={<FaUpload />}
-                    isDisabled={Boolean(audioUrl) === true ? false : true}
+                    isDisabled={Boolean(audioUrl) === true ? true : false}
                 >
                     Upload Audio
                 </Button>

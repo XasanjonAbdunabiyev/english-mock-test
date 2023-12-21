@@ -1,10 +1,12 @@
 import React, { lazy } from "react"
 
-import { wait } from "../services/wait"
+import { wait } from "@/services/wait"
 
-import { useGetDocs } from "../hooks/useGetDocs"
+import { useGetDocs } from "@/hooks/useGetDocs"
+import { PageLoading } from "@/components/Commons/Loading"
+
 const Layout = lazy(() =>
-    import("../layouts/Layout").then((module) => {
+    import("@/layouts/Layout").then((module) => {
         return { default: module.Layout }
     })
 )
@@ -19,7 +21,7 @@ const SpeakingTable = lazy(() =>
 
 export const Speaking = () => {
     const { loading, questions } = useGetDocs()
-    if (loading) return <p>Loading...</p>
+    if (loading) return <PageLoading />
 
     return (
         <div className="speaking-page">

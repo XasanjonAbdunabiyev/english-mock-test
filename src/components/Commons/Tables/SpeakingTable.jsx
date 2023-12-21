@@ -12,6 +12,7 @@ import {
     Box,
     Button,
 } from "@chakra-ui/react"
+import { TimeAnswer } from "@/components/Views/TimeAnswer"
 import { CiWarning } from "react-icons/ci"
 import { TbClockHour3 } from "react-icons/tb"
 
@@ -39,8 +40,7 @@ function Pagination({ data }) {
     const pageNumbers = Array.from(
         { length: Math.ceil(data.length / ITEMSPERPAGE) },
         (_, index) => index + 1
-    );
-    
+    )
 
     return (
         <div className="speaking__table">
@@ -102,7 +102,7 @@ function Pagination({ data }) {
                                                 fontSize={40}
                                                 className="mb-3"
                                             />
-                                          {question?.timeAnswer}
+                                            <TimeAnswer time={question?.timeAnswer}/>
                                         </div>
                                     </Td>
                                 </Tr>
@@ -111,7 +111,7 @@ function Pagination({ data }) {
                     </div>
                 )
             })}
-            <Box textAlign={"right"} my={4}>
+            {/* <Box textAlign={"right"} my={4}>
                 {pageNumbers.map((number) => (
                     <Button
                         key={number}
@@ -122,7 +122,7 @@ function Pagination({ data }) {
                         {number}
                     </Button>
                 ))}
-            </Box>
+            </Box> */}
         </div>
     )
 }

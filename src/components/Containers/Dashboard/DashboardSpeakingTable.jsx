@@ -1,5 +1,4 @@
-import React from "react"
-import { useGetDocs } from "@/hooks/useGetDocs"
+import React, { useEffect, useState } from "react"
 import {
     Table,
     Thead,
@@ -13,9 +12,59 @@ import {
 } from "@chakra-ui/react"
 import { RiDeleteBin5Fill } from "react-icons/ri"
 import { FaEdit } from "react-icons/fa"
+import { deleteDoc, doc } from "firebase/firestore"
+import { db } from "@/firebase/config"
+import { PageLoading } from "@/components/Commons/Loading"
+
+import { toastNotify } from "@/components/Commons/ToastNotify"
 
 export const DashboardSpeakingTable = () => {
-    const { questions } = useGetDocs()
+    const [dashboardQuestions, setDashboardQuestions] = useState([])
+    const [loading, setLoading] = useState(false)
+
+    if (loading) {
+        return <PageLoading />
+    }
+
+    useEffect(() => {
+        const abortController = new AbortController()
+        try {
+            setLoading(true)
+            import("@/services/docs.js").then((module) => {
+                module.getQuestions().then((data) => {
+                    setDashboardQuestions(data)
+                })
+            })
+            setDashboardQuestions()
+        } catch (_error) {
+            console.error("Fetch Failed", "internet connection")
+        } finally {
+            setLoading(false)
+        }
+
+        return () => {
+            /**
+             * Clean Up logic, if needed
+             */
+            abortController.abort()
+        }
+    }, []);
+
+
+
+
+    const handleDeleteQuestion = async (id) => {
+        try {
+            await deleteDoc(doc(db, "mock_tests", id)).then(() => {
+                toastNotify("success", "Delete Question successfully")
+            })
+            setDashboardQuestions(
+                dashboardQuestions?.filter((question) => question.id !== id)
+            )
+        } catch (error) {
+            toastNotify("error", "Error deleting 🗑")
+        }
+    }
 
     return (
         <TableContainer my={8}>
@@ -37,8 +86,7 @@ export const DashboardSpeakingTable = () => {
                     </Tr>
                 </Thead>
                 <Tbody>
-                    {questions?.map((question) => {
-                        console.log(question)
+                    {dashboardQuestions?.map((question) => {
                         return (
                             <Tr key={question?.id}>
                                 <Td>
@@ -61,6 +109,11 @@ export const DashboardSpeakingTable = () => {
                                 <Td>
                                     <div className="flex items-center justify-center gap-5">
                                         <Button
+                                            onClick={() =>
+                                                handleDeleteQuestion(
+                                                    question?.id
+                                                )
+                                            }
                                             leftIcon={<RiDeleteBin5Fill />}
                                             colorScheme="red"
                                         >
