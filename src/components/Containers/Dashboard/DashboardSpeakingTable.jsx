@@ -13,7 +13,7 @@ import {
 import { RiDeleteBin5Fill } from "react-icons/ri"
 import { FaEdit } from "react-icons/fa"
 
-import { deleteDoc, doc, getDoc } from "firebase/firestore"
+import { deleteDoc, doc } from "firebase/firestore"
 import { db } from "@/firebase/config"
 
 import { PageLoading } from "@/components/Commons/Loading"
@@ -41,8 +41,6 @@ export const DashboardSpeakingTable = () => {
     if (loading) {
         return <PageLoading />
     }
-
-    
 
     useEffect(() => {
         const abortController = new AbortController()
