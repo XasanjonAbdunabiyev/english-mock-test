@@ -1,6 +1,6 @@
 import { db } from "../firebase/config"
 
-import { getDocs, collection } from "firebase/firestore"
+import { getDocs, collection, onSnapshot, doc } from "firebase/firestore"
 
 const collectionRef = collection(db, "mock_tests")
 const loginCollectionRef = collection(db, "login")
@@ -17,4 +17,12 @@ export const getLoginData = async () => {
     const loginData = db?.docs?.map((doc) => ({ ...doc.data(), id: doc.id }))
 
     return loginData
+}
+
+export const getQuestionsAtRealTime = async (id) => {
+    const listen_real_time = onSnapshot(doc(db, "mock_tests"), (doc) => {
+        return doc?.data()
+    });
+
+    return listen_real_time
 }

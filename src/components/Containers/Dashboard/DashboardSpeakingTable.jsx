@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useState, lazy } from "react"
 import {
     Table,
     Thead,
@@ -20,10 +20,22 @@ import { PageLoading } from "@/components/Commons/Loading"
 import { toastNotify } from "@/components/Commons/ToastNotify"
 
 import { dashboardSpeakingTable } from "@/db/dashboardSpeakingData"
+import { wait } from "@/services/wait"
+
+const UpdateModal = lazy(() =>
+    wait(1000).then(() =>
+        import("./UpdateModal").then((module) => {
+            return { default: module.UpdateModal }
+        })
+    )
+)
+
+import { useUpdateModal } from "./useUpdateModal"
 
 export const DashboardSpeakingTable = () => {
     const [dashboardQuestions, setDashboardQuestions] = useState([])
     const [loading, setLoading] = useState(false)
+    const { openUpdateModal } = useUpdateModal()
 
     if (loading) {
         return <PageLoading />
@@ -38,7 +50,6 @@ export const DashboardSpeakingTable = () => {
                     setDashboardQuestions(data)
                 })
             })
-            setDashboardQuestions()
         } catch (_error) {
             console.error("Fetch Failed", "internet connection")
         } finally {
@@ -124,6 +135,7 @@ export const DashboardSpeakingTable = () => {
                                             Delete
                                         </Button>
                                         <Button
+                                            onClick={() => openUpdateModal()}
                                             rightIcon={<FaEdit />}
                                             colorScheme="green"
                                         >
