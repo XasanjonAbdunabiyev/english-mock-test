@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect, useState, memo } from "react"
 
 import {
     Textarea,
@@ -12,17 +12,41 @@ import {
     Button,
 } from "@chakra-ui/react"
 
+import { db } from "@/firebase/config"
+import { getDoc, doc } from "firebase/firestore"
 import { useForm } from "react-hook-form"
-import { useGetAddSpeakingData } from "@/hooks/useGetAddSpeakingData"
 
-export const UpdateModal = ({ isOpen, onClose }) => {
+export const UpdateModal = memo(function ({ isOpen, onClose, questionId }) {
     const { register, handleSubmit } = useForm()
+    const [previusQuestionData, setPreviusQuestionData] = useState([])
 
-    const { questions_data, questionAudioUrl } = useGetAddSpeakingData()
-    console.log(questionAudioUrl, questions_data)
     const onSubmit = (data) => {
         console.log(data)
     }
+
+    useEffect(() => {
+        const abortController = new AbortController()
+
+        console.log("render")
+        const fetchData = async () => {
+            const docRef = doc(db, "mock_tests", questionId)
+            const docSnap = await getDoc(docRef)
+
+            if (docSnap.exists()) {
+                setPreviusQuestionData(docSnap.data())
+            } else {
+                console.log("no data available")
+            }
+        }
+
+        fetchData()
+
+        return () => {
+            abortController.abort()
+        }
+    }, [questionId])
+
+    console.log(previusQuestionData)
 
     return (
         <div className="update-data">
@@ -65,4 +89,4 @@ export const UpdateModal = ({ isOpen, onClose }) => {
             </Modal>
         </div>
     )
-}
+})

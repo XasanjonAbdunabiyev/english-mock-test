@@ -1,9 +1,10 @@
 import { db } from "../firebase/config"
 
-import { getDocs, collection, onSnapshot, doc } from "firebase/firestore"
+import { getDocs, collection, onSnapshot, doc, getDoc } from "firebase/firestore"
 
 const collectionRef = collection(db, "mock_tests")
 const loginCollectionRef = collection(db, "login")
+
 
 export const getQuestions = async () => {
     const db = await getDocs(collectionRef)
@@ -25,4 +26,14 @@ export const getQuestionsAtRealTime = async (id) => {
     });
 
     return listen_real_time
+}
+
+
+export const getQuestionById = async (id) => {
+    const singleQuestionCollectionRef = collection(db, "mock_tests", id)
+    const res = await getDoc(singleQuestionCollectionRef)?.then((doc) => {
+        return doc?.data()
+    });
+
+    return res
 }

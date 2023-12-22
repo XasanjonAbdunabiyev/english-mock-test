@@ -1,4 +1,4 @@
-import React, { useEffect, useState, lazy } from "react"
+import React, { useEffect, useState, lazy, useMemo } from "react"
 import {
     Table,
     Thead,
@@ -13,7 +13,7 @@ import {
 import { RiDeleteBin5Fill } from "react-icons/ri"
 import { FaEdit } from "react-icons/fa"
 
-import { deleteDoc, doc } from "firebase/firestore"
+import { deleteDoc, doc, getDoc } from "firebase/firestore"
 import { db } from "@/firebase/config"
 
 import { PageLoading } from "@/components/Commons/Loading"
@@ -21,8 +21,6 @@ import { toastNotify } from "@/components/Commons/ToastNotify"
 
 import { dashboardSpeakingTable } from "@/db/dashboardSpeakingData"
 import { wait } from "@/services/wait"
-
-import { storage } from "@/firebase/config"
 
 const UpdateModal = lazy(() =>
     wait(1000).then(() =>
@@ -37,7 +35,8 @@ import { useUpdateModal } from "./useUpdateModal"
 export const DashboardSpeakingTable = () => {
     const [dashboardQuestions, setDashboardQuestions] = useState([])
     const [loading, setLoading] = useState(false)
-    const { openUpdateModal } = useUpdateModal()
+    const { openUpdateModal, isUpdateOpen, onUpdateClose } = useUpdateModal()
+    const [questionId, setQuestionId] = useState('')
 
     if (loading) {
         return <PageLoading />
@@ -89,70 +88,81 @@ export const DashboardSpeakingTable = () => {
     }
 
     return (
-        <TableContainer my={8}>
-            <Table>
-                <Thead>
-                    <Tr>
-                        {dashboardSpeakingTable?.map((item) => (
-                            <Th
-                                fontSize={20}
-                                fontWeight="bold"
-                                textAlign="center"
-                                key={item.id}
-                            >
-                                {item.title}
-                            </Th>
-                        ))}
-                    </Tr>
-                </Thead>
-                <Tbody>
-                    {dashboardQuestions?.map((question) => {
-                        return (
-                            <Tr key={question?.id}>
-                                <Td>
-                                    <div className="flex items-center flex-col justify-center">
-                                        <Heading as="h3" fontSize={20}>
-                                            {question?.question_title}
-                                        </Heading>
-                                    </div>
-                                </Td>
-                                <Td>
-                                    <div className="flex items-center justify-center flex-col">
-                                        {question?.timeThink} secound
-                                    </div>
-                                </Td>
-                                <Td>
-                                    <div className="flex items-center justify-center flex-col">
-                                        {question?.timeAnswer} secound
-                                    </div>
-                                </Td>
-                                <Td>
-                                    <div className="flex items-center justify-center gap-5">
-                                        <Button
-                                            onClick={() =>
-                                                handleDeleteQuestion(
-                                                    question?.id
-                                                )
-                                            }
-                                            leftIcon={<RiDeleteBin5Fill />}
-                                            colorScheme="red"
-                                        >
-                                            Delete
-                                        </Button>
-                                        <Button
-                                            onClick={() => openUpdateModal()}
-                                            rightIcon={<FaEdit />}
-                                            colorScheme="green"
-                                        >
-                                            Update
-                                        </Button>
-                                    </div>
-                                </Td>
-                            </Tr>
-                        )
-                    })}
-                </Tbody>
-            </Table>
-        </TableContainer>
+        <>
+            <TableContainer my={8}>
+                <Table>
+                    <Thead>
+                        <Tr>
+                            {dashboardSpeakingTable?.map((item) => (
+                                <Th
+                                    fontSize={20}
+                                    fontWeight="bold"
+                                    textAlign="center"
+                                    key={item.id}
+                                >
+                                    {item.title}
+                                </Th>
+                            ))}
+                        </Tr>
+                    </Thead>
+                    <Tbody>
+                        {dashboardQuestions?.map((question) => {
+                            return (
+                                <Tr key={question?.id}>
+                                    <Td>
+                                        <div className="flex items-center flex-col justify-center">
+                                            <Heading as="h3" fontSize={20}>
+                                                {question?.question_title}
+                                            </Heading>
+                                        </div>
+                                    </Td>
+                                    <Td>
+                                        <div className="flex items-center justify-center flex-col">
+                                            {question?.timeThink} secound
+                                        </div>
+                                    </Td>
+                                    <Td>
+                                        <div className="flex items-center justify-center flex-col">
+                                            {question?.timeAnswer} secound
+                                        </div>
+                                    </Td>
+                                    <Td>
+                                        <div className="flex items-center justify-center gap-5">
+                                            <Button
+                                                onClick={() =>
+                                                    handleDeleteQuestion(
+                                                        question?.id
+                                                    )
+                                                }
+                                                leftIcon={<RiDeleteBin5Fill />}
+                                                colorScheme="red"
+                                            >
+                                                Delete
+                                            </Button>
+                                            <Button
+                                                onClick={() => {
+                                                    openUpdateModal()
+                                                    setQuestionId(question?.id)
+                                                }}
+                                                rightIcon={<FaEdit />}
+                                                colorScheme="green"
+                                            >
+                                                Update
+                                            </Button>
+                                        </div>
+                                    </Td>
+                                </Tr>
+                            )
+                        })}
+                    </Tbody>
+                </Table>
+            </TableContainer>
+
+            <UpdateModal
+                questionId={questionId}
+                isOpen={isUpdateOpen}
+                onClose={onUpdateClose}
+            />
+        </>
     )
 }

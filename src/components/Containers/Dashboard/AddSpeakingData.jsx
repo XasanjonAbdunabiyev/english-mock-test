@@ -19,13 +19,13 @@ import { FaUpload } from "react-icons/fa"
 
 import { useForm } from "react-hook-form"
 
-import { useGetAddSpeakingData } from "@/hooks/useGetAddSpeakingData"
+import { useGetAudioUrl } from "@/hooks/useGetAddSpeakingData"
 
 export const AddSpeakingData = () => {
     const [audioFile, setAudioFile] = useState(null)
     const [audioUrl, setAudioUrl] = useState("")
-
-    const { addSpeakingData, setQuestionAudioUrl } = useGetAddSpeakingData()
+    const [btnLoading, setBtnLoading] = useState(false)
+    const { setQuestionAudioUrl } = useGetAudioUrl()
     const {
         register,
         handleSubmit,
@@ -38,6 +38,7 @@ export const AddSpeakingData = () => {
     }
 
     const handleUpload = async () => {
+        setBtnLoading(true);
         if (audioFile) {
             const storageRef = ref(storage, `audio/${audioFile.name}`)
             const uploadTask = uploadBytesResumable(storageRef, audioFile)
@@ -52,6 +53,7 @@ export const AddSpeakingData = () => {
                     const downloadURL = await getDownloadURL(
                         uploadTask.snapshot.ref
                     )
+                    console.log(downloadURL)
                     setQuestionAudioUrl(downloadURL)
                     setAudioUrl(downloadURL)
                 }
@@ -66,14 +68,8 @@ export const AddSpeakingData = () => {
             question_title: data?.first_question,
             timeAnswer: parseInt(data?.timeAnswer),
             timeThink: parseInt(data?.timeThink),
-            questionAudio: audioUrl ? audioUrl : "",
+            questionAudio: audioUrl,
         }
-
-        addSpeakingData({
-            question_title: data?.first_question,
-            timeAnswer: parseInt(data?.timeAnswer),
-            timeThink: parseInt(data?.timeThink),
-        })
 
         await addDoc(main_questions_collection, addquestions_data)
             .then((_response) => {
@@ -92,6 +88,7 @@ export const AddSpeakingData = () => {
                 })
             })
     }
+
 
     return (
         <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
@@ -140,6 +137,8 @@ export const AddSpeakingData = () => {
                 <Button
                     colorScheme="linkedin"
                     onClick={handleUpload}
+                    isLoading={btnLoading}
+                    loadingText={"Audio file loaded"}
                     leftIcon={<FaUpload />}
                     isDisabled={Boolean(audioUrl) === true ? true : false}
                 >
