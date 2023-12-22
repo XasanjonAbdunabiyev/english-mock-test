@@ -69,13 +69,19 @@ export const AddSpeakingData = () => {
 
         await addDoc(main_questions_collection, addquestions_data)
             .then((_response) => {
-                toastNotify("success", "New Question Added successfully")
+                toastNotify({
+                    title: "success",
+                    message: "Question Added Successfully",
+                })
 
                 window.location.reload()
             })
             .catch((_error) => {
                 console.error("Fetching Error", _error)
-                toastNotify("error", "Something went wrong")
+                toastNotify({
+                    title: "error",
+                    message: "Something went wrong",
+                })
             })
     }
 

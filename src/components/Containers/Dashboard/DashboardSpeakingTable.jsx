@@ -12,10 +12,11 @@ import {
 } from "@chakra-ui/react"
 import { RiDeleteBin5Fill } from "react-icons/ri"
 import { FaEdit } from "react-icons/fa"
+
 import { deleteDoc, doc } from "firebase/firestore"
 import { db } from "@/firebase/config"
-import { PageLoading } from "@/components/Commons/Loading"
 
+import { PageLoading } from "@/components/Commons/Loading"
 import { toastNotify } from "@/components/Commons/ToastNotify"
 
 export const DashboardSpeakingTable = () => {
@@ -48,21 +49,24 @@ export const DashboardSpeakingTable = () => {
              */
             abortController.abort()
         }
-    }, []);
-
-
-
+    }, [])
 
     const handleDeleteQuestion = async (id) => {
         try {
             await deleteDoc(doc(db, "mock_tests", id)).then(() => {
-                toastNotify("success", "Delete Question successfully")
+                toastNotify({
+                    title: "success",
+                    message: "Question Deleted Successfully",
+                })
             })
             setDashboardQuestions(
                 dashboardQuestions?.filter((question) => question.id !== id)
             )
         } catch (error) {
-            toastNotify("error", "Error deleting 🗑")
+            toastNotify({
+                title: "error",
+                message: "Error deleting 🗑",
+            })
         }
     }
 

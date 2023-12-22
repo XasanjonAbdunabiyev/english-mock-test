@@ -42,17 +42,22 @@ export const Login = () => {
         return () => {
             aboartController.abort()
         }
-    }, []);
-
+    }, [])
 
     const onSubmit = (data) => {
         loginData?.map(({ password, email }) => {
             if (password === data?.password && email === data?.email) {
                 navigate("/dashboard")
-                toastNotify("succses", "Login successfull")
+                toastNotify({
+                    title: "success",
+                    message: "Login Succsesfully",
+                })
                 localStorage.setItem("token", "you_are_admin")
             } else {
-                toastNotify("error", "Something went wrong")
+                toastNotify({
+                    title: "error",
+                    message: "Invalid Credentials",
+                })
             }
         })
     }
@@ -106,8 +111,9 @@ export const Login = () => {
                     }}
                     boxShadow={{
                         base: "none",
-                        sm: "md",
+                        sm: "lg",
                     }}
+                    border={"1px solid gray"}
                     borderRadius={{
                         base: "none",
                         sm: "xl",
