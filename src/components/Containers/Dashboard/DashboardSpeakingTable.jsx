@@ -19,6 +19,8 @@ import { db } from "@/firebase/config"
 import { PageLoading } from "@/components/Commons/Loading"
 import { toastNotify } from "@/components/Commons/ToastNotify"
 
+import { dashboardSpeakingTable } from "@/db/dashboardSpeakingData"
+
 export const DashboardSpeakingTable = () => {
     const [dashboardQuestions, setDashboardQuestions] = useState([])
     const [loading, setLoading] = useState(false)
@@ -75,18 +77,16 @@ export const DashboardSpeakingTable = () => {
             <Table>
                 <Thead>
                     <Tr>
-                        <Th fontSize={20} textAlign="center" fontWeight="bold">
-                            Question title
-                        </Th>
-                        <Th fontSize={20} textAlign="center" fontWeight="bold">
-                            Time to think
-                        </Th>
-                        <Th fontSize={20} textAlign="center" fontWeight="bold">
-                            Time to answer
-                        </Th>
-                        <Th fontSize={20} textAlign="center" fontWeight="bold">
-                            Crud information
-                        </Th>
+                        {dashboardSpeakingTable?.map((item) => (
+                            <Th
+                                fontSize={20}
+                                fontWeight="bold"
+                                textAlign="center"
+                                key={item.id}
+                            >
+                                {item.title}
+                            </Th>
+                        ))}
                     </Tr>
                 </Thead>
                 <Tbody>
