@@ -28,7 +28,6 @@ export const PageHeader = () => {
                     <nav className="flex items-center gap-x-6">
                         <Button
                             colorScheme="telegram"
-                            color="white"
                             onClick={() => navigate("/login")}
                         >
                             Login

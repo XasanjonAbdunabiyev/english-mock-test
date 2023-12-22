@@ -22,6 +22,8 @@ import { toastNotify } from "@/components/Commons/ToastNotify"
 import { dashboardSpeakingTable } from "@/db/dashboardSpeakingData"
 import { wait } from "@/services/wait"
 
+import { storage } from "@/firebase/config"
+
 const UpdateModal = lazy(() =>
     wait(1000).then(() =>
         import("./UpdateModal").then((module) => {
@@ -40,6 +42,8 @@ export const DashboardSpeakingTable = () => {
     if (loading) {
         return <PageLoading />
     }
+
+    
 
     useEffect(() => {
         const abortController = new AbortController()
@@ -72,6 +76,7 @@ export const DashboardSpeakingTable = () => {
                     message: "Question Deleted Successfully",
                 })
             })
+
             setDashboardQuestions(
                 dashboardQuestions?.filter((question) => question.id !== id)
             )

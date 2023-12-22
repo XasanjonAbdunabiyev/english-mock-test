@@ -11,7 +11,7 @@ export const Logo = () => {
             onClick={() => navigate("/")}
             boxSize="57%"
             width={100}
-            height={50}
+            height={75}
             src={logo}
             alt="logo"
         />

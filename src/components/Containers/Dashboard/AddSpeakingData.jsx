@@ -12,17 +12,20 @@ const main_questions_collection = collection(db, "mock_tests")
 /** Toast */
 import { toastNotify } from "@/components/Commons/ToastNotify"
 
-/** Icons */ 
+/** Icons */
 import { GrPowerReset } from "react-icons/gr"
 import { TbBrandTelegram } from "react-icons/tb"
 import { FaUpload } from "react-icons/fa"
 
 import { useForm } from "react-hook-form"
 
+import { useGetAddSpeakingData } from "@/hooks/useGetAddSpeakingData"
+
 export const AddSpeakingData = () => {
     const [audioFile, setAudioFile] = useState(null)
     const [audioUrl, setAudioUrl] = useState("")
 
+    const { addSpeakingData, setQuestionAudioUrl } = useGetAddSpeakingData()
     const {
         register,
         handleSubmit,
@@ -41,9 +44,7 @@ export const AddSpeakingData = () => {
 
             uploadTask.on(
                 "state_changed",
-                (_snapshot) => {
-              
-                },
+                (_snapshot) => {},
                 (error) => {
                     console.error("Error uploading audio file", error)
                 },
@@ -51,8 +52,7 @@ export const AddSpeakingData = () => {
                     const downloadURL = await getDownloadURL(
                         uploadTask.snapshot.ref
                     )
-
-                    console.log(setAudioUrl)
+                    setQuestionAudioUrl(downloadURL)
                     setAudioUrl(downloadURL)
                 }
             )
@@ -68,6 +68,12 @@ export const AddSpeakingData = () => {
             timeThink: parseInt(data?.timeThink),
             questionAudio: audioUrl ? audioUrl : "",
         }
+
+        addSpeakingData({
+            question_title: data?.first_question,
+            timeAnswer: parseInt(data?.timeAnswer),
+            timeThink: parseInt(data?.timeThink),
+        })
 
         await addDoc(main_questions_collection, addquestions_data)
             .then((_response) => {
