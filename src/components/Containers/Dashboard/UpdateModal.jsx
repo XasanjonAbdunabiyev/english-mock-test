@@ -12,9 +12,10 @@ import {
     Button,
 } from "@chakra-ui/react"
 
-import { db } from "@/firebase/config"
+import { db, storage } from "@/firebase/config"
 import { getDoc, doc } from "firebase/firestore"
 import { useForm } from "react-hook-form"
+
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage"
 import { FaUpload } from "react-icons/fa"
 import { toastNotify } from "@/components/Commons/ToastNotify"
@@ -23,8 +24,8 @@ export const UpdateModal = memo(function ({ isOpen, onClose, questionId }) {
     const {
         register,
         handleSubmit,
-        formState: { errors },
     } = useForm()
+
     const [audioFile, setAudioFile] = useState(null)
     const [audioUrl, setAudioUrl] = useState("")
     const [btnLoading, setBtnLoading] = useState(false)
@@ -41,7 +42,8 @@ export const UpdateModal = memo(function ({ isOpen, onClose, questionId }) {
     }
 
     const onSubmit = (data) => {
-        console.log(data)
+        console.log("previusQuestionData", previusQuestionData)
+        console.log("current data", data)
     }
 
     const handleUpload = async () => {
@@ -59,9 +61,11 @@ export const UpdateModal = memo(function ({ isOpen, onClose, questionId }) {
                     const downloadURL = await getDownloadURL(
                         uploadTask.snapshot.ref
                     )
-                    setQuestionAudioUrl(downloadURL)
-                    setAudioUrl(downloadURL)
-                    console.log("generated audio url", downloadURL)
+                    setAudioUrl(downloadURL);
+                    toastNotify({
+                        title: "success",
+                        message: "Audio file uploaded",
+                    })
                 }
             )
         } else {
@@ -73,6 +77,8 @@ export const UpdateModal = memo(function ({ isOpen, onClose, questionId }) {
             console.error("Not audio file selected")
         }
     }
+
+    console.log(audioUrl)
 
     useEffect(() => {
         const abortController = new AbortController()
@@ -108,47 +114,27 @@ export const UpdateModal = memo(function ({ isOpen, onClose, questionId }) {
                             autoComplete="off"
                         >
                             <Textarea
-                                {...register("first_question", {
-                                    required: true,
-                                })}
+                                {...register("first_question")}
                                 className="my-3"
-                                defaultValue={
-                                    previusQuestionData?.question_title
-                                }
+                                defaultValue={previusQuestionData?.question_title}
                             />
-                            {errors?.first_question && (
-                                <p className="block text-red-500">
-                                    This is Fild Required
-                                </p>
-                            )}
                             <Input
                                 placeholder="Time to Answer"
-                                defaultValue={previusQuestionData?.timeAnswer}
                                 className="my-3"
-                                {...register("timeAnswer", { required: true })}
+                                {...register("timeAnswer")}
+                                defaultValue={previusQuestionData.timeAnswer}
                             />
-                            {errors?.timeAnswer && (
-                                <p className="block text-red-500">
-                                    This is Fild Required
-                                </p>
-                            )}
+
                             <Input
                                 placeholder="Time to Think"
                                 defaultValue={previusQuestionData?.timeThink}
                                 className="my-3"
-                                {...register("timeThink", { required: true })}
+                                {...register("timeThink")}
                             />
-                            {errors?.timeThink && (
-                                <p className="block text-red-500">
-                                    This is Fild Required
-                                </p>
-                            )}
 
                             <div className="my-3 flex items-center gap-5">
                                 <Input
-                                    {...register("auidioUrl", {
-                                        required: true,
-                                    })}
+                                    {...register("auidioUrl")}
                                     type="file"
                                     onChange={handleFileChange}
                                     accept="audio/*"
@@ -161,29 +147,17 @@ export const UpdateModal = memo(function ({ isOpen, onClose, questionId }) {
                                     type="button"
                                     loadingText={"Audio file loaded"}
                                     leftIcon={<FaUpload />}
-                                    isDisabled={
-                                        Boolean(audioUrl) === true
-                                            ? true
-                                            : false
-                                    }
                                 >
                                     Upload Audio
                                 </Button>
                             </div>
-                            {errors?.auidioUrl && (
-                                <p className="block text-red-500 my-5 font-bold">
-                                    This is audio required
-                                </p>
-                            )}
 
-                            <div className="flex items-center gap-x-5">
-                                <Button colorScheme={"red"} type="reset">
-                                    Reset Changes
-                                </Button>
-                                <Button type="submit" colorScheme={"green"}>
-                                    Update Questions
-                                </Button>
-                            </div>
+                            <Button colorScheme={"red"} type="reset">
+                                Reset Changes
+                            </Button>
+                            <Button type="submit" colorScheme={"green"}>
+                                Update Questions
+                            </Button>
                         </form>
                     </ModalBody>
                 </ModalContent>

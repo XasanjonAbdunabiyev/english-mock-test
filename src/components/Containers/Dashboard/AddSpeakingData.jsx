@@ -38,11 +38,11 @@ export const AddSpeakingData = () => {
     }
 
     const handleUpload = async () => {
-        setBtnLoading(true);
         if (audioFile) {
             const storageRef = ref(storage, `audio/${audioFile.name}`)
             const uploadTask = uploadBytesResumable(storageRef, audioFile)
 
+            setBtnLoading(true)
             uploadTask.on(
                 "state_changed",
                 (_snapshot) => {},
@@ -59,7 +59,13 @@ export const AddSpeakingData = () => {
                 }
             )
         } else {
+            setBtnLoading(false)
             console.error("No audio file selected")
+
+            return toastNotify({
+                title: "error",
+                message: "error upload audio file",
+            })
         }
     }
 
@@ -88,7 +94,6 @@ export const AddSpeakingData = () => {
                 })
             })
     }
-
 
     return (
         <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
