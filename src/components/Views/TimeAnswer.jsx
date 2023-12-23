@@ -1,6 +1,5 @@
-import React from "react"
+import React, { memo } from "react"
 
-export function TimeAnswer({ time }) {
-    console.log(time)
-    return <></>
-}
+export const TimeAnswer = memo(function ({ time }) {
+    return <h1>{time}</h1>
+})

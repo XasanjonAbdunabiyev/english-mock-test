@@ -6,6 +6,7 @@ import { PageLoading } from "@/components/Commons/Loading"
 
 import "react-toastify/dist/ReactToastify.css"
 
+
 const Home = lazy(() => wait(1000).then(() => import("./pages/Home")))
 import { ToastContainer } from "@/components/Commons/ToastNotify"
 
@@ -16,6 +17,7 @@ const Login = lazy(() =>
         })
     )
 )
+
 
 const Dashboard = lazy(() =>
     wait(1000).then(() => import("./pages/Dashboard/Dashboard"))
@@ -28,6 +30,8 @@ const Speaking = lazy(() =>
         })
     )
 )
+
+
 
 export const App = () => {
     return (
@@ -51,6 +55,7 @@ export const App = () => {
         </div>
     )
 }
+
 
 function LoadedPage() {
     return (

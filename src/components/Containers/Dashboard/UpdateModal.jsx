@@ -17,6 +17,7 @@ import { getDoc, doc } from "firebase/firestore"
 import { useForm } from "react-hook-form"
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage"
 import { FaUpload } from "react-icons/fa"
+import { toastNotify } from "@/components/Commons/ToastNotify"
 
 export const UpdateModal = memo(function ({ isOpen, onClose, questionId }) {
     const {
@@ -44,7 +45,6 @@ export const UpdateModal = memo(function ({ isOpen, onClose, questionId }) {
     }
 
     const handleUpload = async () => {
-        setBtnLoading(true)
         if (audioFile) {
             const storageRef = ref(storage, `audio/${audioFile.name}`)
             const uploadTask = uploadBytesResumable(storageRef, audioFile)
@@ -59,13 +59,18 @@ export const UpdateModal = memo(function ({ isOpen, onClose, questionId }) {
                     const downloadURL = await getDownloadURL(
                         uploadTask.snapshot.ref
                     )
-                    console.log(downloadURL)
                     setQuestionAudioUrl(downloadURL)
                     setAudioUrl(downloadURL)
+                    console.log("generated audio url", downloadURL)
                 }
             )
         } else {
-            console.error("No audio file selected")
+            setBtnLoading(false)
+            toastNotify({
+                title: "warning",
+                message: "So the audio file doesn't change 🤔",
+            })
+            console.error("Not audio file selected")
         }
     }
 
