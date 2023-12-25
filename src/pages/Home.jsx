@@ -7,11 +7,6 @@ const Alert = lazy(() =>
     })
 )
 
-const Logo = lazy(() =>
-    import("@/components/Commons/Logo").then((module) => {
-        return { default: module.Logo }
-    })
-)
 
 const Layout = lazy(() =>
     import("../layouts/Layout").then((module) => {
@@ -35,7 +30,7 @@ const Mock = lazy(() =>
     })
 )
 
-const Home = () => {
+export default function Home() {
     const { isOpen, onClose } = useModal()
 
     return (
@@ -45,8 +40,7 @@ const Home = () => {
                 onClose={onClose}
                 title="Welcome to Mock English Test"
             >
-                <Logo />
-                <div className="my-4 font-bold text-lg">
+                <div className="font-bold text-base">
                     On this site, you can test your knowledge by taking an
                     English test
                 </div>
@@ -59,5 +53,3 @@ const Home = () => {
         </>
     )
 }
-
-export default Home

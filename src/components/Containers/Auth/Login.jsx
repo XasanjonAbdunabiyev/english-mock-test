@@ -42,7 +42,7 @@ export const Login = () => {
         return () => {
             aboartController.abort()
         }
-    }, [])
+    }, []);
 
     const onSubmit = (data) => {
         loginData?.map(({ password, email }) => {

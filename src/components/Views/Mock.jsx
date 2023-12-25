@@ -12,7 +12,7 @@ const MockTable = lazy(() =>
     )
 )
 
-import { Modal } from "../Commons/Modal"
+import { Modal } from "@/components/Commons/Modal"
 import { useSpeakingModal } from "@/hooks/useSpeakingModal"
 import { usePaymentModal } from "@/hooks/usePaymentModal"
 

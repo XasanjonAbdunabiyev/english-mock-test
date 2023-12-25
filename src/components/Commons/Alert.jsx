@@ -23,7 +23,7 @@ export const Alert = memo(function ({ isOpen, onClose, children, title }) {
             <AlertDialogOverlay>
                 <AlertDialogContent>
                     <AlertDialogHeader fontSize="lg" fontWeight="bold">
-                        <h3 className="text-2xl font-bold underline">
+                        <h3 className="text-lg font-bold underline">
                             {title}
                         </h3>
                     </AlertDialogHeader>

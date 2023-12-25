@@ -19,13 +19,11 @@ import { FaUpload } from "react-icons/fa"
 
 import { useForm } from "react-hook-form"
 
-import { useGetAudioUrl } from "@/hooks/useGetAddSpeakingData"
-
 export const AddSpeakingData = () => {
     const [audioFile, setAudioFile] = useState(null)
     const [audioUrl, setAudioUrl] = useState("")
-    const [btnLoading, setBtnLoading] = useState(false)
-    const { setQuestionAudioUrl } = useGetAudioUrl()
+    const [btnLoading, setBtnLoading] = useState(false);
+    
     const {
         register,
         handleSubmit,
@@ -53,7 +51,6 @@ export const AddSpeakingData = () => {
                     const downloadURL = await getDownloadURL(
                         uploadTask.snapshot.ref
                     )
-                    console.log(downloadURL)
                     setQuestionAudioUrl(downloadURL)
                     setAudioUrl(downloadURL)
                 }

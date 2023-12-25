@@ -2,17 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-@font-face {
-    font-family: "Rubik Doodle Shadow";
-    src: url("/regular.ttf");
-}
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-weight: bold !important;
-}
 
 .slick-dots li {
     border-radius: 50%;
@@ -20,4 +9,41 @@
     color: #aad5ff;
     height: 15px !important;
     background-color: #000b20;
+}
+
+.slick-prev {
+    display: none !important;
+}
+.slick-next {
+    display: none !important;
+}
+
+
+
+@font-face {
+    font-family: "Rubik Doodle Shadow";
+    src: url("/fonts/rubic_doodle_shadow/regular.ttf");
+}
+
+@font-face {
+    font-family: "Titillium Web Regular";
+    src: url("/fonts/titillium_web/TitilliumWeb-Regular.ttf");
+}
+
+@font-face {
+    font-family: "Titillium Web Light";
+    src: url("/fonts/ti");
+}
+
+@layer base {
+    html { 
+        font-family: "Titillium Web Regular" !important;
+    }
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Titillium Web Regular" !important;
 }

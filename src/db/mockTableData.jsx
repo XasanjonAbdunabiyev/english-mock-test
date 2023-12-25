@@ -26,3 +26,27 @@ export const tableTd = [
         nameMockModules: "MULTILEVEL Mock Test 4",
     },
 ]
+
+
+export const tableTh = [
+    {
+        id: "1", 
+        moduleName: "Mock Test Modules", 
+    }, 
+    {
+        id: "2", 
+        moduleName: "Purchase", 
+    },
+    {
+        id: "3", 
+        moduleName: "LISTENING", 
+    },
+    {
+        id: "4", 
+        moduleName: "SPEAKING", 
+    },
+    {
+        id: "5", 
+        moduleName: "READING", 
+    }
+]

@@ -15,7 +15,7 @@ import { MdOutlineKeyboardVoice } from "react-icons/md"
 import { FaBookOpen, FaHeadphones } from "react-icons/fa"
 import { usePaymentModal } from "../../../hooks/usePaymentModal"
 
-import { tableTd } from "../../../db/mockTableData"
+import { tableTd, tableTh } from "@/db/mockTableData"
 
 export const MockTable = () => {
     const { onOpen } = useSpeakingModal()
@@ -26,21 +26,17 @@ export const MockTable = () => {
                 <Table>
                     <Thead>
                         <Tr>
-                            <Th textAlign="center" fontSize={20}>
-                                Mock Test Modules
-                            </Th>
-                            <Th textAlign="center" fontSize={20}>
-                                Purchase
-                            </Th>
-                            <Th textAlign="center" fontSize={20}>
-                                LISTENING
-                            </Th>
-                            <Th textAlign="center" fontSize={20}>
-                                SPEAKING
-                            </Th>
-                            <Th textAlign="center" fontSize={20}>
-                                READING
-                            </Th>
+                            {tableTh?.map(function (th) {
+                                return (
+                                    <Th
+                                        key={th.id}
+                                        textAlign="center"
+                                        fontSize={20}
+                                    >
+                                        {th.moduleName}
+                                    </Th>
+                                )
+                            })}
                         </Tr>
                     </Thead>
                     <Tbody>
