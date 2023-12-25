@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 
 /** Chakra UI */
-import { Button, Input, Textarea } from "@chakra-ui/react"
+import { Button, Input, Textarea, useToast } from "@chakra-ui/react"
 
 /** Firebase */
 import { db, storage } from "@/firebase/config"
@@ -18,12 +18,15 @@ import { TbBrandTelegram } from "react-icons/tb"
 import { FaUpload } from "react-icons/fa"
 
 import { useForm } from "react-hook-form"
+import { toast } from "react-toastify"
 
 export const AddSpeakingData = () => {
     const [audioFile, setAudioFile] = useState(null)
     const [audioUrl, setAudioUrl] = useState("")
-    const [btnLoading, setBtnLoading] = useState(false);
-    
+    const [btnLoading, setBtnLoading] = useState(false)
+
+    const chakraToast = useToast()
+
     const {
         register,
         handleSubmit,
@@ -41,6 +44,28 @@ export const AddSpeakingData = () => {
             const uploadTask = uploadBytesResumable(storageRef, audioFile)
 
             setBtnLoading(true)
+
+            if (btnLoading === true) {
+                const examplePromise = new Promise((resolve, _reject) => {
+                    return setTimeout(() => resolve(200), 5000)
+                })
+
+                chakraToast.promise(examplePromise, {
+                    success: {
+                        title: "Upload audio file",
+                        description: "Looks Great",
+                    },
+                    error: {
+                        title: "Error uploading audio file",
+                        description: "Something went wrong",
+                    },
+                    loading: {
+                        title: "Uploading audio file",
+                        description: "Please wait...",
+                    },
+                })
+            }
+
             uploadTask.on(
                 "state_changed",
                 (_snapshot) => {},
@@ -51,8 +76,9 @@ export const AddSpeakingData = () => {
                     const downloadURL = await getDownloadURL(
                         uploadTask.snapshot.ref
                     )
-                    setQuestionAudioUrl(downloadURL)
+
                     setAudioUrl(downloadURL)
+                    setBtnLoading(false)
                 }
             )
         } else {
@@ -109,7 +135,7 @@ export const AddSpeakingData = () => {
                 className="my-3"
                 {...register("timeThink", { required: true })}
                 placeholder={"Enter question time to think"}
-                type="text"
+                type="number"
             />
             {errors.timeThink && (
                 <span className="font-bold text-red-500">
@@ -120,7 +146,7 @@ export const AddSpeakingData = () => {
                 className="my-3"
                 {...register("timeAnswer", { required: true })}
                 placeholder={"Enter question time to answer"}
-                type="text"
+                type="number"
             />
             {errors.timeAnswer && (
                 <span className="font-bold text-red-500 mx-5">
@@ -140,13 +166,26 @@ export const AddSpeakingData = () => {
                     colorScheme="linkedin"
                     onClick={handleUpload}
                     isLoading={btnLoading}
-                    loadingText={"Audio file loaded"}
+                    transition="all 0.2s cubic-bezier(.08,.52,.52,1)"
+                    _active={{
+                        bg: "#dddfe2",
+                        transform: "scale(0.98)",
+                        borderColor: "#bec3c9",
+                    }}
+                    _focus={{
+                        boxShadow:
+                            "0 0 1px 2px rgba(88, 144, 255, .75), 0 1px 1px rgba(0, 0, 0, .15)",
+                    }}
+                    loadingText={
+                        btnLoading === true ? "Uploaded" : "Audio file loaded"
+                    }
                     leftIcon={<FaUpload />}
                     isDisabled={Boolean(audioUrl) === true ? true : false}
                 >
                     Upload Audio
                 </Button>
             </div>
+
             {errors.auidioUrl && (
                 <p className="block font-bold text-red-500">
                     This is audio required

@@ -21,20 +21,25 @@ import { FaUpload } from "react-icons/fa"
 import { toastNotify } from "@/components/Commons/ToastNotify"
 
 export const UpdateModal = memo(function ({ isOpen, onClose, questionId }) {
-    const {
-        register,
-        handleSubmit,
-    } = useForm()
-
-    const [audioFile, setAudioFile] = useState(null)
-    const [audioUrl, setAudioUrl] = useState("")
-    const [btnLoading, setBtnLoading] = useState(false)
-
     const [previusQuestionData, setPreviusQuestionData] = useState({
         question_title: "",
         timeThink: "",
         timeAnswer: "",
+    });
+
+    const form = useForm({
+        defaultValues: {
+            first_question: previusQuestionData.question_title,
+            timeAnswer: previusQuestionData.timeAnswer,
+            timeThink: previusQuestionData.timeThink,
+        },
     })
+
+    const { register, handleSubmit } = form
+
+    const [audioFile, setAudioFile] = useState(null)
+    const [audioUrl, setAudioUrl] = useState("")
+    const [btnLoading, setBtnLoading] = useState(false)
 
     const handleFileChange = (e) => {
         const file = e.target.files[0]
@@ -43,7 +48,6 @@ export const UpdateModal = memo(function ({ isOpen, onClose, questionId }) {
 
     const onSubmit = (data) => {
         console.log("previusQuestionData", previusQuestionData)
-        console.log("current data", data)
     }
 
     const handleUpload = async () => {
@@ -61,7 +65,7 @@ export const UpdateModal = memo(function ({ isOpen, onClose, questionId }) {
                     const downloadURL = await getDownloadURL(
                         uploadTask.snapshot.ref
                     )
-                    setAudioUrl(downloadURL);
+                    setAudioUrl(downloadURL)
                     toastNotify({
                         title: "success",
                         message: "Audio file uploaded",
@@ -77,8 +81,6 @@ export const UpdateModal = memo(function ({ isOpen, onClose, questionId }) {
             console.error("Not audio file selected")
         }
     }
-
-    console.log(audioUrl)
 
     useEffect(() => {
         const abortController = new AbortController()
@@ -99,7 +101,8 @@ export const UpdateModal = memo(function ({ isOpen, onClose, questionId }) {
         return () => {
             abortController.abort()
         }
-    }, [questionId])
+    }, [questionId]);
+
 
     return (
         <div className="update-data">
@@ -116,19 +119,18 @@ export const UpdateModal = memo(function ({ isOpen, onClose, questionId }) {
                             <Textarea
                                 {...register("first_question")}
                                 className="my-3"
-                                defaultValue={previusQuestionData?.question_title}
                             />
                             <Input
                                 placeholder="Time to Answer"
                                 className="my-3"
+                                type="number"
                                 {...register("timeAnswer")}
-                                defaultValue={previusQuestionData.timeAnswer}
                             />
 
                             <Input
                                 placeholder="Time to Think"
-                                defaultValue={previusQuestionData?.timeThink}
                                 className="my-3"
+                                type="number"
                                 {...register("timeThink")}
                             />
 
@@ -151,13 +153,14 @@ export const UpdateModal = memo(function ({ isOpen, onClose, questionId }) {
                                     Upload Audio
                                 </Button>
                             </div>
-
-                            <Button colorScheme={"red"} type="reset">
-                                Reset Changes
-                            </Button>
-                            <Button type="submit" colorScheme={"green"}>
-                                Update Questions
-                            </Button>
+                            <div className="flex items-center gap-x-5">
+                                <Button colorScheme={"red"} type="reset">
+                                    Reset Changes
+                                </Button>
+                                <Button type="submit" colorScheme={"green"}>
+                                    Update Questions
+                                </Button>
+                            </div>
                         </form>
                     </ModalBody>
                 </ModalContent>
