@@ -1,11 +1,15 @@
 import { Heading } from "@chakra-ui/react"
 
-import React, { memo, useEffect, useState } from "react"
+import React, { memo, useContext, useEffect, useState } from "react"
 
 import { useSpeakingTable } from "@/hooks/useSpeakingTable"
 
+import { SpeakingPaginationContext } from "@/context/SpeakingPaginationContext"
+
 export const TimeAnswer = memo(function ({ initialState }) {
     const [value, setValue] = useState(initialState)
+
+    const pagination_context = useContext(SpeakingPaginationContext)
 
     const { timeAnswersStart } = useSpeakingTable()
 
@@ -19,6 +23,9 @@ export const TimeAnswer = memo(function ({ initialState }) {
                         return prevState - 1
                     } else {
                         clearTimeout(intervalId)
+                        pagination_context?.handlePageChange(
+                            pagination_context?.currentPage + 1
+                        )
                         return 0
                     }
                 })
