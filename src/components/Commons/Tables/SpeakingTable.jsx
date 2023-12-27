@@ -1,4 +1,4 @@
-import React, { lazy, memo, useState } from "react"
+import React, { lazy, useContext } from "react"
 
 import { Heading, Button, Wrap, WrapItem, Box } from "@chakra-ui/react"
 
@@ -9,34 +9,20 @@ import { TbClockHour3 } from "react-icons/tb"
 import { TimeThink } from "@/components/Views/TimeThink"
 import { useSpeakingTable } from "@/hooks/useSpeakingTable"
 
+import { SpeakingPaginationContext } from "@/context/SpeakingPaginationContext"
 const AudioPlay = lazy(() =>
     import("../AudioPlay").then((module) => {
         return { default: module.AudioPlay }
     })
 )
 
-export const SpeakingTable = memo(function ({ questions }) {
-    const { startTimeAnswers, startTimeThink } = useSpeakingTable()
-    const [currentPage, setCurrentPage] = useState(1)
-    const [itemsPerPage] = useState(1)
-
-    const startIndex = (currentPage - 1) * itemsPerPage
-    const endIndex = startIndex + itemsPerPage
-
-    // Get the items for the current page
-    const currentItems = questions.slice(startIndex, endIndex)
-
-    // Calculate the total number of pages
-    const totalPages = Math.ceil(questions.length / itemsPerPage)
-
-    // Handle page change
-    const handlePageChange = (pageNumber) => {
-        setCurrentPage(pageNumber)
-    }
+export const SpeakingTable = function () {
+    const { startTimeThink } = useSpeakingTable()
+    const pagination_context = useContext(SpeakingPaginationContext)
 
     return (
         <div className="speaking__table">
-            {currentItems?.map((question) => {
+            {pagination_context?.currentItems?.map((question) => {
                 return (
                     <div className="questions_table p-5" key={question?.id}>
                         <div className="my-5">
@@ -95,7 +81,7 @@ export const SpeakingTable = memo(function ({ questions }) {
             <Button
                 fontSize={20}
                 onClick={() => {
-                    startTimeThink();
+                    startTimeThink()
                 }}
                 letterSpacing={1}
                 colorScheme="green"
@@ -104,24 +90,36 @@ export const SpeakingTable = memo(function ({ questions }) {
                 Start
             </Button>
             <Box className="flex items-center gap-x-5">
-                {Array.from({ length: totalPages }, (_, index) => (
-                    <Button
-                        key={index}
-                        onClick={() => handlePageChange(index + 1)}
-                        disabled={currentPage === index + 1}
-                    >
-                        {index + 1}
-                    </Button>
-                ))}
+                {Array.from(
+                    { length: pagination_context?.totalPages },
+                    (_, index) => (
+                        <Button
+                            key={index}
+                            onClick={() => handlePageChange(index + 1)}
+                            disabled={
+                                pagination_context?.currentPage === index + 1
+                            }
+                        >
+                            {index + 1}
+                        </Button>
+                    )
+                )}
 
                 <Button
                     colorScheme="green"
-                    onClick={() => handlePageChange(currentPage + 1)}
-                    disabled={currentPage === totalPages}
+                    onClick={() =>
+                        pagination_context?.handlePageChange(
+                            pagination_context?.currentPage + 1
+                        )
+                    }
+                    disabled={
+                        pagination_context?.currentPage ===
+                        pagination_context?.totalPages
+                    }
                 >
                     Next Questions
                 </Button>
             </Box>
         </div>
     )
-})
+}

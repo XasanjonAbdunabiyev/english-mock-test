@@ -11,7 +11,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { BrowserRouter as Router } from "react-router-dom"
 
 import { PaymentContextProvider } from "@/context/PaymentContext"
-
+import { SpeakingPaginationContextProvider } from "./context/SpeakingPaginationContext"
 const rootElement = document.getElementById("root")
 
 const queryClient = new QueryClient({
@@ -29,7 +29,9 @@ ReactDOM.createRoot(rootElement).render(
         <ChakraProvider theme={theme}>
             <QueryClientProvider client={queryClient}>
                 <PaymentContextProvider>
-                    <App />
+                    <SpeakingPaginationContextProvider>
+                        <App />
+                    </SpeakingPaginationContextProvider>
                 </PaymentContextProvider>
             </QueryClientProvider>
         </ChakraProvider>
