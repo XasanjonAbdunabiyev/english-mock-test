@@ -1,5 +1,5 @@
 import { lazy } from "react"
-import { useModal } from "../hooks/useModal"
+import { useModal } from "../hooks/modal-hooks/useModal"
 
 const Alert = lazy(() =>
     import("../components/Commons/Alert").then((module) => {

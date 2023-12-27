@@ -115,6 +115,7 @@ export const AddSpeakingData = () => {
                 })
 
                 reset()
+                setAudioUrl(null)
             })
             .catch((_error) => {
                 console.error("Fetching Error", _error)

@@ -9,11 +9,11 @@ import {
     Button,
 } from "@chakra-ui/react"
 
-import { useSpeakingModal } from "../../../hooks/useSpeakingModal"
+import { useSpeakingModal } from "../../../hooks/modal-hooks/useSpeakingModal"
 
 import { MdOutlineKeyboardVoice } from "react-icons/md"
 import { FaBookOpen, FaHeadphones } from "react-icons/fa"
-import { usePaymentModal } from "../../../hooks/usePaymentModal"
+import { usePaymentModal } from "../../../hooks/modal-hooks/usePaymentModal"
 
 import { tableTd, tableTh } from "@/db/mockTableData"
 

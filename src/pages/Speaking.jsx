@@ -2,7 +2,6 @@ import React, { lazy } from "react"
 
 import { wait } from "@/services/wait"
 
-import { useGetDocs } from "@/hooks/useGetDocs"
 import { PageLoading } from "@/components/Commons/Loading"
 
 const Layout = lazy(() =>
@@ -19,9 +18,29 @@ const SpeakingTable = lazy(() =>
     )
 )
 
+import { useQuery } from "@tanstack/react-query"
+import { getQuestions } from "@/services/docs"
+import { PageNotFound } from "@/components/Views/PageNotFound"
+
 export const Speaking = () => {
-    const { loading, questions } = useGetDocs()
-    if (loading) return <PageLoading />
+    const {
+        data: questions,
+        isError,
+        error,
+        isLoading,
+    } = useQuery({
+        queryKey: ["skeaking-table"],
+        queryFn: getQuestions,
+    })
+
+    if (isError) {
+        console.error(`Speaking Page error ${error.message}`)
+        return <PageNotFound />
+    }
+    
+    if (isLoading) {
+        return <PageLoading />
+    }
 
     return (
         <div className="speaking-page">

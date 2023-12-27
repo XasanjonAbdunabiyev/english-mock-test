@@ -38,6 +38,7 @@ const NotFoundPage = lazy(() =>
         })
     )
 )
+
 import { getQuestions } from "@/services/docs"
 import { useUpdateModal } from "./useUpdateModal"
 
@@ -56,7 +57,7 @@ export const DashboardSpeakingTable = () => {
     })
 
     if (isLoading) {
-        return <PageLoading />
+        return <p className="font-bold my-4 text-lg">Loading...</p>
     }
 
     if (isError) {

@@ -13,8 +13,8 @@ const MockTable = lazy(() =>
 )
 
 import { Modal } from "@/components/Commons/Modal"
-import { useSpeakingModal } from "@/hooks/useSpeakingModal"
-import { usePaymentModal } from "@/hooks/usePaymentModal"
+import { useSpeakingModal } from "@/hooks/modal-hooks/useSpeakingModal"
+import { usePaymentModal } from "@/hooks/modal-hooks/usePaymentModal"
 
 export const Mock = () => {
     const { isOpen, onClose } = useSpeakingModal()
@@ -47,6 +47,7 @@ export const Mock = () => {
                 key={"20"}
                 onClose={onPaymentClose}
                 isOpen={isPaymentOpen}
+                navigateTitle="Get payment id"
             >
                 <b>
                     To access this Mock Test you will have to pay the prescribed
