@@ -10,7 +10,7 @@ import {
     Input,
     ModalHeader,
     Button,
-    useToast,
+    Heading,
 } from "@chakra-ui/react"
 
 import { useForm } from "react-hook-form"
@@ -21,18 +21,34 @@ import { toastNotify } from "@/components/Commons/ToastNotify"
 import { db, storage } from "@/firebase/config"
 import { doc, updateDoc } from "firebase/firestore"
 
-import { useQueryClient } from "@tanstack/react-query"
+import { useQueryClient, useQuery } from "@tanstack/react-query"
 import { useSearchParams } from "react-router-dom"
 
 import { useUpdateModal } from "./useUpdateModal"
+import { getQuestionById } from "@/services/docs"
 
 export const UpdateModal = memo(function ({ isOpen, onClose }) {
-    const { onUpdateClose } = useUpdateModal()
 
-    const { register, handleSubmit, reset } = useForm()
+    const { onUpdateClose } = useUpdateModal()
+    
+    const [searchParams] = useSearchParams()
+    
+    let id = searchParams.get("questionId")
+
+    const { data: prevQuestions } = useQuery({
+        queryKey: [id],
+        queryFn: () => getQuestionById(id),
+    })
+
+    const { register, handleSubmit, reset } = useForm({
+        defaultValues: async () => {
+            return prevQuestions
+        },
+    })
+
+    console.log(prevQuestions)
 
     const queryClient = useQueryClient()
-    const [searchParams] = useSearchParams()
 
     const [audioFile, setAudioFile] = useState(null)
     const [audioUrl, setAudioUrl] = useState("")
@@ -43,37 +59,10 @@ export const UpdateModal = memo(function ({ isOpen, onClose }) {
         setAudioFile(file)
     }
 
-    let id = searchParams.get("questionId")
-
-    const chakraToast = useToast()
-
     const handleUpload = async () => {
         if (audioFile) {
             const storageRef = ref(storage, `audio/${audioFile.name}`)
             const uploadTask = uploadBytesResumable(storageRef, audioFile)
-
-            setBtnLoading(true)
-
-            if (btnLoading === true) {
-                const examplePromise = new Promise((resolve, _reject) => {
-                    return setTimeout(() => resolve(200), 5000)
-                })
-
-                chakraToast.promise(examplePromise, {
-                    success: {
-                        title: "Upload audio file",
-                        description: "Looks Great",
-                    },
-                    error: {
-                        title: "Error uploading audio file",
-                        description: "Something went wrong",
-                    },
-                    loading: {
-                        title: "Uploading audio file",
-                        description: "Please wait...",
-                    },
-                })
-            }
 
             uploadTask.on(
                 "state_changed",
@@ -105,27 +94,52 @@ export const UpdateModal = memo(function ({ isOpen, onClose }) {
     const onSubmit = async (data) => {
         // const updateDocCollection = doc(db, "mock_test", )
         // updateDoc()
-        let newUpdateData = {
-            question_title: data?.question_title,
-            timeThink: parseInt(data?.timeThink),
-            timeAnswer: parseInt(data?.timeAnswer),
-            questionAudio: audioUrl,
-        }
 
         const updateDocCollection = doc(db, "mock_tests", id)
-        
-        await updateDoc(updateDocCollection, newUpdateData).then(() => {
-            toastNotify({
-                title: "success",
-                message: "Question Updated Successfully",
-            })
-            queryClient.invalidateQueries({
-                queryKey: ["dashboardQuestions"],
-            })
 
-            onUpdateClose()
-            reset()
-        })
+        if (
+            Boolean(data?.question_title && data?.timeThink && data?.timeAnswer)
+        ) {
+            let newUpdateData = {
+                question_title: data?.question_title,
+                timeThink: parseInt(data?.timeThink),
+                timeAnswer: parseInt(data?.timeAnswer),
+                questionAudio: audioUrl,
+            }
+            await updateDoc(updateDocCollection, newUpdateData).then(() => {
+                toastNotify({
+                    title: "success",
+                    message: "Question Updated Successfully",
+                })
+                queryClient.invalidateQueries({
+                    queryKey: ["dashboardQuestions"],
+                })
+
+                onUpdateClose()
+                reset()
+            })
+        } else {
+            let newUpdateData = {
+                question_title: prevQuestions?.question_title,
+                timeThink: parseInt(prevQuestions?.timeThink),
+                timeAnswer: parseInt(prevQuestions?.timeAnswer),
+                questionAudio: audioUrl,
+            }
+
+            await updateDoc(updateDocCollection, newUpdateData).then(() => {
+                toastNotify({
+                    title: "success",
+                    message: "Updated",
+                });
+
+                queryClient.invalidateQueries({
+                    queryKey: ["dashboardQuestions"],
+                })
+
+                onUpdateClose()
+                reset()
+            })
+        }
     }
 
     return (
@@ -134,8 +148,13 @@ export const UpdateModal = memo(function ({ isOpen, onClose }) {
                 <ModalOverlay />
                 <ModalContent>
                     <ModalHeader>Update Questions</ModalHeader>
+
                     <ModalCloseButton />
                     <ModalBody>
+                        <Heading my={3} fontSize={16}>
+                            There may be problems in restoring previously
+                            written data
+                        </Heading>
                         <form
                             onSubmit={handleSubmit(onSubmit)}
                             autoComplete="off"
@@ -160,8 +179,7 @@ export const UpdateModal = memo(function ({ isOpen, onClose }) {
                             />
 
                             <label htmlFor="audioLabel">
-                                Audio NI Oldingi qiymatini qaytarib olishni
-                                iloji bo'lmadi
+                                Unable to restore audio to Previous value
                             </label>
                             <div className="my-3 flex items-center gap-5">
                                 <Input

@@ -9,6 +9,7 @@ import {
     Heading,
     TableContainer,
     Button,
+    Wrap,
 } from "@chakra-ui/react"
 import { RiDeleteBin5Fill } from "react-icons/ri"
 import { FaEdit } from "react-icons/fa"
@@ -105,9 +106,9 @@ export const DashboardSpeakingTable = () => {
                                 <Tr key={question?.id}>
                                     <Td>
                                         <div className="flex items-center flex-col justify-center">
-                                            <Heading as="h3" fontSize={20}>
+                                            <Wrap className="break-all">
                                                 {question?.question_title}
-                                            </Heading>
+                                            </Wrap>
                                         </div>
                                     </Td>
                                     <Td>
