@@ -7,6 +7,7 @@ import { CiWarning } from "react-icons/ci"
 import { TbClockHour3 } from "react-icons/tb"
 
 import { TimeThink } from "@/components/Views/TimeThink"
+import { useSpeakingTable } from "@/hooks/useSpeakingTable"
 
 const AudioPlay = lazy(() =>
     import("../AudioPlay").then((module) => {
@@ -15,12 +16,12 @@ const AudioPlay = lazy(() =>
 )
 
 export const SpeakingTable = memo(function ({ questions }) {
+    const { startTimeAnswers, startTimeThink } = useSpeakingTable()
     const [currentPage, setCurrentPage] = useState(1)
     const [itemsPerPage] = useState(1)
 
     const startIndex = (currentPage - 1) * itemsPerPage
     const endIndex = startIndex + itemsPerPage
-    
 
     // Get the items for the current page
     const currentItems = questions.slice(startIndex, endIndex)
@@ -33,7 +34,6 @@ export const SpeakingTable = memo(function ({ questions }) {
         setCurrentPage(pageNumber)
     }
 
-    console.log(totalPages)
     return (
         <div className="speaking__table">
             {currentItems?.map((question) => {
@@ -83,7 +83,9 @@ export const SpeakingTable = memo(function ({ questions }) {
                                             className="mb-3"
                                         />
                                     </Heading>
-                                    <TimeAnswer initialState={question?.timeAnswer} />
+                                    <TimeAnswer
+                                        initialState={question?.timeAnswer}
+                                    />
                                 </div>
                             </div>
                         </div>
@@ -92,6 +94,9 @@ export const SpeakingTable = memo(function ({ questions }) {
             })}
             <Button
                 fontSize={20}
+                onClick={() => {
+                    startTimeThink();
+                }}
                 letterSpacing={1}
                 colorScheme="green"
                 className="w-full my-2 uppercase font-bold"

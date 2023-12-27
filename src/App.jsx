@@ -37,16 +37,41 @@ const Speaking = lazy(() =>
 
 import Test from "./pages/__tests__/Test"
 
+const PurchaseMock = lazy(() =>
+    wait(1000).then(() =>
+        import("@/pages/PurchaseMock/index").then((module) => {
+            return { default: module.PurchaseMock }
+        })
+    )
+)
+
+const PurchaseMockDashboard = lazy(() =>
+    wait(1000).then(() =>
+        import("@/pages/PurchaseMock/PurchaseMockDashboard").then((module) => {
+            return { default: module.PurchaseMockDashboard }
+        })
+    )
+)
+
 export const App = () => {
     return (
         <div className="root-wrapper">
             <Routes>
                 <Route path="/" element={<LoadedPage />}>
                     <Route path="/" element={<Home />} />
-                    <Route path="/test" element={<Test/>}/>
+                    <Route path="/test" element={<Test />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/signUp" element={<SignUp />} />
                     <Route path="/speaking" element={<Speaking />} />
+                    <Route path="/purchase-mock" element={<PurchaseMock />} />
+                    <Route
+                        path="/purchase-mock-dashboard"
+                        element={
+                            <PrivateRoute>
+                                <PurchaseMockDashboard />
+                            </PrivateRoute>
+                        }
+                    />
                     <Route
                         path="/dashboard"
                         element={

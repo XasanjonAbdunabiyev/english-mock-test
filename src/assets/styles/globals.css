@@ -2,13 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
-
-.slick-dots li {
+.slick-dots li button {
     border-radius: 50%;
     width: 15px !important;
-    color: #aad5ff;
     height: 15px !important;
-    background-color: #000b20;
+    background-color: rgb(0, 0, 0);
 }
 
 .slick-prev {
@@ -17,8 +15,6 @@
 .slick-next {
     display: none !important;
 }
-
-
 
 @font-face {
     font-family: "Rubik Doodle Shadow";
@@ -36,7 +32,7 @@
 }
 
 @layer base {
-    html { 
+    html {
         font-family: "Titillium Web Regular" !important;
     }
 }

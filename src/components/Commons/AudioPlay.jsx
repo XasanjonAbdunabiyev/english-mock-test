@@ -1,29 +1,15 @@
-import React, { memo, useEffect, useRef } from "react"
+import React, { memo, useRef } from "react"
+
+import { useSpeakingTable } from "@/hooks/useSpeakingTable"
 
 export const AudioPlay = memo(function ({ src }) {
     const audioRef = useRef(null)
+    const { timeThinkStart } = useSpeakingTable()
 
-    useEffect(() => {
-        const playMusic = async () => {
-            const audio = audioRef?.current
-            try {
-                if (audio) {
-                    await audio.play()
-                }
-            } catch (error) {
-                console.error("Audio play failted")
-            }
-        }
-        playMusic()
-    }, [src])
+    if (timeThinkStart === true) {
+        audioRef?.current?.play()
+    }
 
-    return (
-        <audio
-            src={src}
-            controls
-            autoPlay={true}
-            ref={audioRef}
-            className="w-full my-3"
-        />
-    )
+    return <audio 
+    src={src} controls ref={audioRef} className="w-full my-3 opacity-0" />
 })

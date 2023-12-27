@@ -2,26 +2,33 @@ import { Heading } from "@chakra-ui/react"
 
 import React, { memo, useEffect, useState } from "react"
 
+import { useSpeakingTable } from "@/hooks/useSpeakingTable"
+
 export const TimeAnswer = memo(function ({ initialState }) {
     const [value, setValue] = useState(initialState)
 
-    useEffect(() => {
-        const intervalId = setInterval(() => {
-            setValue((prevState) => {
-                if (prevState > 0) {
-                    return prevState - 1
-                }else {
-                    clearTimeout(intervalId);
-                    return 0;
-                }
-            })
-        }, 1000);
+    const { timeAnswersStart } = useSpeakingTable()
 
-        return () => {
-            clearTimeout(intervalId);
+    useEffect(() => {
+        let intervalId
+
+        if (timeAnswersStart) {
+            intervalId = setInterval(() => {
+                setValue((prevState) => {
+                    if (prevState > 0) {
+                        return prevState - 1
+                    } else {
+                        clearTimeout(intervalId)
+                        return 0
+                    }
+                })
+            }, 1000)
         }
 
-    }, [initialState])
+        return () => {
+            clearTimeout(intervalId)
+        }
+    }, [timeAnswersStart])
 
     return (
         <Heading fontSize={16} fontWeight="bold">

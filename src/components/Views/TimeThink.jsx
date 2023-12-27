@@ -1,25 +1,36 @@
-import { Heading } from "@chakra-ui/react"
 import React, { useState, useEffect } from "react"
+
+import { Heading } from "@chakra-ui/react"
+import { useSpeakingTable } from "@/hooks/useSpeakingTable"
 
 export const TimeThink = ({ initialState }) => {
     const [value, setValue] = useState(initialState)
 
+    const { timeThinkStart, endTimeThink, startTimeAnswers } =
+        useSpeakingTable()
+
     useEffect(() => {
-        const intervalId = setInterval(() => {
-            setValue((prevValue) => {
-                if (prevValue > 0) {
-                    return prevValue - 1
-                } else {
-                    clearInterval(intervalId)
-                    return 0
-                }
-            })
-        }, 1000)
+        let intervalId
+
+        if (timeThinkStart) {
+            intervalId = setInterval(() => {
+                setValue((prevValue) => {
+                    if (prevValue > 0) {
+                        return prevValue - 1
+                    } else {
+                        clearInterval(intervalId)
+                        endTimeThink();
+                        startTimeAnswers();
+                        return 0
+                    }
+                })
+            }, 1000)
+        }
 
         return () => {
             clearInterval(intervalId)
         }
-    }, [initialState])
+    }, [timeThinkStart])
 
     return (
         <Heading fontSize={16} fontWeight="bold">

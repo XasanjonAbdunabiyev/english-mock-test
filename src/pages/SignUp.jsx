@@ -5,7 +5,6 @@ export function SignUp() {
         <section className="sign-up flex items-center justify-center flex-col">
             <Container>
                 <Heading className="flex gap-x-5">Sign Up</Heading>
-                
             </Container>
         </section>
     )
