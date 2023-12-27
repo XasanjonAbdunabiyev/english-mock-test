@@ -10,32 +10,29 @@ import {
     Input,
     ModalHeader,
     Button,
+    useToast,
 } from "@chakra-ui/react"
 
-import { db, storage } from "@/firebase/config"
-import { getDoc, doc } from "firebase/firestore"
 import { useForm } from "react-hook-form"
 
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage"
 import { FaUpload } from "react-icons/fa"
 import { toastNotify } from "@/components/Commons/ToastNotify"
+import { db, storage } from "@/firebase/config"
+import { doc, updateDoc } from "firebase/firestore"
 
-export const UpdateModal = memo(function ({ isOpen, onClose, questionId }) {
-    const [previusQuestionData, setPreviusQuestionData] = useState({
-        question_title: "",
-        timeThink: "",
-        timeAnswer: "",
-    });
+import { useQueryClient } from "@tanstack/react-query"
+import { useSearchParams } from "react-router-dom"
 
-    const form = useForm({
-        defaultValues: {
-            first_question: previusQuestionData.question_title,
-            timeAnswer: previusQuestionData.timeAnswer,
-            timeThink: previusQuestionData.timeThink,
-        },
-    })
+import { useUpdateModal } from "./useUpdateModal"
 
-    const { register, handleSubmit } = form
+export const UpdateModal = memo(function ({ isOpen, onClose }) {
+    const { onUpdateClose } = useUpdateModal()
+
+    const { register, handleSubmit, reset } = useForm()
+
+    const queryClient = useQueryClient()
+    const [searchParams] = useSearchParams()
 
     const [audioFile, setAudioFile] = useState(null)
     const [audioUrl, setAudioUrl] = useState("")
@@ -46,14 +43,37 @@ export const UpdateModal = memo(function ({ isOpen, onClose, questionId }) {
         setAudioFile(file)
     }
 
-    const onSubmit = (data) => {
-        console.log("previusQuestionData", previusQuestionData)
-    }
+    let id = searchParams.get("questionId")
+
+    const chakraToast = useToast()
 
     const handleUpload = async () => {
         if (audioFile) {
             const storageRef = ref(storage, `audio/${audioFile.name}`)
             const uploadTask = uploadBytesResumable(storageRef, audioFile)
+
+            setBtnLoading(true)
+
+            if (btnLoading === true) {
+                const examplePromise = new Promise((resolve, _reject) => {
+                    return setTimeout(() => resolve(200), 5000)
+                })
+
+                chakraToast.promise(examplePromise, {
+                    success: {
+                        title: "Upload audio file",
+                        description: "Looks Great",
+                    },
+                    error: {
+                        title: "Error uploading audio file",
+                        description: "Something went wrong",
+                    },
+                    loading: {
+                        title: "Uploading audio file",
+                        description: "Please wait...",
+                    },
+                })
+            }
 
             uploadTask.on(
                 "state_changed",
@@ -82,28 +102,31 @@ export const UpdateModal = memo(function ({ isOpen, onClose, questionId }) {
         }
     }
 
-
-    useEffect(() => {
-        const abortController = new AbortController()
-
-        const fetchData = async () => {
-            const docRef = doc(db, "mock_tests", questionId)
-            const docSnap = await getDoc(docRef)
-
-            if (docSnap.exists()) {
-                setPreviusQuestionData(docSnap.data())
-            } else {
-                console.log("no data available")
-            }
+    const onSubmit = async (data) => {
+        // const updateDocCollection = doc(db, "mock_test", )
+        // updateDoc()
+        let newUpdateData = {
+            question_title: data?.question_title,
+            timeThink: parseInt(data?.timeThink),
+            timeAnswer: parseInt(data?.timeAnswer),
+            questionAudio: audioUrl,
         }
 
-        fetchData()
+        const updateDocCollection = doc(db, "mock_tests", id)
+        
+        await updateDoc(updateDocCollection, newUpdateData).then(() => {
+            toastNotify({
+                title: "success",
+                message: "Question Updated Successfully",
+            })
+            queryClient.invalidateQueries({
+                queryKey: ["dashboardQuestions"],
+            })
 
-        return () => {
-            abortController.abort()
-        }
-    }, [questionId]);
-
+            onUpdateClose()
+            reset()
+        })
+    }
 
     return (
         <div className="update-data">
@@ -118,8 +141,9 @@ export const UpdateModal = memo(function ({ isOpen, onClose, questionId }) {
                             autoComplete="off"
                         >
                             <Textarea
-                                {...register("first_question")}
+                                {...register("question_title")}
                                 className="my-3"
+                                placeholder="Question Title"
                             />
                             <Input
                                 placeholder="Time to Answer"
@@ -135,11 +159,16 @@ export const UpdateModal = memo(function ({ isOpen, onClose, questionId }) {
                                 {...register("timeThink")}
                             />
 
+                            <label htmlFor="audioLabel">
+                                Audio NI Oldingi qiymatini qaytarib olishni
+                                iloji bo'lmadi
+                            </label>
                             <div className="my-3 flex items-center gap-5">
                                 <Input
-                                    {...register("auidioUrl")}
+                                    {...register("questionAudio")}
                                     type="file"
                                     onChange={handleFileChange}
+                                    id="audioLabel"
                                     accept="audio/*"
                                 />
 
@@ -147,9 +176,27 @@ export const UpdateModal = memo(function ({ isOpen, onClose, questionId }) {
                                     colorScheme="linkedin"
                                     onClick={handleUpload}
                                     isLoading={btnLoading}
-                                    type="button"
-                                    loadingText={"Audio file loaded"}
+                                    transition="all 0.2s cubic-bezier(.08,.52,.52,1)"
+                                    _active={{
+                                        bg: "#dddfe2",
+                                        transform: "scale(0.98)",
+                                        borderColor: "#bec3c9",
+                                    }}
+                                    _focus={{
+                                        boxShadow:
+                                            "0 0 1px 2px rgba(88, 144, 255, .75), 0 1px 1px rgba(0, 0, 0, .15)",
+                                    }}
+                                    loadingText={
+                                        btnLoading === true
+                                            ? "Uploaded"
+                                            : "Audio file loaded"
+                                    }
                                     leftIcon={<FaUpload />}
+                                    isDisabled={
+                                        Boolean(audioUrl) === true
+                                            ? true
+                                            : false
+                                    }
                                 >
                                     Upload Audio
                                 </Button>

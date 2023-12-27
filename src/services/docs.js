@@ -1,10 +1,6 @@
 import { db } from "../firebase/config"
 
-import {
-    getDocs,
-    collection,
-    getDoc,
-} from "firebase/firestore"
+import { getDocs, collection, getDoc, doc } from "firebase/firestore"
 
 const collectionRef = collection(db, "mock_tests")
 const loginCollectionRef = collection(db, "login")
@@ -23,18 +19,15 @@ export const getLoginData = async () => {
     return loginData
 }
 
-
 /**
  *
  * @param id type string
  * @returns promise single question
-*/
+ */
 
 export const getQuestionById = async (id) => {
-    const singleQuestionCollectionRef = collection(db, "mock_tests", id)
-    const res = await getDoc(singleQuestionCollectionRef)?.then((doc) => {
-        return doc?.data()
-    })
+    const singleQuestionCollectionRef = doc(db, "mock_tests", id)
+    const res = await getDoc(singleQuestionCollectionRef)
 
-    return res
+    return res.data()
 }

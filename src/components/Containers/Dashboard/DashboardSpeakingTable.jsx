@@ -43,12 +43,11 @@ import { getQuestions } from "@/services/docs"
 import { useUpdateModal } from "./useUpdateModal"
 
 import { useQueryClient } from "@tanstack/react-query"
+import { useNavigate } from "react-router-dom"
 
 export const DashboardSpeakingTable = () => {
     const { openUpdateModal, isUpdateOpen, onUpdateClose } = useUpdateModal()
-    const [questionId, setQuestionId] = useState("")
-
-   
+    const navigate = useNavigate()
     const queryClient = useQueryClient()
 
     const { data, error, isError, isLoading } = useQuery({
@@ -137,7 +136,9 @@ export const DashboardSpeakingTable = () => {
                                             <Button
                                                 onClick={() => {
                                                     openUpdateModal()
-                                                    setQuestionId(question?.id)
+                                                    navigate(
+                                                        `/dashboard?questionId=${question?.id}`
+                                                    )
                                                 }}
                                                 rightIcon={<FaEdit />}
                                                 colorScheme="green"
@@ -153,11 +154,7 @@ export const DashboardSpeakingTable = () => {
                 </Table>
             </TableContainer>
 
-            <UpdateModal
-                questionId={questionId}
-                isOpen={isUpdateOpen}
-                onClose={onUpdateClose}
-            />
+            <UpdateModal isOpen={isUpdateOpen} onClose={onUpdateClose} />
         </>
     )
 }

@@ -13,7 +13,16 @@ import { BrowserRouter as Router } from "react-router-dom"
 import { PaymentContextProvider } from "@/context/PaymentContext"
 
 const rootElement = document.getElementById("root")
-const queryClient = new QueryClient()
+
+const queryClient = new QueryClient({
+    defaultOptions: {
+        queries: {
+            refetchOnWindowFocus: false, // default is true
+            retry: 2,
+            refetchOnMount: true,
+        },
+    },
+})
 
 ReactDOM.createRoot(rootElement).render(
     <Router>
