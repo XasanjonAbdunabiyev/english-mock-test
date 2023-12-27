@@ -35,12 +35,15 @@ const Speaking = lazy(() =>
     )
 )
 
+import Test from "./pages/__tests__/Test"
+
 export const App = () => {
     return (
         <div className="root-wrapper">
             <Routes>
                 <Route path="/" element={<LoadedPage />}>
                     <Route path="/" element={<Home />} />
+                    <Route path="/test" element={<Test/>}/>
                     <Route path="/login" element={<Login />} />
                     <Route path="/signUp" element={<SignUp />} />
                     <Route path="/speaking" element={<Speaking />} />

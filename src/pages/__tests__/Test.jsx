@@ -1,15 +1,10 @@
-import { lazy } from "react"
-import { wait } from "../../services/wait"
-
-const MainTestComponent = lazy(() =>
-    wait(1000).then(() =>
-        import("../../components/__tests__/Test").then((module) => {
-            return { default: module.Test }
-        })
-    )
-)
+import PaginationComponent from "@/components/__tests__/Pagination"
 
 const Test = function () {
-    return <MainTestComponent />
+    return (
+        <>
+            <PaginationComponent />
+        </>
+    )
 }
 export default Test
