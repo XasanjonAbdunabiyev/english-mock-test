@@ -18,9 +18,11 @@ import { TbBrandTelegram } from "react-icons/tb"
 import { FaUpload } from "react-icons/fa"
 
 import { useForm } from "react-hook-form"
-import { toast } from "react-toastify"
+
+import { useQueryClient } from "@tanstack/react-query"
 
 export const AddSpeakingData = () => {
+    const queryClient = useQueryClient()
     const [audioFile, setAudioFile] = useState(null)
     const [audioUrl, setAudioUrl] = useState("")
     const [btnLoading, setBtnLoading] = useState(false)
@@ -29,6 +31,7 @@ export const AddSpeakingData = () => {
 
     const {
         register,
+        reset,
         handleSubmit,
         formState: { errors },
     } = useForm()
@@ -107,7 +110,11 @@ export const AddSpeakingData = () => {
                     message: "Question Added Successfully",
                 })
 
-                window.location.reload()
+                queryClient.invalidateQueries({
+                    queryKey: ["dashboardQuestions"],
+                })
+
+                reset()
             })
             .catch((_error) => {
                 console.error("Fetching Error", _error)
@@ -126,28 +133,33 @@ export const AddSpeakingData = () => {
                 className="my-3"
                 {...register("first_question", { required: true })}
             />
+
             {errors.first_question && (
                 <span className="font-bold text-red-500">
                     This is field reqiired
                 </span>
             )}
+
             <Input
                 className="my-3"
                 {...register("timeThink", { required: true })}
                 placeholder={"Enter question time to think"}
                 type="number"
             />
+
             {errors.timeThink && (
                 <span className="font-bold text-red-500">
                     This is field reqiired
                 </span>
             )}
+
             <Input
                 className="my-3"
                 {...register("timeAnswer", { required: true })}
                 placeholder={"Enter question time to answer"}
                 type="number"
             />
+
             {errors.timeAnswer && (
                 <span className="font-bold text-red-500 mx-5">
                     This is field reqiired

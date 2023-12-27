@@ -14,6 +14,7 @@ import { RiDeleteBin5Fill } from "react-icons/ri"
 import { FaEdit } from "react-icons/fa"
 
 import { deleteDoc, doc } from "firebase/firestore"
+import { useQuery } from "@tanstack/react-query"
 import { db } from "@/firebase/config"
 
 import { PageLoading } from "@/components/Commons/Loading"
@@ -30,42 +31,38 @@ const UpdateModal = lazy(() =>
     )
 )
 
-// -5 -7
-
+const NotFoundPage = lazy(() =>
+    wait(1000).then(() =>
+        import("@/components/Views/PageNotFound").then((module) => {
+            return { default: module.NotFound }
+        })
+    )
+)
+import { getQuestions } from "@/services/docs"
 import { useUpdateModal } from "./useUpdateModal"
 
-export const DashboardSpeakingTable = () => {
-    const [dashboardQuestions, setDashboardQuestions] = useState([])
-    const [loading, setLoading] = useState(false)
-    const { openUpdateModal, isUpdateOpen, onUpdateClose } = useUpdateModal()
-    const [questionId, setQuestionId] = useState('')
+import { useQueryClient } from "@tanstack/react-query"
 
-    if (loading) {
+export const DashboardSpeakingTable = () => {
+    const { openUpdateModal, isUpdateOpen, onUpdateClose } = useUpdateModal()
+    const [questionId, setQuestionId] = useState("")
+
+   
+    const queryClient = useQueryClient()
+
+    const { data, error, isError, isLoading } = useQuery({
+        queryKey: ["dashboardQuestions"],
+        queryFn: getQuestions,
+    })
+
+    if (isLoading) {
         return <PageLoading />
     }
 
-    useEffect(() => {
-        const abortController = new AbortController()
-        try {
-            setLoading(true)
-            import("@/services/docs.js").then((module) => {
-                module.getQuestions().then((data) => {
-                    setDashboardQuestions(data)
-                })
-            })
-        } catch (_error) {
-            console.error("Fetch Failed", "internet connection")
-        } finally {
-            setLoading(false)
-        }
-
-        return () => {
-            /**
-             * Clean Up logic, if needed
-             */
-            abortController.abort()
-        }
-    }, [])
+    if (isError) {
+        console.error(`Error ${error.message}`)
+        return <NotFoundPage />
+    }
 
     const handleDeleteQuestion = async (id) => {
         try {
@@ -75,10 +72,7 @@ export const DashboardSpeakingTable = () => {
                     message: "Question Deleted Successfully",
                 })
             })
-
-            setDashboardQuestions(
-                dashboardQuestions?.filter((question) => question.id !== id)
-            )
+            queryClient.invalidateQueries({ queryKey: ["dashboardQuestions"] })
         } catch (error) {
             toastNotify({
                 title: "error",
@@ -106,7 +100,7 @@ export const DashboardSpeakingTable = () => {
                         </Tr>
                     </Thead>
                     <Tbody>
-                        {dashboardQuestions?.map((question) => {
+                        {data?.map((question) => {
                             return (
                                 <Tr key={question?.id}>
                                     <Td>
