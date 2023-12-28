@@ -34,13 +34,13 @@ export default function Home() {
     const { isOpen, onClose } = useModal()
 
     return (
-        <>
+        <Box>
             <Alert
                 isOpen={isOpen}
                 onClose={onClose}
                 title="Welcome to Mock English Test"
             >
-                <Box className="font-bold text-base">
+                <Box className="font-bold text-base m-2">
                     On this site, you can test your knowledge by taking an
                     English test
                 </Box>
@@ -50,6 +50,6 @@ export default function Home() {
                 <Carousel />
                 <Mock />
             </Layout>
-        </>
+        </Box>
     )
 }

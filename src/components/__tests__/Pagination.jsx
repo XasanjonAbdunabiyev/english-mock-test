@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react"
 import axios from "axios"
 
-import { Box } from "@chakra-ui/react"
+import { Box, Text } from "@chakra-ui/react"
 
 const PaginationComponent = () => {
     const [data, setData] = useState([])
@@ -45,7 +45,16 @@ const PaginationComponent = () => {
             {currentItems.map((item) => (
                 <Box key={item.id}>
                     <h3>{item.title}</h3>
-                    <p>{item.body}</p>
+                    <Text
+                        fontSize={{
+                            base: "medium",
+                            md: "large",
+                            lg: "larger",
+                            xl: "xx-large",
+                        }}
+                    >
+                        {item.body}
+                    </Text>
                 </Box>
             ))}
 

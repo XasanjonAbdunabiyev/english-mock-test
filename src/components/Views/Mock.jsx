@@ -1,6 +1,6 @@
 import { lazy } from "react"
 
-import { Heading, Image, Box } from "@chakra-ui/react"
+import { Heading, Image, Box, Text } from "@chakra-ui/react"
 import mock_ielts from "@/assets/images/mock_ielts.jpg"
 import { wait } from "@/services/wait"
 
@@ -26,7 +26,7 @@ export const Mock = () => {
                 IELTS MOCK TESTS
             </Heading>
 
-            <Image src={mock_ielts} alt="mock_test" my={3} mb={5}/>
+            <Image src={mock_ielts} alt="mock_test" my={3} mb={5} />
             <MockTable />
 
             <Modal
@@ -36,10 +36,10 @@ export const Mock = () => {
                 onClose={onClose}
                 title="Login to take the test"
             >
-                <p>
+                <Text className="text-lg">
                     As soon as you log in, your profile will be opened. You can
                     follow the test results from your profile.
-                </p>
+                </Text>
             </Modal>
 
             <Modal
@@ -49,10 +49,17 @@ export const Mock = () => {
                 isOpen={isPaymentOpen}
                 navigateTitle="Get payment id"
             >
-                <b>
+                <Text
+                    fontSize={{
+                        base: "medium",
+                        md: "large",
+                        lg: "larger",
+                        xl: "xx-large",
+                    }}
+                >
                     To access this Mock Test you will have to pay the prescribed
                     fee
-                </b>
+                </Text>
             </Modal>
         </Box>
     )

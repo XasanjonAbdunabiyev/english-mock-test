@@ -113,7 +113,6 @@ export const Login = () => {
                         base: "none",
                         sm: "lg",
                     }}
-                    border={"1px solid gray"}
                     borderRadius={{
                         base: "none",
                         sm: "xl",
