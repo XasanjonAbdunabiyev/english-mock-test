@@ -6,6 +6,7 @@ import {
     InputGroup,
     InputRightElement,
     useDisclosure,
+    Box,
     useMergeRefs,
 } from "@chakra-ui/react"
 import { forwardRef, useRef } from "react"
