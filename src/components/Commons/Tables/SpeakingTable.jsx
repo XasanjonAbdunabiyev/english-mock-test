@@ -96,7 +96,7 @@ export const SpeakingTable = function () {
                     (_, index) => (
                         <Button
                             key={index}
-                            onClick={() => handlePageChange(index + 1)}
+                            onClick={() => pagination_context?.handlePageChange(index + 1)}
                             disabled={
                                 pagination_context?.currentPage === index + 1
                             }

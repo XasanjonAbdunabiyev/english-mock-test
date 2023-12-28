@@ -42,7 +42,7 @@ export const Login = () => {
         return () => {
             aboartController.abort()
         }
-    }, []);
+    }, [])
 
     const onSubmit = (data) => {
         loginData?.map(({ password, email }) => {
@@ -134,6 +134,14 @@ export const Login = () => {
                                     my={3}
                                 />
                                 <PasswordField {...register("password")} />
+                                <Heading
+                                    onClick={() => navigate("/signUp")}
+                                    fontSize={16}
+                                    color="blue"
+                                    className="underline my-4 cursor-pointer"
+                                >
+                                    You are new to this site
+                                </Heading>
                                 <Button type="submit" width="100%" my={2}>
                                     Login
                                 </Button>
