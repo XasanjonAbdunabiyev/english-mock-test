@@ -43,7 +43,13 @@ export const Register = () => {
                 })
 
                 navigate("/login")
-                localStorage.setItem("registerUser", JSON.stringify(res?.user))
+                localStorage.setItem(
+                    "register_user",
+                    JSON.stringify({
+                        currentUser: res?.user,
+                        userPassword: data?.password,
+                    })
+                )
             })
             .catch(() => {
                 toast({

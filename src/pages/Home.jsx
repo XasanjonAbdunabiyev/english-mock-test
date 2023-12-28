@@ -1,6 +1,7 @@
 import { lazy } from "react"
-import { useModal } from "@/hooks/modal-hooks/useModal";
-import { Box } from "@chakra-ui/react";
+import { useModal } from "@/hooks/modal-hooks/useModal"
+import { Box } from "@chakra-ui/react"
+import { ScrollToTopButton } from "@/components/Commons/ScrollToTopButton"
 
 const Alert = lazy(() =>
     import("../components/Commons/Alert").then((module) => {
@@ -50,6 +51,8 @@ export default function Home() {
                 <Carousel />
                 <Mock />
             </Layout>
+
+            <ScrollToTopButton />
         </Box>
     )
 }

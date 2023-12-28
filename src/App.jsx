@@ -12,14 +12,14 @@ import { ToastContainer } from "@/components/Commons/ToastNotify"
 
 const Login = lazy(() =>
     wait(1000).then(() =>
-        import("./pages/Login").then((module) => {
+        import("./pages/Auth/Login").then((module) => {
             return { default: module.Login }
         })
     )
 )
 
 const Register = lazy(() =>
-    import("@/pages/Register").then((module) => {
+    import("@/pages/Auth/Register").then((module) => {
         return { default: module.Register }
     })
 )
