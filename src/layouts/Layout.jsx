@@ -1,5 +1,5 @@
 import React, { lazy } from "react"
-import { Container } from "@chakra-ui/react"
+import { Box, Container } from "@chakra-ui/react"
 const PageHeader = lazy(() =>
     import("./PageHeader").then((module) => {
         return {
@@ -16,7 +16,7 @@ const Footer = lazy(() =>
 
 export const Layout = ({ children }) => {
     return (
-        <>
+        <Box className="main_layout">
             <PageHeader />
             <Container
                 maxW="container.xl"
@@ -26,6 +26,6 @@ export const Layout = ({ children }) => {
                 {children}
                 <Footer />
             </Container>
-        </>
+        </Box>
     )
 }

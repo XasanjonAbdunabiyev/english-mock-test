@@ -1,12 +1,12 @@
 import { lazy } from "react"
-import { useModal } from "../hooks/modal-hooks/useModal"
+import { useModal } from "@/hooks/modal-hooks/useModal";
+import { Box } from "@chakra-ui/react";
 
 const Alert = lazy(() =>
     import("../components/Commons/Alert").then((module) => {
         return { default: module.Alert }
     })
 )
-
 
 const Layout = lazy(() =>
     import("../layouts/Layout").then((module) => {

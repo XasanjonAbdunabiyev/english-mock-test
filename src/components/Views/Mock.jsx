@@ -1,6 +1,6 @@
 import { lazy } from "react"
 
-import { Heading, Image } from "@chakra-ui/react"
+import { Heading, Image, Box } from "@chakra-ui/react"
 import mock_ielts from "@/assets/images/mock_ielts.jpg"
 import { wait } from "@/services/wait"
 

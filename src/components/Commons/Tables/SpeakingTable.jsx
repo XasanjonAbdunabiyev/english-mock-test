@@ -17,6 +17,7 @@ const AudioPlay = lazy(() =>
 )
 
 export const SpeakingTable = function () {
+    
     const { startTimeThink } = useSpeakingTable()
     const pagination_context = useContext(SpeakingPaginationContext)
 
@@ -46,9 +47,9 @@ export const SpeakingTable = function () {
                                 </Heading>
                             </Box>
 
-                            <Wrap className="w-[45%] text-center max-[800px]:w-full">
+                            <Wrap className="w-[45%] flex items-center justify-center flex-col max-[800px]:w-full">
                                 <WrapItem>
-                                    <Heading fontSize={16} lineHeight={2}>
+                                    <Heading fontSize={16} textAlign="center" lineHeight={2}>
                                         {question?.question_title}
                                     </Heading>
                                 </WrapItem>

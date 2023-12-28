@@ -6,6 +6,7 @@ import {
     Th,
     Td,
     TableContainer,
+    Box,
     Button,
 } from "@chakra-ui/react"
 

@@ -22,7 +22,7 @@ import { useNavigate, useParams } from "react-router-dom"
 import { useQuery, useQueryClient } from "@tanstack/react-query"
 import { getQuestionById } from "@/services/docs"
 
-import { doc, updateDoc } from "firebase/firestore"
+import { doc, query, updateDoc } from "firebase/firestore"
 
 import { useForm } from "react-hook-form"
 

@@ -1,6 +1,7 @@
 import React, { lazy } from "react"
 
 import { wait } from "@/services/wait"
+import { Box } from "@chakra-ui/react"
 
 
 const Layout = lazy(() =>
