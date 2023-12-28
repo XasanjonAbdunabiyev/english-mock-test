@@ -134,7 +134,7 @@ export const Login = () => {
                                 />
                                 <PasswordField {...register("password")} />
                                 <Heading
-                                    onClick={() => navigate("/signUp")}
+                                    onClick={() => navigate("/register")}
                                     fontSize={16}
                                     color="blue"
                                     className="underline my-4 cursor-pointer"

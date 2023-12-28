@@ -18,9 +18,9 @@ const Login = lazy(() =>
     )
 )
 
-const SignUp = lazy(() =>
-    import("@/pages/SignUp").then((module) => {
-        return { default: module.SignUp }
+const Register = lazy(() =>
+    import("@/pages/Register").then((module) => {
+        return { default: module.Register }
     })
 )
 
@@ -62,6 +62,14 @@ const UpdateQuestionDashboard = lazy(() =>
     )
 )
 
+const UsersDashboard = lazy(() =>
+    wait(1000).then(() =>
+        import("@/pages/Dashboard/Users").then((module) => {
+            return { default: module.Users }
+        })
+    )
+)
+
 export const App = () => {
     return (
         <Box className="root-wrapper">
@@ -70,7 +78,7 @@ export const App = () => {
                     <Route path="/" element={<Home />} />
                     <Route path="/test" element={<Test />} />
                     <Route path="/login" element={<Login />} />
-                    <Route path="/signUp" element={<SignUp />} />
+                    <Route path="/register" element={<Register />} />
                     <Route path="/speaking" element={<Speaking />} />
                     <Route path="/purchase-mock" element={<PurchaseMock />} />
                     <Route
@@ -89,6 +97,14 @@ export const App = () => {
                             </PrivateRoute>
                         }
                     />
+                    <Route
+                        path="/dashboard/users"
+                        element={
+                            <PrivateRoute>
+                                <UsersDashboard />
+                            </PrivateRoute>
+                        }
+                    />{" "}
                     <Route
                         path="/dashboard/:id/edit"
                         element={

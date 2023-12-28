@@ -1,7 +1,8 @@
 import React, { lazy } from "react"
 
-import { Box } from "@chakra-ui/react"
+import { Box, Button } from "@chakra-ui/react"
 import { wait } from "../../services/wait"
+import { useNavigate } from "react-router-dom"
 
 const AddSpeakingData = lazy(() =>
     wait(1000)
@@ -27,12 +28,19 @@ const Layout = lazy(() =>
     })
 )
 
-
+import { FaUsers } from "react-icons/fa"
 
 export default function Dashboard() {
+    const navigate = useNavigate()
     return (
         <Box>
             <Layout>
+                <Button
+                    leftIcon={<FaUsers />}
+                    onClick={() => navigate("/dashboard/users")}
+                >
+                    Users dashboard
+                </Button>
                 <AddSpeakingData />
                 <DashboardSpeakingTable />
             </Layout>
