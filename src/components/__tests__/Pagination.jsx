@@ -38,17 +38,17 @@ const PaginationComponent = () => {
     }
 
     return (
-        <div>
+        <Box>
             {/* Render the current items */}
             {currentItems.map((item) => (
-                <div key={item.id}>
+                <Box key={item.id}>
                     <h3>{item.title}</h3>
                     <p>{item.body}</p>
-                </div>
+                </Box>
             ))}
 
             {/* Render pagination controls */}
-            <div>
+            <Box>
                 <button
                     onClick={() => handlePageChange(currentPage - 1)}
                     disabled={currentPage === 1}
@@ -74,8 +74,8 @@ const PaginationComponent = () => {
                 >
                     Next
                 </button>
-            </div>
-        </div>
+            </Box>
+        </Box>
     )
 }
 

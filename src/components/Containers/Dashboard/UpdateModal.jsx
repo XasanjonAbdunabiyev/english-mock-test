@@ -24,12 +24,10 @@ import { doc, updateDoc } from "firebase/firestore"
 import { useQueryClient, useQuery } from "@tanstack/react-query"
 import { useSearchParams } from "react-router-dom"
 
-import { useUpdateModal } from "./useUpdateModal"
 import { getQuestionById } from "@/services/docs"
 
 export const UpdateModal = memo(function ({ isOpen, onClose }) {
 
-    const { onUpdateClose } = useUpdateModal()
     
     const [searchParams] = useSearchParams()
     
@@ -115,7 +113,7 @@ export const UpdateModal = memo(function ({ isOpen, onClose }) {
                     queryKey: ["dashboardQuestions"],
                 })
 
-                onUpdateClose()
+                ()
                 reset()
             })
         } else {
@@ -136,14 +134,14 @@ export const UpdateModal = memo(function ({ isOpen, onClose }) {
                     queryKey: ["dashboardQuestions"],
                 })
 
-                onUpdateClose()
+                ()
                 reset()
             })
         }
     }
 
     return (
-        <div className="update-data">
+        <Box className="update-data">
             <Modal size={"3xl"} isOpen={isOpen} onClose={onClose}>
                 <ModalOverlay />
                 <ModalContent>
@@ -181,7 +179,7 @@ export const UpdateModal = memo(function ({ isOpen, onClose }) {
                             <label htmlFor="audioLabel">
                                 Unable to restore audio to Previous value
                             </label>
-                            <div className="my-3 flex items-center gap-5">
+                            <Box className="my-3 flex items-center gap-5">
                                 <Input
                                     {...register("questionAudio")}
                                     type="file"
@@ -218,19 +216,19 @@ export const UpdateModal = memo(function ({ isOpen, onClose }) {
                                 >
                                     Upload Audio
                                 </Button>
-                            </div>
-                            <div className="flex items-center gap-x-5">
+                            </Box>
+                            <Box className="flex items-center gap-x-5">
                                 <Button colorScheme={"red"} type="reset">
                                     Reset Changes
                                 </Button>
                                 <Button type="submit" colorScheme={"green"}>
                                     Update Questions
                                 </Button>
-                            </div>
+                            </Box>
                         </form>
                     </ModalBody>
                 </ModalContent>
             </Modal>
-        </div>
+        </Box>
     )
 })

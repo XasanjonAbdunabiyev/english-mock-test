@@ -29,5 +29,7 @@ export const getQuestionById = async (id) => {
     const singleQuestionCollectionRef = doc(db, "mock_tests", id)
     const res = await getDoc(singleQuestionCollectionRef)
 
-    return res.data()
+    if (res?.exists()) {
+        return res.data()
+    }
 }

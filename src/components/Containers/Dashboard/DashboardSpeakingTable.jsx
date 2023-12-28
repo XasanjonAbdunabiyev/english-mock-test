@@ -18,19 +18,10 @@ import { deleteDoc, doc } from "firebase/firestore"
 import { useQuery } from "@tanstack/react-query"
 import { db } from "@/firebase/config"
 
-import { PageLoading } from "@/components/Commons/Loading"
 import { toastNotify } from "@/components/Commons/ToastNotify"
 
 import { dashboardSpeakingTable } from "@/db/dashboardSpeakingData"
 import { wait } from "@/services/wait"
-
-const UpdateModal = lazy(() =>
-    wait(1000).then(() =>
-        import("./UpdateModal").then((module) => {
-            return { default: module.UpdateModal }
-        })
-    )
-)
 
 const NotFoundPage = lazy(() =>
     wait(1000).then(() =>
@@ -41,13 +32,10 @@ const NotFoundPage = lazy(() =>
 )
 
 import { getQuestions } from "@/services/docs"
-import { useUpdateModal } from "./useUpdateModal"
-
 import { useQueryClient } from "@tanstack/react-query"
 import { useNavigate } from "react-router-dom"
 
 export const DashboardSpeakingTable = () => {
-    const { openUpdateModal, isUpdateOpen, onUpdateClose } = useUpdateModal()
     const navigate = useNavigate()
     const queryClient = useQueryClient()
 
@@ -105,24 +93,24 @@ export const DashboardSpeakingTable = () => {
                             return (
                                 <Tr key={question?.id}>
                                     <Td>
-                                        <div className="flex items-center flex-col justify-center">
+                                        <Box className="flex items-center flex-col justify-center">
                                             <Wrap className="break-all">
                                                 {question?.question_title}
                                             </Wrap>
-                                        </div>
+                                        </Box>
                                     </Td>
                                     <Td>
-                                        <div className="flex items-center justify-center flex-col">
+                                        <Box className="flex items-center justify-center flex-col">
                                             {question?.timeThink} secound
-                                        </div>
+                                        </Box>
                                     </Td>
                                     <Td>
-                                        <div className="flex items-center justify-center flex-col">
+                                        <Box className="flex items-center justify-center flex-col">
                                             {question?.timeAnswer} secound
-                                        </div>
+                                        </Box>
                                     </Td>
                                     <Td>
-                                        <div className="flex items-center justify-center gap-5">
+                                        <Box className="flex items-center justify-center gap-5">
                                             <Button
                                                 onClick={() =>
                                                     handleDeleteQuestion(
@@ -135,18 +123,13 @@ export const DashboardSpeakingTable = () => {
                                                 Delete
                                             </Button>
                                             <Button
-                                                onClick={() => {
-                                                    openUpdateModal()
-                                                    navigate(
-                                                        `/dashboard?questionId=${question?.id}`
-                                                    )
-                                                }}
+                                                onClick={() => navigate(`/dashboard/${question?.id}/edit`)}
                                                 rightIcon={<FaEdit />}
                                                 colorScheme="green"
                                             >
                                                 Update
                                             </Button>
-                                        </div>
+                                        </Box>
                                     </Td>
                                 </Tr>
                             )
@@ -154,8 +137,6 @@ export const DashboardSpeakingTable = () => {
                     </Tbody>
                 </Table>
             </TableContainer>
-
-            <UpdateModal isOpen={isUpdateOpen} onClose={onUpdateClose} />
         </>
     )
 }

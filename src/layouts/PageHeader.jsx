@@ -21,10 +21,10 @@ export const PageHeader = () => {
             } bg-opacity-25 backdrop-blur-xl sticky top-0 left-0 w-full z-50 border-b mb-5`}
         >
             <Container maxW="container.xl">
-                <div className="flex justify-between items-center">
-                    <div className="logo">
+                <Box className="flex justify-between items-center">
+                    <Box className="logo">
                         <Logo />
-                    </div>
+                    </Box>
                     <nav className="flex items-center gap-x-6">
                         <Button
                             colorScheme="telegram"
@@ -34,7 +34,7 @@ export const PageHeader = () => {
                         </Button>
                         <ThemeButton />
                     </nav>
-                </div>
+                </Box>
             </Container>
         </header>
     )

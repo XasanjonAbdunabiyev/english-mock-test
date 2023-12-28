@@ -167,7 +167,7 @@ export const AddSpeakingData = () => {
                 </span>
             )}
 
-            <div className="my-3 flex items-center gap-5">
+            <Box className="my-3 flex items-center gap-5">
                 <Input
                     {...register("auidioUrl", { required: true })}
                     type="file"
@@ -197,7 +197,7 @@ export const AddSpeakingData = () => {
                 >
                     Upload Audio
                 </Button>
-            </div>
+            </Box>
 
             {errors.auidioUrl && (
                 <p className="block font-bold text-red-500">

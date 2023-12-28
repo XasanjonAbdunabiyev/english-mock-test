@@ -8,8 +8,8 @@ export const Footer = () => {
             <Text marginRight={4} my={3}>
                 &copy; Copyright 2022
             </Text>
-            <div className="flex items-center justify-between max-[815px]:flex-col max-[815px]:items-start gap-5">
-                <div className="font-lg">
+            <Box className="flex items-center justify-between max-[815px]:flex-col max-[815px]:items-start gap-5">
+                <Box className="font-lg">
                     <Link href="#" mx="2">
                         MultiLevel.uz
                     </Link>
@@ -19,9 +19,9 @@ export const Footer = () => {
                     <Link href="#" mx="2" marginRight={6}>
                         № 154864
                     </Link>
-                </div>
+                </Box>
 
-                <div className="font-lg">
+                <Box className="font-lg">
                     <Link href="#" mx="2">
                         MultiLevel.uz
                     </Link>
@@ -34,8 +34,8 @@ export const Footer = () => {
                     <Link href="#" mx="2" marginRight={6}>
                         Contact Us
                     </Link>
-                </div>
-            </div>
+                </Box>
+            </Box>
         </Box>
     )
 }

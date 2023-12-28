@@ -44,17 +44,17 @@ export const MockTable = () => {
                             return (
                                 <Tr key={mockTable.id}>
                                     <Td>
-                                        <div className="flex flex-col items-center justify-center">
+                                        <Box className="flex flex-col items-center justify-center">
                                             {mockTable.nameMockModules}
-                                        </div>
+                                        </Box>
                                     </Td>
                                     <Td>
-                                        <div className="flex items-center justify-center">
+                                        <Box className="flex items-center justify-center">
                                             {mockTable.toBuy}
-                                        </div>
+                                        </Box>
                                     </Td>
                                     <Td>
-                                        <div className="flex items-center justify-center flex-col">
+                                        <Box className="flex items-center justify-center flex-col">
                                             <FaHeadphones
                                                 fontSize={40}
                                                 color="gray"
@@ -63,10 +63,10 @@ export const MockTable = () => {
                                             <Button colorScheme="purple">
                                                 Submission
                                             </Button>
-                                        </div>
+                                        </Box>
                                     </Td>
                                     <Td>
-                                        <div className="flex items-center flex-col justify-evenly">
+                                        <Box className="flex items-center flex-col justify-evenly">
                                             <MdOutlineKeyboardVoice
                                                 fontSize={40}
                                                 className="my-3"
@@ -87,10 +87,10 @@ export const MockTable = () => {
                                             >
                                                 Submission
                                             </Button>
-                                        </div>
+                                        </Box>
                                     </Td>
                                     <Td>
-                                        <div className="flex items-center flex-col">
+                                        <Box className="flex items-center flex-col">
                                             <FaBookOpen
                                                 fontSize={40}
                                                 className="my-3"
@@ -99,7 +99,7 @@ export const MockTable = () => {
                                             <Button colorScheme="yellow">
                                                 Submission
                                             </Button>
-                                        </div>
+                                        </Box>
                                     </Td>
                                 </Tr>
                             )

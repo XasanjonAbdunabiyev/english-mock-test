@@ -21,15 +21,15 @@ export const SpeakingTable = function () {
     const pagination_context = useContext(SpeakingPaginationContext)
 
     return (
-        <div className="speaking__table">
+        <Box className="speaking__table">
             {pagination_context?.currentItems?.map((question) => {
                 return (
-                    <div className="questions_table p-5" key={question?.id}>
-                        <div className="my-5">
+                    <Box className="questions_table p-5" key={question?.id}>
+                        <Box className="my-5">
                             <AudioPlay src={question?.questionAudio} />
-                        </div>
-                        <div className="flex items-center justify-between gap-20 max-[800px]:flex-col w-full">
-                            <div>
+                        </Box>
+                        <Box className="flex items-center justify-between gap-20 max-[800px]:flex-col w-full">
+                            <Box>
                                 <Heading
                                     className="flex items-center justify-center flex-col"
                                     fontSize={17}
@@ -44,7 +44,7 @@ export const SpeakingTable = function () {
                                         initialState={question?.timeThink}
                                     />
                                 </Heading>
-                            </div>
+                            </Box>
 
                             <Wrap className="w-[45%] text-center max-[800px]:w-full">
                                 <WrapItem>
@@ -54,8 +54,8 @@ export const SpeakingTable = function () {
                                 </WrapItem>
                             </Wrap>
 
-                            <div>
-                                <div className="flex items-center justify-center flex-col">
+                            <Box>
+                                <Box className="flex items-center justify-center flex-col">
                                     <Heading
                                         className="flex items-center justify-center flex-col"
                                         fontSize={17}
@@ -72,10 +72,10 @@ export const SpeakingTable = function () {
                                     <TimeAnswer
                                         initialState={question?.timeAnswer}
                                     />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                                </Box>
+                            </Box>
+                        </Box>
+                    </Box>
                 )
             })}
             <Button
@@ -120,6 +120,6 @@ export const SpeakingTable = function () {
                     Next Questions
                 </Button>
             </Box>
-        </div>
+        </Box>
     )
 }

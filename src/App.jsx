@@ -5,6 +5,7 @@ import { PrivateRoute } from "./routes/PrivateRoute"
 import { PageLoading } from "@/components/Commons/Loading"
 
 import "react-toastify/dist/ReactToastify.css"
+import { Box } from "@chakra-ui/react"
 
 const Home = lazy(() => wait(1000).then(() => import("./pages/Home")))
 import { ToastContainer } from "@/components/Commons/ToastNotify"
@@ -53,9 +54,17 @@ const PurchaseMockDashboard = lazy(() =>
     )
 )
 
+const UpdateQuestionDashboard = lazy(() =>
+    wait(1000).then(() =>
+        import("@/pages/Dashboard/UpdateQuestionDashboard").then((module) => {
+            return { default: module.UpdateQuestionDashboard }
+        })
+    )
+)
+
 export const App = () => {
     return (
-        <div className="root-wrapper">
+        <Box className="root-wrapper">
             <Routes>
                 <Route path="/" element={<LoadedPage />}>
                     <Route path="/" element={<Home />} />
@@ -80,10 +89,18 @@ export const App = () => {
                             </PrivateRoute>
                         }
                     />
+                    <Route
+                        path="/dashboard/:id/edit"
+                        element={
+                            <PrivateRoute>
+                                <UpdateQuestionDashboard />
+                            </PrivateRoute>
+                        }
+                    />
                 </Route>
             </Routes>
             <ToastContainer />
-        </div>
+        </Box>
     )
 }
 

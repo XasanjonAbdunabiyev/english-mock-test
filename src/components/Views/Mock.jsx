@@ -21,7 +21,7 @@ export const Mock = () => {
     const { onPaymentClose, isPaymentOpen } = usePaymentModal()
 
     return (
-        <div className="my-[36px]">
+        <Box className="my-[36px]">
             <Heading mt={6} mb={6} as="h4" size="lg" textAlign="center">
                 IELTS MOCK TESTS
             </Heading>
@@ -54,6 +54,6 @@ export const Mock = () => {
                     fee
                 </b>
             </Modal>
-        </div>
+        </Box>
     )
 }

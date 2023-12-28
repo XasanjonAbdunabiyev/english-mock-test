@@ -19,10 +19,10 @@ const SpeakingTable = lazy(() =>
 
 export const Speaking = () => {
     return (
-        <div className="speaking-page">
+        <Box className="speaking-page">
             <Layout>
                 <SpeakingTable />
             </Layout>
-        </div>
+        </Box>
     )
 }

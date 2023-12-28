@@ -83,9 +83,9 @@ export const Login = () => {
                         }}
                         textAlign="center"
                     >
-                        <div className="flex items-center justify-center">
+                        <Box className="flex items-center justify-center">
                             <Logo />
-                        </div>
+                        </Box>
                         <Heading
                             size={{
                                 base: "xs",

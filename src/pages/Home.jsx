@@ -40,10 +40,10 @@ export default function Home() {
                 onClose={onClose}
                 title="Welcome to Mock English Test"
             >
-                <div className="font-bold text-base">
+                <Box className="font-bold text-base">
                     On this site, you can test your knowledge by taking an
                     English test
-                </div>
+                </Box>
             </Alert>
 
             <Layout>
