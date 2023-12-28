@@ -4,8 +4,6 @@ import {
     Box,
     Button,
     Container,
-    TableContainer,
-    Table,
     NumberInputField,
     NumberIncrementStepper,
     NumberDecrementStepper,
@@ -19,10 +17,10 @@ import {
 
 import { useNavigate, useParams } from "react-router-dom"
 
-import { useQuery, useQueryClient } from "@tanstack/react-query"
+import { useQuery } from "@tanstack/react-query"
 import { getQuestionById } from "@/services/docs"
 
-import { doc, query, updateDoc } from "firebase/firestore"
+import { doc, updateDoc } from "firebase/firestore"
 
 import { useForm } from "react-hook-form"
 
@@ -45,7 +43,7 @@ export const UpdateQuestionDashboard = () => {
     const navigate = useNavigate()
 
     const { data, isError, error, isLoading } = useQuery({
-        queryKey: ["dashboardQuestions", id],
+        queryKey: ["dashboardQuestions", parseInt(id)],
         queryFn: () => getQuestionById(id),
     })
 

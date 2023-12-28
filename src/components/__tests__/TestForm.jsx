@@ -1,17 +1,17 @@
 import React from "react"
 import { useForm } from "react-hook-form"
-import { useQuery } from "react-query"
+import { useQuery } from "@tanstack/react-query"
 import axios from "axios"
 
 const fetchData = async () => {
-    const response = await axios.get("your-api-endpoint")
+    const response = await axios.get("https://jsonplaceholder.typicode.com/todos/")
     return response.data
 }
 
 const MyForm = () => {
     const { register, handleSubmit, setValue, control } = useForm()
 
-    const { data: apiData } = useQuery("fetchData", fetchData)
+    const { data: apiData } = useQuery({queryKey: ['lorem'], queryFn: fetchData})
 
     React.useEffect(() => {
         if (apiData) {

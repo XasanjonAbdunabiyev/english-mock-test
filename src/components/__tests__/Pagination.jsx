@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react"
 import axios from "axios"
 
+import { Box } from "@chakra-ui/react"
+
 const PaginationComponent = () => {
     const [data, setData] = useState([])
     const [currentPage, setCurrentPage] = useState(1)
@@ -71,6 +73,7 @@ const PaginationComponent = () => {
                 <button
                     onClick={() => handlePageChange(currentPage + 1)}
                     disabled={currentPage === totalPages}
+                    className="bg-blue-200"
                 >
                     Next
                 </button>
