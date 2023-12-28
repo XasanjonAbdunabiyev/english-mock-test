@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 
 /** Chakra UI */
-import { Button, Input, Textarea, useToast } from "@chakra-ui/react"
+import { Box, Button, Input, Textarea, useToast } from "@chakra-ui/react"
 
 /** Firebase */
 import { db, storage } from "@/firebase/config"
@@ -174,6 +174,12 @@ export const AddSpeakingData = () => {
                     onChange={handleFileChange}
                     accept="audio/*"
                 />
+
+                {errors.auidioUrl && (
+                    <span className="font-bold text-red-500 mx-5">
+                        This is field reqiired
+                    </span>
+                )}
 
                 <Button
                     colorScheme="linkedin"

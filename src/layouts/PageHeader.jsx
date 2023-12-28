@@ -1,5 +1,5 @@
 import { lazy } from "react"
-import { Button, Container, useColorMode } from "@chakra-ui/react"
+import { Button, Container, useColorMode, Box } from "@chakra-ui/react"
 import { useNavigate } from "react-router-dom"
 
 const Logo = lazy(() =>

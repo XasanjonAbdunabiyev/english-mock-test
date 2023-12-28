@@ -9,6 +9,7 @@ import {
     Heading,
     TableContainer,
     Button,
+    Box,
     Wrap,
 } from "@chakra-ui/react"
 import { RiDeleteBin5Fill } from "react-icons/ri"
