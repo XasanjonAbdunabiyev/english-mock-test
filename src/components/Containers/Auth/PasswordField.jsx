@@ -39,6 +39,7 @@ export const PasswordField = forwardRef((props, ref) => {
                     />
                 </InputRightElement>
                 <Input
+                    min={6}
                     id="password"
                     ref={mergeRef}
                     name="password"

@@ -89,7 +89,7 @@ export const Register = () => {
                             >
                                 <FormLabel htmlFor="email">Email</FormLabel>
                                 <Input
-                                    {...register("email", { required: true })}
+                                    {...register("email", { required: true, min: 6, max: 99 })}
                                     id="email"
                                     type="email"
                                     my={3}

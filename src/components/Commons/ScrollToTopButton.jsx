@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react"
-import { Button } from "@chakra-ui/react"
+import { IconButton } from "@chakra-ui/react"
 
 import { GoMoveToTop } from "react-icons/go"
 
@@ -27,15 +27,18 @@ export const ScrollToTopButton = () => {
     }, [])
 
     return (
-        <Button
+        <IconButton
             onClick={scrollToTop}
+            variant="outline"
             visibility={showButton ? "visible" : "hidden"}
             position="fixed"
+            aria-label='Search database'
+            colorScheme="teal"
             bottom="4"
-            rightIcon={<GoMoveToTop />}
+            size="lg"
+            fontSize={20}
+            icon={<GoMoveToTop />}
             right="4"
-        >
-            Scroll to Top
-        </Button>
+        />
     )
 }

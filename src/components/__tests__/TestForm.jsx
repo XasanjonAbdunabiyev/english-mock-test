@@ -4,14 +4,25 @@ import { useQuery } from "@tanstack/react-query"
 import axios from "axios"
 
 const fetchData = async () => {
-    const response = await axios.get("https://jsonplaceholder.typicode.com/todos/")
+    const response = await axios.get(
+        "https://jsonplaceholder.typicode.com/todos/"
+    )
     return response.data
 }
 
 const MyForm = () => {
-    const { register, handleSubmit, setValue, control } = useForm()
+    const {
+        register,
+        handleSubmit,
+        setValue,
+        control,
+        formState: { errors },
+    } = useForm()
 
-    const { data: apiData } = useQuery({queryKey: ['lorem'], queryFn: fetchData})
+    const { data: apiData } = useQuery({
+        queryKey: ["lorem"],
+        queryFn: fetchData,
+    })
 
     React.useEffect(() => {
         if (apiData) {
@@ -36,6 +47,20 @@ const MyForm = () => {
                 Email:
                 <input {...register("email")} />
             </label>
+
+            <label>
+                Age:
+                <input
+                    type="number"
+                    {...register("age", {
+                        required: "Age is required",
+                        min: 18,
+                        max: 99,
+                    })}
+                />
+            </label>
+            {errors.age && <p>{errors.age.message}</p>}
+
             {/* Add other form fields as needed */}
             <button type="submit">Submit</button>
         </form>
