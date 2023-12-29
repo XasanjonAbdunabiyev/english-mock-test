@@ -54,6 +54,7 @@ export const DashboardSpeakingTable = () => {
         return <NotFoundPage />
     }
 
+
     const handleDeleteQuestion = async (id) => {
         try {
             await deleteDoc(doc(db, "mock_tests", id)).then(() => {
@@ -124,7 +125,11 @@ export const DashboardSpeakingTable = () => {
                                                 Delete
                                             </Button>
                                             <Button
-                                                onClick={() => navigate(`/dashboard/${question?.id}/edit`)}
+                                                onClick={() =>
+                                                    navigate(
+                                                        `/dashboard/${question?.id}/edit`
+                                                    )
+                                                }
                                                 rightIcon={<FaEdit />}
                                                 colorScheme="green"
                                             >

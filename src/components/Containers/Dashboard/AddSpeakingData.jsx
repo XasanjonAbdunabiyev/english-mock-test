@@ -27,6 +27,14 @@ export const AddSpeakingData = () => {
     const [audioUrl, setAudioUrl] = useState("")
     const [btnLoading, setBtnLoading] = useState(false)
 
+    const [partChanges, setPartChanges] = useState("part_one")
+
+    const [partQuestions, setPartQuestions] = useState({
+        part_one: [],
+        part_two: [],
+        part_three: [],
+    })
+
     const chakraToast = useToast()
 
     const {
@@ -95,6 +103,11 @@ export const AddSpeakingData = () => {
         }
     }
 
+    const handleSelectChange = (event) => {
+        // Selected part changes
+        setPartChanges(event?.target?.value)
+    }
+
     const onSubmit = async (data) => {
         const addquestions_data = {
             question_title: data?.first_question,
@@ -103,31 +116,59 @@ export const AddSpeakingData = () => {
             questionAudio: audioUrl,
         }
 
-        await addDoc(main_questions_collection, addquestions_data)
-            .then((_response) => {
-                toastNotify({
-                    title: "success",
-                    message: "Question Added Successfully",
-                })
+        let newQuestions = { ...addquestions_data }
 
-                queryClient.invalidateQueries({
-                    queryKey: ["dashboardQuestions"],
-                })
+        if (partQuestions[partChanges].length === 0) {
+            setPartQuestions({ [partChanges]: [newQuestions] })
+        } else {
+            setPartQuestions((prevQuestions) => ({
+                ...prevQuestions,
+                [partChanges]: [...prevQuestions[partChanges], newQuestions],
+            }))
+        }
 
-                reset()
-                setAudioUrl(null)
-            })
-            .catch((_error) => {
-                console.error("Fetching Error", _error)
-                toastNotify({
-                    title: "error",
-                    message: "Something went wrong",
-                })
-            })
+        console.log(partQuestions["part_two"])
+
+        // await addDoc(main_questions_collection, partQuestions)
+        //     .then((_response) => {
+        //         toastNotify({
+        //             title: "success",
+        //             message: "Question Added Successfully",
+        //         })
+
+        //         queryClient.invalidateQueries({
+        //             queryKey: ["dashboardQuestions"],
+        //         })
+
+        //         reset()
+        //         setAudioUrl(null)
+        //     })
+        //     .catch((_error) => {
+        //         console.error("Fetching Error", _error)
+        //         toastNotify({
+        //             title: "error",
+        //             message: "Something went wrong",
+        //         })
+        //     })
     }
 
     return (
         <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
+            {/* Question title */}
+
+            {/* Select Part Question */}
+            <Box my={5}>
+                <select
+                    onChange={handleSelectChange}
+                    className="py-3 px-4 border border-gray-300 pe-9 block w-full rounded-lg text-lg focus:border-blue-500 font-bold focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600"
+                >
+                    <option value="part_one">Question Part One</option>
+                    <option value="part_two">Question Part Two</option>
+                    <option value="part_two">Question Part Three</option>
+                </select>
+            </Box>
+            {/* Select Part Question */}
+
             <Textarea
                 resize={"none"}
                 placeholder="Question name"
@@ -140,7 +181,9 @@ export const AddSpeakingData = () => {
                     This is field reqiired
                 </span>
             )}
+            {/* Question title */}
 
+            {/* Time to think */}
             <Input
                 className="my-3"
                 {...register("timeThink", { required: true })}
@@ -153,7 +196,9 @@ export const AddSpeakingData = () => {
                     This is field reqiired
                 </span>
             )}
+            {/* Time to think */}
 
+            {/* Time Answer */}
             <Input
                 className="my-3"
                 {...register("timeAnswer", { required: true })}
@@ -166,7 +211,9 @@ export const AddSpeakingData = () => {
                     This is field reqiired
                 </span>
             )}
+            {/* Time Answer */}
 
+            {/* Audio file Input */}
             <Box className="my-3 flex items-center gap-5">
                 <Input
                     {...register("auidioUrl", { required: true })}
@@ -181,6 +228,9 @@ export const AddSpeakingData = () => {
                     </span>
                 )}
 
+                {/* Audio file Input */}
+
+                {/* Upload Audio Button */}
                 <Button
                     colorScheme="linkedin"
                     onClick={handleUpload}
@@ -203,6 +253,7 @@ export const AddSpeakingData = () => {
                 >
                     Upload Audio
                 </Button>
+                {/* Upload Audio Button */}
             </Box>
 
             {errors.auidioUrl && (
