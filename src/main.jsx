@@ -12,6 +12,7 @@ import { BrowserRouter as Router } from "react-router-dom"
 
 import { PaymentContextProvider } from "@/context/PaymentContext"
 import { SpeakingPaginationContextProvider } from "./context/SpeakingPaginationContext"
+import { UserModalContextProvider } from "./context/UserModalContext"
 const rootElement = document.getElementById("root")
 
 const queryClient = new QueryClient({
@@ -30,7 +31,9 @@ ReactDOM.createRoot(rootElement).render(
             <QueryClientProvider client={queryClient}>
                 <PaymentContextProvider>
                     <SpeakingPaginationContextProvider>
-                        <App />
+                        <UserModalContextProvider>
+                            <App />
+                        </UserModalContextProvider>
                     </SpeakingPaginationContextProvider>
                 </PaymentContextProvider>
             </QueryClientProvider>

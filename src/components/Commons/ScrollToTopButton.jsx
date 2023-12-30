@@ -29,7 +29,6 @@ export const ScrollToTopButton = () => {
     return (
         <IconButton
             onClick={scrollToTop}
-            variant="outline"
             visibility={showButton ? "visible" : "hidden"}
             position="fixed"
             aria-label='Search database'

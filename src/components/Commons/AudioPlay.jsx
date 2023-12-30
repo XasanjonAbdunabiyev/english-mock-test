@@ -10,6 +10,12 @@ export const AudioPlay = memo(function ({ src }) {
         audioRef?.current?.play()
     }
 
-    return <audio 
-    src={src} controls ref={audioRef} className="w-full my-3 opacity-0" />
+    return (
+        <audio
+            src={src}
+            controls
+            ref={audioRef}
+            className="w-full my-3 opacity-0"
+        />
+    )
 })

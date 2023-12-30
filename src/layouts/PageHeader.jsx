@@ -1,5 +1,11 @@
-import { lazy } from "react"
-import { Button, Container, useColorMode, Box } from "@chakra-ui/react"
+import { lazy, useContext } from "react"
+import {
+    Button,
+    Container,
+    useColorMode,
+    Box,
+    IconButton,
+} from "@chakra-ui/react"
 import { useNavigate } from "react-router-dom"
 
 const Logo = lazy(() =>
@@ -8,11 +14,16 @@ const Logo = lazy(() =>
     })
 )
 
+import { RiSettings3Line } from "react-icons/ri"
+
 import { ThemeButton } from "@/components/Commons/ThemeButton"
+import { UserModalContext } from "@/context/UserModalContext"
 
 export const PageHeader = () => {
     const navigate = useNavigate()
     const { colorMode } = useColorMode()
+    const { onModalUser } = useContext(UserModalContext)
+    const loginUser = localStorage.getItem("login_user")
 
     return (
         <header
@@ -26,12 +37,21 @@ export const PageHeader = () => {
                         <Logo />
                     </Box>
                     <nav className="flex items-center gap-x-6">
-                        <Button
-                            colorScheme="telegram"
-                            onClick={() => navigate("/login")}
-                        >
-                            Login
-                        </Button>
+                        {loginUser ? (
+                            <IconButton
+                                fontSize={25}
+                                icon={<RiSettings3Line />}
+                                onClick={onModalUser}
+                            />
+                        ) : (
+                            <Button
+                                colorScheme="telegram"
+                                onClick={() => navigate("/login")}
+                            >
+                                Login
+                            </Button>
+                        )}
+
                         <ThemeButton />
                     </nav>
                 </Box>

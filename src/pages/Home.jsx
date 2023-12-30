@@ -1,7 +1,10 @@
-import { lazy } from "react"
+import { lazy, useContext } from "react"
 import { useModal } from "@/hooks/modal-hooks/useModal"
-import { Box } from "@chakra-ui/react"
+import { Box, Heading, Text } from "@chakra-ui/react"
 import { ScrollToTopButton } from "@/components/Commons/ScrollToTopButton"
+
+import { Modal } from "@/components/Commons/Modal"
+import { UserModalContext } from "@/context/UserModalContext"
 
 const Alert = lazy(() =>
     import("../components/Commons/Alert").then((module) => {
@@ -33,7 +36,13 @@ const Mock = lazy(() =>
 
 export default function Home() {
     const { isOpen, onClose } = useModal()
+    const { userOpen, userCloseModal } = useContext(UserModalContext);
 
+
+    let loginUser = localStorage.getItem('login_user');
+    let login_user_data = JSON.parse(loginUser);
+
+    console.log(login_user_data);
     return (
         <Box>
             <Alert
@@ -51,6 +60,11 @@ export default function Home() {
                 <Carousel />
                 <Mock />
             </Layout>
+
+            <Modal isOpen={userOpen} onClose={userCloseModal}>
+                <Text fontSize={20}>Your Email Address: {login_user_data?.email} </Text>
+                <Text fontSize={20}>Your App ID: {login_user_data?.apiKey} </Text>
+            </Modal>
 
             <ScrollToTopButton />
         </Box>
