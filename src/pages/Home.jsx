@@ -36,13 +36,10 @@ const Mock = lazy(() =>
 
 export default function Home() {
     const { isOpen, onClose } = useModal()
-    const { userOpen, userCloseModal } = useContext(UserModalContext);
+    const { userOpen, userCloseModal } = useContext(UserModalContext)
 
-
-    let loginUser = localStorage.getItem('login_user');
-    let login_user_data = JSON.parse(loginUser);
-
-    console.log(login_user_data);
+    let loginUser = localStorage.getItem("login_user")
+    let login_user_data = JSON.parse(loginUser)
     return (
         <Box>
             <Alert
@@ -62,8 +59,12 @@ export default function Home() {
             </Layout>
 
             <Modal isOpen={userOpen} onClose={userCloseModal}>
-                <Text fontSize={20}>Your Email Address: {login_user_data?.email} </Text>
-                <Text fontSize={20}>Your App ID: {login_user_data?.apiKey} </Text>
+                <Text fontSize={20}>
+                    Your Email Address: {login_user_data?.email}{" "}
+                </Text>
+                <Text fontSize={20}>
+                    Your App ID: {login_user_data?.apiKey}{" "}
+                </Text>
             </Modal>
 
             <ScrollToTopButton />

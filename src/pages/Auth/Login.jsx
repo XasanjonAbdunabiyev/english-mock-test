@@ -6,6 +6,7 @@ const ChakraLogin = lazy(() =>
         return { default: module.Login }
     })
 )
+
 export const Login = () => {
     return (
         <Box className="login-page p-2">
