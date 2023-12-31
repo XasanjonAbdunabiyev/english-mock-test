@@ -1,5 +1,6 @@
 import React, { lazy } from "react"
 import { Box, Container } from "@chakra-ui/react"
+
 const PageHeader = lazy(() =>
     import("./PageHeader").then((module) => {
         return {
