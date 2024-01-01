@@ -3,7 +3,7 @@ import { createContext, useState } from "react"
 export const SpeakingPaginationContext = createContext(null)
 
 import { useQuery } from "@tanstack/react-query"
-import { getQuestions } from "@/services/docs"
+import { getQuestions } from "@/api/docs"
 
 export const SpeakingPaginationContextProvider = function ({ children }) {
     const [currentPage, setCurrentPage] = useState(1)

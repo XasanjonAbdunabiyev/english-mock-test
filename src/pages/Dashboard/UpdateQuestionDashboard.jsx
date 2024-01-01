@@ -18,7 +18,7 @@ import {
 import { useNavigate, useParams } from "react-router-dom"
 
 import { useQuery } from "@tanstack/react-query"
-import { getQuestionById } from "@/services/docs"
+import { getQuestionById } from "@/api/docs"
 
 import { doc, updateDoc } from "firebase/firestore"
 

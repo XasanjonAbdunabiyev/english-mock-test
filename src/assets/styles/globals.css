@@ -2,20 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-.slick-dots li button {
-    border-radius: 50%;
-    width: 15px !important;
-    height: 15px !important;
-    background-color: rgb(0, 0, 0);
-}
-
-.slick-prev {
-    display: none !important;
-}
-.slick-next {
-    display: none !important;
-}
-
 @font-face {
     font-family: "Rubik Doodle Shadow";
     src: url("/fonts/rubic_doodle_shadow/regular.ttf");

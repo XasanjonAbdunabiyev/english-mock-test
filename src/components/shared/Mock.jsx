@@ -2,7 +2,7 @@ import { lazy } from "react"
 
 import { Heading, Image, Box, Text } from "@chakra-ui/react"
 import mock_ielts from "@/assets/images/mock_ielts.jpg"
-import { wait } from "@/services/wait"
+import { wait } from "@/api/wait"
 
 const MockTable = lazy(() =>
     wait(1000).then(() =>

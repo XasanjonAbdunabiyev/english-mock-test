@@ -1,7 +1,7 @@
 import React, { lazy } from "react"
 
 import { Box, Button } from "@chakra-ui/react"
-import { wait } from "../../services/wait"
+import { wait } from "../../api/wait"
 import { useNavigate } from "react-router-dom"
 
 const AddSpeakingData = lazy(() =>

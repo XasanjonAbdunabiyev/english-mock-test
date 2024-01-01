@@ -6,7 +6,7 @@ import {
 
 import { Empty } from "@/components/Views/Empty"
 
-import { wait } from "@/services/wait"
+import { wait } from "@/api/wait"
 
 const AudioPlay = lazy(() =>
     wait(1000).then(() =>

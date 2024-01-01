@@ -7,7 +7,7 @@ const ChakraLogin = lazy(() =>
     })
 )
 
-export const Login = () => {
+export const LoginPage = () => {
     return (
         <Box className="login-page p-2">
             <ChakraLogin />

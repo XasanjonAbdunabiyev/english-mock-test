@@ -6,7 +6,7 @@ import { Box, Heading } from "@chakra-ui/react"
 
 import { useQuery } from "@tanstack/react-query"
 
-import { getAllUsers } from "@/services/docs"
+import { getAllUsers } from "@/api/docs"
 import { PageLoading } from "@/components/Commons/Loading"
 
 export function Users() {

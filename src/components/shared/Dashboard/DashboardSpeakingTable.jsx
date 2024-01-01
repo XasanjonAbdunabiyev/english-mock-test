@@ -21,7 +21,7 @@ import { db } from "@/firebase/config"
 import { toastNotify } from "@/components/Commons/ToastNotify"
 
 import { dashboardSpeakingTable } from "@/db/dashboardSpeakingData"
-import { wait } from "@/services/wait"
+import { wait } from "@/api/wait"
 
 const NotFoundPage = lazy(() =>
     wait(1000).then(() =>
@@ -31,7 +31,7 @@ const NotFoundPage = lazy(() =>
     )
 )
 
-import { getQuestions } from "@/services/docs"
+import { getQuestions } from "@/api/docs"
 import { useQueryClient } from "@tanstack/react-query"
 import { useNavigate } from "react-router-dom"
 

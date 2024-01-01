@@ -4,6 +4,7 @@ import { lazy } from "react"
 import { useModal } from "@/hooks/modal-hooks/useModal"
 import { Box } from "@chakra-ui/react"
 import { ScrollToTopButton } from "@/components/ui/ScrollToTopButton"
+import { FullImageCarousel } from "@/components/ui/FullImageCarousel"
 
 const Alert = lazy(() =>
     import("@/components/ui/Alert").then((module) => {
@@ -17,13 +18,7 @@ const Layout = lazy(() =>
     })
 )
 
-const Carousel = lazy(() =>
-    import("@/components/ui/Carousel").then((module) => {
-        return {
-            default: module.Carousel,
-        }
-    })
-)
+
 
 const Mock = lazy(() =>
     import("@/components/shared/Mock").then((module) => {
@@ -50,7 +45,7 @@ export default function Home() {
             </Alert>
 
             <Layout>
-                <Carousel />
+                <FullImageCarousel />
                 <Mock />
             </Layout>
 

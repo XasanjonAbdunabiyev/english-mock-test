@@ -1,6 +1,6 @@
 import React, { lazy } from "react"
 
-import { wait } from "@/services/wait"
+import { wait } from "@/api/wait"
 import { Box } from "@chakra-ui/react"
 
 

@@ -14,7 +14,7 @@ import {
 import { useNavigate } from "react-router-dom"
 
 import { useForm } from "react-hook-form"
-import { getLoginData } from "@/services/docs"
+import { getLoginData } from "@/api/docs"
 import { toastNotify } from "@/components/ui/ToastNotify"
 
 import { auth } from "@/firebase/config"
