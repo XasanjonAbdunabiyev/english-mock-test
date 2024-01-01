@@ -38,7 +38,7 @@ export const PageHeader = () => {
                             <IconButton
                                 fontSize={25}
                                 icon={<CgProfile />}
-                                onClick={onModalUser}
+                                
                             />
                         ) : (
                             <Button

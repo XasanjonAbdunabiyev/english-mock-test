@@ -1,4 +1,4 @@
-import React, { useEffect, useState, lazy, useMemo } from "react"
+import React, {lazy} from "react"
 import {
     Table,
     Thead,
@@ -6,7 +6,6 @@ import {
     Tr,
     Td,
     Th,
-    Heading,
     TableContainer,
     Button,
     Box,
@@ -73,7 +72,6 @@ export const DashboardSpeakingTable = () => {
     }
 
     return (
-        <>
             <TableContainer my={8}>
                 <Table>
                     <Thead>
@@ -143,6 +141,5 @@ export const DashboardSpeakingTable = () => {
                     </Tbody>
                 </Table>
             </TableContainer>
-        </>
     )
 }

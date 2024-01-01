@@ -18,7 +18,7 @@ const useTruncateElement = ({ ref }) => {
 
     return {
         isTruncated,
-        isReadingMore,
+        isShowingMore,
         setIsReadingMore,
     }
 }

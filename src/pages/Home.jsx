@@ -1,9 +1,9 @@
-import { lazy, useContext } from "react"
-import { useModal } from "@/hooks/modal-hooks/useModal"
-import { Box,  Text } from "@chakra-ui/react"
-import { ScrollToTopButton } from "@/components/Commons/ScrollToTopButton"
+import React from "react"
 
-import { Modal } from "@/components/Commons/Modal"
+import { lazy } from "react"
+import { useModal } from "@/hooks/modal-hooks/useModal"
+import { Box } from "@chakra-ui/react"
+import { ScrollToTopButton } from "@/components/Commons/ScrollToTopButton"
 
 const Alert = lazy(() =>
     import("../components/Commons/Alert").then((module) => {
@@ -33,19 +33,11 @@ const Mock = lazy(() =>
     })
 )
 
-import { FaRegCopy } from "react-icons/fa6"
-
 export default function Home() {
     const { isOpen, onClose } = useModal()
 
-    let loginUser = localStorage.getItem("login_user")
-    let login_user_data = JSON.parse(loginUser)
-
-    let login_user_password = localStorage.getItem("register_user")
-    let password = JSON.parse(login_user_password)
-
     return (
-        <Box>
+        <Box className="home">
             <Alert
                 isOpen={isOpen}
                 onClose={onClose}
@@ -61,28 +53,6 @@ export default function Home() {
                 <Carousel />
                 <Mock />
             </Layout>
-
-            <Modal
-                navigateUrl="/purchase-mock"
-                navigateTitle="Purchase Mock"
-                isOpen={userOpen}
-                size="lg"
-                onClose={userCloseModal}
-            >
-                <Text fontSize={16} className="my-3">
-                    <span className="font-bold">Your Email Address</span>:{" "}
-                    {login_user_data?.email}
-                </Text>
-                <Text fontSize={16} className="my-3">
-                    <span className="font-bold">Your App ID</span>:
-                    <span>{" " + login_user_data?.apiKey}</span>
-                </Text>
-
-                <Text className="my-3">
-                    <span className="font-bold">Your Password</span>:
-                    {"  " + password?.userPassword}
-                </Text>
-            </Modal>
 
             <ScrollToTopButton />
         </Box>
