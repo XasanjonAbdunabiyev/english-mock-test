@@ -3,10 +3,10 @@ import React from "react"
 import { lazy } from "react"
 import { useModal } from "@/hooks/modal-hooks/useModal"
 import { Box } from "@chakra-ui/react"
-import { ScrollToTopButton } from "@/components/Commons/ScrollToTopButton"
+import { ScrollToTopButton } from "@/components/ui/ScrollToTopButton"
 
 const Alert = lazy(() =>
-    import("../components/Commons/Alert").then((module) => {
+    import("@/components/ui/Alert").then((module) => {
         return { default: module.Alert }
     })
 )
@@ -18,7 +18,7 @@ const Layout = lazy(() =>
 )
 
 const Carousel = lazy(() =>
-    import("../components/Commons/Carousel").then((module) => {
+    import("@/components/ui/Carousel").then((module) => {
         return {
             default: module.Carousel,
         }
@@ -26,7 +26,7 @@ const Carousel = lazy(() =>
 )
 
 const Mock = lazy(() =>
-    import("../components/shared/Mock").then((module) => {
+    import("@/components/shared/Mock").then((module) => {
         return {
             default: module.Mock,
         }

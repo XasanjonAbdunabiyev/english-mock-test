@@ -6,13 +6,13 @@ import { wait } from "@/services/wait"
 
 const MockTable = lazy(() =>
     wait(1000).then(() =>
-        import("@/components/Commons/Tables/MockTable").then((module) => {
+        import("@/components/ui/Tables/MockTable").then((module) => {
             return { default: module.MockTable }
         })
     )
 )
 
-import { Modal } from "@/components/Commons/Modal"
+import { Modal } from "@/components/ui/Modal"
 import { useSpeakingModal } from "@/hooks/modal-hooks/useSpeakingModal"
 import { usePaymentModal } from "@/hooks/modal-hooks/usePaymentModal"
 

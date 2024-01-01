@@ -1,4 +1,5 @@
-import { lazy, useContext } from "react"
+import { lazy } from "react"
+
 import {
     Button,
     Container,
@@ -6,16 +7,18 @@ import {
     Box,
     IconButton,
 } from "@chakra-ui/react"
+
 import { useNavigate } from "react-router-dom"
 
 const Logo = lazy(() =>
-    import("@/components/Commons/Logo").then((module) => {
+    import("@/components/ui/Logo").then((module) => {
         return { default: module.Logo }
     })
 )
+
 import { CgProfile } from "react-icons/cg";
 
-import { ThemeButton } from "@/components/Commons/ThemeButton"
+import { ThemeButton } from "@/components/ui/ThemeButton"
 
 export const PageHeader = () => {
     const navigate = useNavigate()

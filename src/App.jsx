@@ -2,7 +2,7 @@ import React, { Suspense, lazy } from "react"
 import { wait } from "./services/wait"
 import { Outlet, Route, Routes } from "react-router-dom"
 import { PrivateRoute } from "./routes/PrivateRoute"
-import { PageLoading } from "@/components/Commons/Loading"
+import { PageLoading } from "@/components/ui/Loading";
 
 import "react-toastify/dist/ReactToastify.css"
 import { Box } from "@chakra-ui/react"
@@ -10,7 +10,7 @@ import { Box } from "@chakra-ui/react"
 const Home = lazy(() => wait(1000).then(() => import("./pages/Home")))
 import { Profile } from "./pages/Profile"
 
-import { ToastContainer } from "@/components/Commons/ToastNotify"
+import { ToastContainer } from "@/components/ui/ToastNotify"
 
 const Login = lazy(() =>
     wait(1000).then(() =>
@@ -38,7 +38,6 @@ const Speaking = lazy(() =>
     )
 )
 
-import Test from "./pages/__tests__/Test"
 import NotFound from "./pages/NotFound"
 
 const PurchaseMock = lazy(() =>
@@ -79,7 +78,14 @@ export const App = () => {
             <Routes>
                 <Route path="/" element={<LoadedPage />}>
                     <Route path="/" element={<Home />} />
-                    <Route path="/tests" element={<Test />} />
+                    <Route
+                        path="/tests"
+                        element={
+                            <div className="tests">
+                                <h1>tests</h1>
+                            </div>
+                        }
+                    />
                     <Route path="/login" element={<Login />} />
                     <Route path="/register" element={<Register />} />
                     <Route path="/speaking" element={<Speaking />} />
