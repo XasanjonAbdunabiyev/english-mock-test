@@ -34,12 +34,18 @@ const Mock = lazy(() =>
     })
 )
 
+import { FaRegCopy } from "react-icons/fa6"
+
 export default function Home() {
     const { isOpen, onClose } = useModal()
     const { userOpen, userCloseModal } = useContext(UserModalContext)
 
     let loginUser = localStorage.getItem("login_user")
     let login_user_data = JSON.parse(loginUser)
+
+    let login_user_password = localStorage.getItem("register_user")
+    let password = JSON.parse(login_user_password)
+
     return (
         <Box>
             <Alert
@@ -58,12 +64,25 @@ export default function Home() {
                 <Mock />
             </Layout>
 
-            <Modal isOpen={userOpen} onClose={userCloseModal}>
-                <Text fontSize={20}>
-                    Your Email Address: {login_user_data?.email}{" "}
+            <Modal
+                navigateUrl="/purchase-mock"
+                navigateTitle="Purchase Mock"
+                isOpen={userOpen}
+                size="lg"
+                onClose={userCloseModal}
+            >
+                <Text fontSize={16} className="my-3">
+                    <span className="font-bold">Your Email Address</span>:{" "}
+                    {login_user_data?.email}
                 </Text>
-                <Text fontSize={20}>
-                    Your App ID: {login_user_data?.apiKey}{" "}
+                <Text fontSize={16} className="my-3">
+                    <span className="font-bold">Your App ID</span>:
+                    <span>{" " + login_user_data?.apiKey}</span>
+                </Text>
+
+                <Text className="my-3">
+                    <span className="font-bold">Your Password</span>:
+                    {"  " + password?.userPassword}
                 </Text>
             </Modal>
 

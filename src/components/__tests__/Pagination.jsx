@@ -8,7 +8,14 @@ const PaginationComponent = () => {
     const [currentPage, setCurrentPage] = useState(1)
     const [itemsPerPage] = useState(1)
 
-    useEffect(() => { /* Fetch data from the fake API*/ const fetchData = async () => { try { const response = await axios.get( "https://jsonplaceholder.typicode.com/posts" ) setData(response.data)
+    useEffect(() => {
+        /* Fetch data from the fake API*/
+        const fetchData = async () => {
+            try {
+                const response = await axios.get(
+                    "https://jsonplaceholder.typicode.com/posts"
+                )
+                setData(response.data);
             } catch (error) {
                 console.error("Error fetching data:", error)
             }

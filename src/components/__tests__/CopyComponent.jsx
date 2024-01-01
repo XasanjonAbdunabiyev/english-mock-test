@@ -1,5 +1,5 @@
 import React from "react"
-import useCopyHook from "@/hooks/useCopy" // Assuming your hook file is named useCopyHook.js
+import useCopyHook from "@/hooks/__tests__/useCopy" // Assuming your hook file is named useCopyHook.js
 
 const CopyComponent = () => {
     const { copyInputRef, copyText } = useCopyHook()

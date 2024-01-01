@@ -1,7 +1,12 @@
-import React from "react";
+import React from "react"
 
-import { Box } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react"
 
-export function PurchaseMock () {
-    return <Box className="purchase_mock"></Box>
+import { Layout } from "@/layouts/Layout"
+export function PurchaseMock() {
+    return (
+        <Layout>
+            <Box className="purchase_mock"></Box>
+        </Layout>
+    )
 }

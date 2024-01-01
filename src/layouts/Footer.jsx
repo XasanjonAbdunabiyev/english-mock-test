@@ -2,39 +2,39 @@ import React from "react"
 
 import { Box, Text, Link } from "@chakra-ui/react"
 
+import { FaYoutube, FaTelegram } from "react-icons/fa"
+
 export const Footer = () => {
+    const year = new Date().getFullYear()
+
     return (
         <Box mt={2} borderTop="1px solid" py={4} as="footer" borderColor="gray">
             <Text marginRight={4} my={3}>
-                &copy; Copyright 2022
+                &copy; Copyright {year}
             </Text>
-            <Box className="flex items-center justify-between max-[815px]:flex-col max-[815px]:items-start gap-5">
-                <Box className="font-lg">
-                    <Link href="#" mx="2">
-                        MultiLevel.uz
-                    </Link>
-                    <Link href="#" mx="2">
-                        Services Licensed
-                    </Link>
-                    <Link href="#" mx="2" marginRight={6}>
-                        № 154864
-                    </Link>
-                </Box>
 
-                <Box className="font-lg">
-                    <Link href="#" mx="2">
-                        MultiLevel.uz
-                    </Link>
-                    <Link href="#" mx="2">
-                        About Us
-                    </Link>
-                    <Link href="#" mx="2">
-                        Services
-                    </Link>
-                    <Link href="#" mx="2" marginRight={6}>
-                        Contact Us
-                    </Link>
-                </Box>
+            <Box className="flex items-center gap-x-10 mt-10">
+                <Link
+                    target="_blank"
+                    href="https://t.me/ingliztilimtsschool"
+                    display="flex"
+                    alignItems="center"
+                    gap="5"
+                >
+                    <FaTelegram fontSize={30} />
+                    <span>Telegram Channel</span>
+                </Link>
+
+                <Link
+                    target="_blank"
+                    href="https://www.youtube.com/@MonsterEnglish"
+                    display="flex"
+                    alignItems="center"
+                    gap="5"
+                >
+                    <FaYoutube fontSize={30} />
+                    <span>Youtube Channel</span>
+                </Link>
             </Box>
         </Box>
     )

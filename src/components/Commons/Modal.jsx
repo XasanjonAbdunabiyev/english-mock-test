@@ -18,10 +18,11 @@ export const Modal = memo(function ({
     children,
     navigateUrl,
     navigateTitle,
+    ...props
 }) {
     const navigate = useNavigate()
     return (
-        <ChakraUiModal isOpen={isOpen} onClose={onClose}>
+        <ChakraUiModal {...props} isOpen={isOpen} onClose={onClose}>
             <ModalOverlay />
             <ModalContent>
                 <ModalHeader>{title}</ModalHeader>

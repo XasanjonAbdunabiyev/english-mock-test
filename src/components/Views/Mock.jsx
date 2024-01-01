@@ -20,6 +20,8 @@ export const Mock = () => {
     const { isOpen, onClose } = useSpeakingModal()
     const { onPaymentClose, isPaymentOpen } = usePaymentModal()
 
+    const appId = JSON.parse(localStorage.getItem("login_user"))?.apiKey;
+
     return (
         <Box className="my-[36px]">
             <Heading mt={6} mb={6} as="h4" size="lg" textAlign="center">
@@ -30,9 +32,10 @@ export const Mock = () => {
             <MockTable />
 
             <Modal
-                navigateUrl={"/speaking"}
+                navigateUrl="/speaking"
                 isOpen={isOpen}
                 navigateTitle="Enter"
+                size="md"
                 onClose={onClose}
                 title="Login to take the test"
             >
@@ -44,21 +47,14 @@ export const Mock = () => {
 
             <Modal
                 title="This mock test is not free"
-                key={"20"}
                 onClose={onPaymentClose}
                 isOpen={isPaymentOpen}
                 navigateTitle="Get payment id"
+                navigateUrl={appId ? "/purchase-mock" : "/not-found"}
             >
-                <Text
-                    fontSize={{
-                        base: "medium",
-                        md: "large",
-                        lg: "larger",
-                        xl: "xx-large",
-                    }}
-                >
+                <Text className="text-lg">
                     To access this Mock Test you will have to pay the prescribed
-                    fee
+                    free
                 </Text>
             </Modal>
         </Box>

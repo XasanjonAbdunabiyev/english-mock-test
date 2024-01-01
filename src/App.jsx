@@ -37,6 +37,7 @@ const Speaking = lazy(() =>
 )
 
 import Test from "./pages/__tests__/Test"
+import NotFound from "./pages/NotFound"
 
 const PurchaseMock = lazy(() =>
     wait(1000).then(() =>
@@ -104,7 +105,7 @@ export const App = () => {
                                 <UsersDashboard />
                             </PrivateRoute>
                         }
-                    />{" "}
+                    />
                     <Route
                         path="/dashboard/:id/edit"
                         element={
@@ -113,6 +114,8 @@ export const App = () => {
                             </PrivateRoute>
                         }
                     />
+                    <Route path="*" element={<NotFound />} />
+                    <Route path="/not-found" element={<NotFound />} />
                 </Route>
             </Routes>
             <ToastContainer />

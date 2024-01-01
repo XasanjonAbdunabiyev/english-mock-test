@@ -1,3 +1,4 @@
+
 import CopyComponent from "@/components/__tests__/CopyComponent"
 import MyForm from "@/components/__tests__/NewTestForm"
 import PaginationComponent from "@/components/__tests__/Pagination"
@@ -17,6 +18,7 @@ const Test = function () {
             <br />
             <hr />
             <ResponsiveText />
+
         </>
     )
 }
