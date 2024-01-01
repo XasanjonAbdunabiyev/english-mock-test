@@ -4,7 +4,7 @@ import { Box } from "@chakra-ui/react"
 
 import { wait } from "@/services/wait"
 
-import { Layout } from "@/layouts/Layout"
+import { Layout } from "@/components/layouts/Layout"
 
 const PurchaseMockTable = lazy(() =>
     wait(1000).then(() =>

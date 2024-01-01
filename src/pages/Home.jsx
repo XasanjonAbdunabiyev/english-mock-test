@@ -12,7 +12,7 @@ const Alert = lazy(() =>
 )
 
 const Layout = lazy(() =>
-    import("../layouts/Layout").then((module) => {
+    import("../components/layouts/Layout").then((module) => {
         return { default: module.Layout }
     })
 )
@@ -26,7 +26,7 @@ const Carousel = lazy(() =>
 )
 
 const Mock = lazy(() =>
-    import("../components/Views/Mock").then((module) => {
+    import("../components/shared/Mock").then((module) => {
         return {
             default: module.Mock,
         }

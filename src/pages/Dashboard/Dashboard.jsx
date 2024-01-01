@@ -23,7 +23,7 @@ const DashboardSpeakingTable = lazy(() =>
 )
 
 const Layout = lazy(() =>
-    import("@/layouts/Layout").then((module) => {
+    import("@/components/layouts/Layout").then((module) => {
         return { default: module.Layout }
     })
 )

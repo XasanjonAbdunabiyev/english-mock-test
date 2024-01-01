@@ -1,7 +1,7 @@
 import React, { useMemo } from "react"
 
 import { UsersTable } from "@/components/Commons/Tables/UsersTable"
-import { Layout } from "@/layouts/Layout"
+import { Layout } from "@/components/layouts/Layout"
 import { Box, Heading } from "@chakra-ui/react"
 
 import { useQuery } from "@tanstack/react-query"

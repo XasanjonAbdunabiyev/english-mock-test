@@ -2,7 +2,7 @@ import React, { lazy } from "react"
 import { Box, Container } from "@chakra-ui/react"
 
 const PageHeader = lazy(() =>
-    import("./PageHeader").then((module) => {
+    import("./navigation/PageHeader").then((module) => {
         return {
             default: module.PageHeader,
         }
@@ -10,7 +10,7 @@ const PageHeader = lazy(() =>
 )
 
 const Footer = lazy(() =>
-    import("../layouts/Footer").then((module) => {
+    import("./Footer").then((module) => {
         return { default: module.Footer }
     })
 )
