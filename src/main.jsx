@@ -1,6 +1,5 @@
 import { ChakraProvider } from "@chakra-ui/react"
 import * as ReactDOM from "react-dom/client"
-import { App } from "./App"
 import "./assets/styles/globals.css"
 import { theme } from "./theme/config"
 
@@ -9,10 +8,7 @@ import "slick-carousel/slick/slick-theme.css"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 
 import { BrowserRouter as Router } from "react-router-dom"
-
-import { PaymentContextProvider } from "@/context/PaymentContext"
-import { SpeakingPaginationContextProvider } from "./context/SpeakingPaginationContext"
-import PaidMockTestQuestionContextProvider from "./context/PaidMockTestQuestionContext"
+import { App } from "./App"
 
 const rootElement = document.getElementById("root")
 
@@ -30,13 +26,7 @@ ReactDOM.createRoot(rootElement).render(
     <Router>
         <ChakraProvider theme={theme}>
             <QueryClientProvider client={queryClient}>
-                <PaymentContextProvider>
-                    <SpeakingPaginationContextProvider>
-                            <PaidMockTestQuestionContextProvider>
-                                <App />
-                            </PaidMockTestQuestionContextProvider>
-                    </SpeakingPaginationContextProvider>
-                </PaymentContextProvider>
+                <App />
             </QueryClientProvider>
         </ChakraProvider>
     </Router>

@@ -78,14 +78,6 @@ export const App = () => {
             <Routes>
                 <Route path="/" element={<LoadedPage />}>
                     <Route path="/" element={<Home />} />
-                    <Route
-                        path="/tests"
-                        element={
-                            <div className="tests">
-                                <h1>tests</h1>
-                            </div>
-                        }
-                    />
                     <Route path="/login" element={<Login />} />
                     <Route path="/register" element={<Register />} />
                     <Route path="/speaking" element={<Speaking />} />
@@ -131,6 +123,7 @@ export const App = () => {
         </Box>
     )
 }
+
 
 function LoadedPage() {
     return (
