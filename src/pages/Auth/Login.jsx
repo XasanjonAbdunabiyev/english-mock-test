@@ -2,7 +2,7 @@ import { lazy } from "react"
 
 import { Box } from "@chakra-ui/react"
 const ChakraLogin = lazy(() =>
-    import("@/components/Containers/Auth/Login").then((module) => {
+    import("@/components/shared/Auth/Login").then((module) => {
         return { default: module.Login }
     })
 )

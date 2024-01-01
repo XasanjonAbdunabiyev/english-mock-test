@@ -11,7 +11,6 @@ export default defineConfig({
     },
     //** Adding import alias for dynamic  */
     resolve: {
-        extensions: [".js", ".ts"],
         alias: {
             "@": path.resolve(__dirname, "./src"),
             "@component": path.resolve(__dirname, "./src/components"),

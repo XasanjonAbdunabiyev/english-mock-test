@@ -15,17 +15,14 @@ import { useNavigate } from "react-router-dom"
 
 import { useForm } from "react-hook-form"
 import { getLoginData } from "@/services/docs"
-import { toastNotify } from "@/components/Commons/ToastNotify"
+import { toastNotify } from "@/components/ui/ToastNotify"
 
 import { auth } from "@/firebase/config"
 import { signInWithEmailAndPassword } from "firebase/auth"
 
-const PasswordField = lazy(() =>
-    import("./PasswordField").then((module) => {
-        return { default: module.PasswordField }
-    })
-)
-import { Logo } from "@/components/Commons/Logo"
+
+import { Logo } from "@/components/ui/Logo"
+import { PasswordField } from "./PasswordField"
 
 export const Login = () => {
     const {
