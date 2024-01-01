@@ -12,7 +12,8 @@ import { BrowserRouter as Router } from "react-router-dom"
 
 import { PaymentContextProvider } from "@/context/PaymentContext"
 import { SpeakingPaginationContextProvider } from "./context/SpeakingPaginationContext"
-import { UserModalContextProvider } from "./context/UserModalContext"
+import PaidMockTestQuestionContextProvider from "./context/PaidMockTestQuestionContext"
+
 const rootElement = document.getElementById("root")
 
 const queryClient = new QueryClient({
@@ -31,9 +32,9 @@ ReactDOM.createRoot(rootElement).render(
             <QueryClientProvider client={queryClient}>
                 <PaymentContextProvider>
                     <SpeakingPaginationContextProvider>
-                        <UserModalContextProvider>
-                            <App />
-                        </UserModalContextProvider>
+                            <PaidMockTestQuestionContextProvider>
+                                <App />
+                            </PaidMockTestQuestionContextProvider>
                     </SpeakingPaginationContextProvider>
                 </PaymentContextProvider>
             </QueryClientProvider>

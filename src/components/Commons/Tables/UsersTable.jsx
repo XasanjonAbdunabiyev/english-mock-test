@@ -12,6 +12,8 @@ import {
     TableCaption,
 } from "@chakra-ui/react"
 
+
+
 export function UsersTable({ tableData }) {
     return (
         <Box className="users_table">

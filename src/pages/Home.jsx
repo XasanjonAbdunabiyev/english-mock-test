@@ -1,10 +1,9 @@
 import { lazy, useContext } from "react"
 import { useModal } from "@/hooks/modal-hooks/useModal"
-import { Box, Heading, Text } from "@chakra-ui/react"
+import { Box,  Text } from "@chakra-ui/react"
 import { ScrollToTopButton } from "@/components/Commons/ScrollToTopButton"
 
 import { Modal } from "@/components/Commons/Modal"
-import { UserModalContext } from "@/context/UserModalContext"
 
 const Alert = lazy(() =>
     import("../components/Commons/Alert").then((module) => {
@@ -38,7 +37,6 @@ import { FaRegCopy } from "react-icons/fa6"
 
 export default function Home() {
     const { isOpen, onClose } = useModal()
-    const { userOpen, userCloseModal } = useContext(UserModalContext)
 
     let loginUser = localStorage.getItem("login_user")
     let login_user_data = JSON.parse(loginUser)

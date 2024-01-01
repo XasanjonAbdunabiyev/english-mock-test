@@ -1,29 +1,27 @@
 import React, { lazy, useContext } from "react"
 
-import { Heading, Button, Wrap, WrapItem, Box } from "@chakra-ui/react"
+import {
+    Box, 
+} from "@chakra-ui/react"
 
-import { TimeAnswer } from "@/components/Views/TimeAnswer"
-import { CiWarning } from "react-icons/ci"
-import { TbClockHour3 } from "react-icons/tb"
-
-import { TimeThink } from "@/components/Views/TimeThink"
-import { useSpeakingTable } from "@/hooks/useSpeakingTable"
-
-import { SpeakingPaginationContext } from "@/context/SpeakingPaginationContext"
 import { Empty } from "@/components/Views/Empty"
 
+import { wait } from "@/services/wait"
+
 const AudioPlay = lazy(() =>
-    import("../AudioPlay").then((module) => {
-        return { default: module.AudioPlay }
-    })
+    wait(1000).then(() =>
+        import("@/components/Commons/AudioPlay").then((module) => {
+            return { default: module.AudioPlay }
+        })
+    )
 )
 
-export const SpeakingTable = function () {
-    const { startTimeThink } = useSpeakingTable()
-    const pagination_context = useContext(SpeakingPaginationContext)
+import {PaidMockTestQuestionContext} from "@/context/PaidMockTestQuestionContext";
 
+export const PurchaseMockTable = () => {
+    const purchase_mock_tests = useContext(PaidMockTestQuestionContext)
     return (
-        <Box className="speaking__table">
+        <Box className="purchase_mock_table">
             {pagination_context?.currentItems.length <= 0 ? (
                 <Empty />
             ) : (
@@ -35,10 +33,7 @@ export const SpeakingTable = function () {
                                 key={question?.id}
                             >
                                 <Box className="my-5">
-                                    <AudioPlay
-                                        timeThinkStart={question?.timeThink}
-                                        src={question?.questionAudio}
-                                    />
+                                    <AudioPlay src={question?.questionAudio} />
                                 </Box>
                                 <Box className="flex items-center justify-between gap-20 max-[800px]:flex-col w-full">
                                     <Box>

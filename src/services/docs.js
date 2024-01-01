@@ -5,6 +5,7 @@ import { getDocs, collection, getDoc, doc } from "firebase/firestore"
 const collectionRef = collection(db, "mock_tests")
 const loginCollectionRef = collection(db, "login")
 const usersCollectionRef = collection(db, "users")
+const paidMockQuestionsCollectionRef = collection(db, "purchase_mock_tests")
 
 export const getQuestions = async () => {
     const db = await getDocs(collectionRef)
@@ -39,4 +40,12 @@ export async function getAllUsers() {
     const res = await getDocs(usersCollectionRef)
     const users = res.docs?.map((doc) => ({ ...doc?.data(), id: doc.id }))
     return users
+}
+
+export async function getAllPurchaseMockQuestions( ) {
+    const res = await getDocs(paidMockQuestionsCollectionRef);
+
+    const questions = res.docs?.map((doc) => ({...doc?.data(), id: doc.id }));
+
+    return questions
 }

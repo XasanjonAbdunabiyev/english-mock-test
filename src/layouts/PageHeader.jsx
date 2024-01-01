@@ -13,16 +13,13 @@ const Logo = lazy(() =>
         return { default: module.Logo }
     })
 )
-
-import { RiSettings3Line } from "react-icons/ri"
+import { CgProfile } from "react-icons/cg";
 
 import { ThemeButton } from "@/components/Commons/ThemeButton"
-import { UserModalContext } from "@/context/UserModalContext"
 
 export const PageHeader = () => {
     const navigate = useNavigate()
     const { colorMode } = useColorMode()
-    const { onModalUser } = useContext(UserModalContext)
     const loginUser = localStorage.getItem("login_user")
 
     return (
@@ -40,7 +37,7 @@ export const PageHeader = () => {
                         {loginUser ? (
                             <IconButton
                                 fontSize={25}
-                                icon={<RiSettings3Line />}
+                                icon={<CgProfile />}
                                 onClick={onModalUser}
                             />
                         ) : (

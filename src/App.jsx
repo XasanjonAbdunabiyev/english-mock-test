@@ -1,4 +1,4 @@
-import { Suspense, lazy } from "react"
+import React, { Suspense, lazy } from "react"
 import { wait } from "./services/wait"
 import { Outlet, Route, Routes } from "react-router-dom"
 import { PrivateRoute } from "./routes/PrivateRoute"
@@ -8,6 +8,8 @@ import "react-toastify/dist/ReactToastify.css"
 import { Box } from "@chakra-ui/react"
 
 const Home = lazy(() => wait(1000).then(() => import("./pages/Home")))
+import { Profile } from "./pages/Profile"
+
 import { ToastContainer } from "@/components/Commons/ToastNotify"
 
 const Login = lazy(() =>
@@ -106,6 +108,7 @@ export const App = () => {
                             </PrivateRoute>
                         }
                     />
+                    <Route path="/profile" element={<Profile />} />
                     <Route
                         path="/dashboard/:id/edit"
                         element={
@@ -114,8 +117,8 @@ export const App = () => {
                             </PrivateRoute>
                         }
                     />
-                    <Route path="*" element={<NotFound />} />
                     <Route path="/not-found" element={<NotFound />} />
+                    <Route path="*" element={<NotFound />} />
                 </Route>
             </Routes>
             <ToastContainer />

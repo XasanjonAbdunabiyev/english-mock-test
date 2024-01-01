@@ -1,11 +1,9 @@
 import React, { memo, useRef } from "react"
 
-import { useSpeakingTable } from "@/hooks/useSpeakingTable"
 
-export const AudioPlay = memo(function ({ src }) {
-    const audioRef = useRef(null)
-    const { timeThinkStart } = useSpeakingTable()
-
+export const AudioPlay = memo(function ({ src, timeThinkStart }) {
+    const audioRef = useRef(null);
+    
     if (timeThinkStart === true) {
         audioRef?.current?.play()
     }
