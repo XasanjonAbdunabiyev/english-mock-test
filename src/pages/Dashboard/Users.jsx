@@ -1,14 +1,42 @@
+import React, { useMemo } from "react"
+
 import { UsersTable } from "@/components/Commons/Tables/UsersTable"
 import { Layout } from "@/layouts/Layout"
 import { Box, Heading } from "@chakra-ui/react"
 
+import { useQuery } from "@tanstack/react-query"
+
+import { getAllUsers } from "@/services/docs"
+import { PageLoading } from "@/components/Commons/Loading"
+
 export function Users() {
+    const { data, isError, error, isLoading } = useQuery({
+        queryKey: ["users"],
+        queryFn: getAllUsers,
+    })
+
+    if (isError) {
+        return (
+            <Layout>
+                <Box textAlign="center">
+                    <Heading as="h1" fontSize="4xl">
+                        Error
+                    </Heading>
+                    <p>{error.message}</p>
+                </Box>
+            </Layout>
+        )
+    }
+    if (isLoading) {
+        return <PageLoading />
+    }
+
     return (
         <Box className="users">
             <Layout>
                 <Heading fontSize={23}>Users Dashboard</Heading>
                 <Box className="my-3">
-                    <UsersTable />
+                    <UsersTable tableData={data} />
                 </Box>
             </Layout>
         </Box>
