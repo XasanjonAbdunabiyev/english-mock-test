@@ -1,36 +1,64 @@
-import React, { useState } from "react"
+import { useState } from "react"
+import { Button, IconButton } from "@chakra-ui/react"
 
-import { Box } from "@chakra-ui/react"
+import { SlUser } from "react-icons/sl"
 
-export function Drobdown() {
+// SignOut fuction
+import { signOut } from "firebase/auth"
+import { auth } from "@/firebase/config"
+import { useNavigate } from "react-router-dom"
+
+export function Drobdown({ options }) {
+    const [selectedOption, setSelectedOption] = useState(null)
+
+    const navigate = useNavigate()
     const [isOpen, setIsOpen] = useState(false)
 
-    const handleToggle = () => setIsOpen(!isOpen)
+    const toggleDropdown = () => {
+        setIsOpen(!isOpen)
+    }
 
     const handleOptionClick = (option) => {
         setSelectedOption(option)
         setIsOpen(false)
+
+        if (selectedOption === "Sign out") {
+            window.localStorage.removeItem("login_user")
+            signOut(auth).then(() => {
+                navigate("/login", { replace: true })
+            })
+        }
     }
 
     return (
-        <Box className="relative inline-block text-left">
-            <svg
-                className={`ml-2 -mr-0.5 h-4 w-4 transition-transform transform ${
-                    isOpen ? "rotate-180" : ""
+        <div className="relative inline-block text-left">
+            <IconButton
+                onClick={toggleDropdown}
+                type="button"
+                icon={<SlUser />}
+                className="inline-flex justify-center text-sm font-medium text-white bg-indigo-600 rounded-md hover:bg-indigo-700 focus:outline-none focus-visible:ring focus-visible:ring-indigo-500 focus-visible:ring-opacity-75"
+            />
+
+            {/* Dropdown panel, show/hide with the 'hidden' class */}
+            <div
+                className={`absolute right-0 w-56 mt-2 bg-white border border-gray-200 divide-y divide-gray-100 rounded-md shadow-lg ${
+                    isOpen ? "" : "hidden"
                 }`}
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                aria-hidden="true"
             >
-                <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M19 9l-7 7-7-7"
-                ></path>
-            </svg>
-        </Box>
+                <div className="py-1">
+                    {options.map((option) => (
+                        <Button
+                            key={option}
+                            colorScheme="grey"
+                            onClick={() => handleOptionClick(option)}
+                            className={`block text-left w-full px-2 py-2 text-sm 
+                            } hover:bg-gray-200 focus:outline-none`}
+                        >
+                            {option}
+                        </Button>
+                    ))}
+                </div>
+            </div>
+        </div>
     )
 }

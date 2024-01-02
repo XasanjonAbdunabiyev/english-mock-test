@@ -1,5 +1,5 @@
 import React from "react"
-import { Register as CreateCredentials } from "@/components/Containers/Auth/Register"
+import { Register as CreateCredentials } from "@/components/shared/Auth/Register"
 export function Register() {
     return <CreateCredentials />
 }

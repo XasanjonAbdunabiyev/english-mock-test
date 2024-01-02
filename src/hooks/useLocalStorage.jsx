@@ -1,6 +1,6 @@
-export const useLocalStorage = (key) => {
+export const useLocalStorage = () => {
     // Set Item Function
-    const setItem = (value) => {
+    const setItem = (key, value) => {
         try {
             window.localStorage.setItem(key, value)
         } catch (error) {
@@ -9,7 +9,7 @@ export const useLocalStorage = (key) => {
     }
 
     // Get Item Function
-    const getItem = () => {
+    const getItem = (key) => {
         try {
             let item = window.localStorage.getItem(key)
             if (item) {
@@ -22,18 +22,17 @@ export const useLocalStorage = (key) => {
 
     // Remove Item Function
 
-    const removeItem = () => {
+    const removeItem = (key) => {
         try {
             window.localStorage.removeItem(key)
         } catch (error) {
             console.error(error)
         }
     }
-    
-    
+
     return {
         setItem,
         getItem,
-        removeItem
+        removeItem,
     }
 }

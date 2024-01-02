@@ -14,7 +14,7 @@ import {
 import { useForm } from "react-hook-form"
 import { PasswordField } from "./PasswordField"
 
-import { Logo } from "@/components/Commons/Logo"
+import { Logo } from "@/components/ui/Logo"
 import { createUserWithEmailAndPassword } from "firebase/auth"
 
 import { auth } from "@/firebase/config"

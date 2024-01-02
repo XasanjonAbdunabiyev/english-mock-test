@@ -5,7 +5,6 @@ import {
     Container,
     useColorMode,
     Box,
-    IconButton,
 } from "@chakra-ui/react"
 
 import { useNavigate } from "react-router-dom"
@@ -16,14 +15,14 @@ const Logo = lazy(() =>
     })
 )
 
-import { CgProfile } from "react-icons/cg";
-
 import { ThemeButton } from "@/components/ui/ThemeButton"
+import { useLocalStorage } from "@/hooks/useLocalStorage"
+import { Drobdown } from "@/components/ui/Dropdown"
 
 export const PageHeader = () => {
     const navigate = useNavigate()
     const { colorMode } = useColorMode()
-    const loginUser = localStorage.getItem("login_user")
+    const { getItem } = useLocalStorage()
 
     return (
         <header
@@ -37,12 +36,8 @@ export const PageHeader = () => {
                         <Logo />
                     </Box>
                     <nav className="flex items-center gap-x-6">
-                        {loginUser ? (
-                            <IconButton
-                                fontSize={25}
-                                icon={<CgProfile />}
-                                
-                            />
+                        {getItem("login_user") ? (
+                            <Drobdown options={["Profile settings 🧐", "Sign out"]}/>
                         ) : (
                             <Button
                                 colorScheme="telegram"

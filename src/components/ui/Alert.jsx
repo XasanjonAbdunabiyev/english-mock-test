@@ -33,7 +33,7 @@ export const Alert = memo(function ({ isOpen, onClose, children, title }) {
                         <AlertDialogBody>{children}</AlertDialogBody>
 
                         <AlertDialogFooter>
-                            <Button colorScheme="blue" onClick={onClose} ml={3}>
+                            <Button colorScheme="green" onClick={onClose} ml={3}>
                                 close
                             </Button>
                         </AlertDialogFooter>

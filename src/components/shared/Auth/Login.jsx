@@ -1,4 +1,6 @@
-import { lazy, useEffect, useState } from "react"
+import { useEffect, useState } from "react"
+
+import { v4 as uuidV4 } from "uuid"
 
 import {
     Box,
@@ -20,9 +22,14 @@ import { toastNotify } from "@/components/ui/ToastNotify"
 import { auth } from "@/firebase/config"
 import { signInWithEmailAndPassword } from "firebase/auth"
 
-
 import { Logo } from "@/components/ui/Logo"
 import { PasswordField } from "./PasswordField"
+
+import { addDoc, collection } from "firebase/firestore"
+import { db } from "@/firebase/config"
+import { useLocalStorage } from "@/hooks/useLocalStorage"
+
+const usersCollection = collection(db, "users")
 
 export const Login = () => {
     const {
@@ -52,6 +59,8 @@ export const Login = () => {
         }
     }, [])
 
+    const { getItem, removeItem, setItem } = useLocalStorage()
+
     const onSubmit = async (data) => {
         // Login data for admin
         loginData?.map(({ password, email }) => {
@@ -65,10 +74,8 @@ export const Login = () => {
             }
         })
 
-        let register_user = localStorage.getItem("register_user")
-        let register_user_obj = JSON.parse(register_user)
-
-        const { userPassword, currentUser } = register_user_obj
+        const registerItem = getItem("register_user")
+        const { userPassword, currentUser } = registerItem
 
         await signInWithEmailAndPassword(
             auth,
@@ -82,17 +89,24 @@ export const Login = () => {
                 data?.email === registered_email &&
                 data?.password === registered_password
             ) {
-                navigate("/")
+                // push logged in user to db users collection
+                addDoc(usersCollection, {
+                    appId: `${uuidV4()}`,
+                    email: data?.email,
+                    password: data?.password,
+                    isPaid: false,
+                }).then(() => {
+                    toast({
+                        title: "Correct Email and Password",
+                        status: "success",
+                        duration: 3000,
+                        isClosable: true,
+                    })
 
-                toast({
-                    title: "Correct Email and Password",
-                    status: "success",
-                    duration: 3000,
-                    isClosable: true,
+                    navigate("/")
+                    setItem("login_user", JSON.stringify(res.user))
                 })
-
-                localStorage.setItem("login_user", JSON.stringify(res.user))
-            }else {
+            } else {
                 toast({
                     title: "Incorrect Email and Password",
                     description: "Register again",
@@ -100,8 +114,7 @@ export const Login = () => {
                     duration: 3000,
                     isClosable: true,
                 })
-
-                localStorage.removeItem("register_user")
+                removeItem("register_user")
             }
         })
     }
