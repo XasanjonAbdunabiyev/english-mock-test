@@ -9,9 +9,6 @@ import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage"
 import { addDoc, collection } from "firebase/firestore"
 const main_questions_collection = collection(db, "mock_tests")
 
-/** Toast */
-import { toastNotify } from "@/components/Commons/ToastNotify"
-
 /** Icons */
 import { GrPowerReset } from "react-icons/gr"
 import { TbBrandTelegram } from "react-icons/tb"
@@ -94,11 +91,12 @@ export const AddSpeakingData = () => {
             )
         } else {
             setBtnLoading(false)
-            console.error("No audio file selected")
-
-            return toastNotify({
-                title: "error",
-                message: "error upload audio file",
+            chakraToast({
+                duration: 2000,
+                title: "Uploading error audio",
+                description: "Please upload audio file",
+                status: "error",
+                isClosable: true,
             })
         }
     }
@@ -261,19 +259,11 @@ export const AddSpeakingData = () => {
                 </p>
             )}
 
-            <Button
-                type="submit"
-                my={4}
-                rightIcon={<TbBrandTelegram />}
-            >
+            <Button type="submit" my={4} rightIcon={<TbBrandTelegram />}>
                 Add Question
             </Button>
 
-            <Button
-                type="reset"
-                mx={4}
-                rightIcon={<GrPowerReset />}
-            >
+            <Button type="reset" mx={4} rightIcon={<GrPowerReset />}>
                 Reset
             </Button>
         </form>

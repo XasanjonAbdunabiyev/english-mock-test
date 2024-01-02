@@ -6,7 +6,6 @@ import {
     InputGroup,
     InputRightElement,
     useDisclosure,
-    Box,
     useMergeRefs,
 } from "@chakra-ui/react"
 import { forwardRef, useRef } from "react"
@@ -52,4 +51,3 @@ export const PasswordField = forwardRef((props, ref) => {
         </FormControl>
     )
 })
-PasswordField.displayName = "PasswordField"

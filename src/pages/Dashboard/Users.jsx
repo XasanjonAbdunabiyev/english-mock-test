@@ -1,15 +1,13 @@
-import React, { useMemo } from "react"
-
-import { UsersTable } from "@/components/Commons/Tables/UsersTable"
+import { UsersTable } from "@/components/ui/Tables/UsersTable"
 import { Layout } from "@/components/layouts/Layout"
 import { Box, Heading } from "@chakra-ui/react"
 
 import { useQuery } from "@tanstack/react-query"
 
 import { getAllUsers } from "@/api/docs"
-import { PageLoading } from "@/components/Commons/Loading"
+import { PageLoading } from "@/components/ui/Loading"
 
-export function Users() {
+export default function Users() {
     const { data, isError, error, isLoading } = useQuery({
         queryKey: ["users"],
         queryFn: getAllUsers,

@@ -14,21 +14,25 @@ const DashboardPage = lazy(() =>
 )
 
 const UsersDashboard = lazy(() =>
-    wait(1000).then(() =>
-        import("@/pages/Dashboard/Users").then(() => (module) => {
-            return { default: module.Users }
-        })
-    )
+    wait(1000).then(() => import("@/pages/Dashboard/Users"))
+)
+
+const PurchaseMock = lazy(() =>
+    wait(1000).then(() => import("@/pages/PurchaseMock/index"))
+)
+
+const SpeakingPage = lazy(() =>
+    wait(1000).then(() => import("@/pages/Speaking"))
 )
 
 import { ROUTER_ACTIONS } from "./RouterActions"
 
 import { LoginPage } from "@/pages/Auth/LoginPage"
-import { ErrorPage } from "./ErrorPage"
 import { Register } from "@/pages/Auth/Register"
 
 import { RootOutlet } from "./RootOutlet"
 import { ProtectedRoute } from "./ProtectedRoute"
+import { CheckAdmin } from "./CheckAdmin"
 
 export const router = createBrowserRouter(
     createRoutesFromElements(
@@ -36,12 +40,20 @@ export const router = createBrowserRouter(
             <Route element={<RootOutlet />}>
                 <Route path={ROUTER_ACTIONS.HOME} element={<HomePage />} />
                 <Route path={ROUTER_ACTIONS.LOGIN} element={<LoginPage />} />
-                <Route
-                    path={ROUTER_ACTIONS.ERRORPAGE}
-                    element={<ErrorPage />}
-                />
                 <Route path={ROUTER_ACTIONS.REGISTER} element={<Register />} />
+
                 <Route element={<ProtectedRoute />}>
+                    <Route
+                        path={ROUTER_ACTIONS.PURCHASEMOCK}
+                        element={<PurchaseMock />}
+                    />
+                </Route>
+
+                <Route
+                    path={ROUTER_ACTIONS.SPEAKING}
+                    element={<SpeakingPage />}
+                />
+                <Route element={<CheckAdmin />}>
                     <Route
                         path={ROUTER_ACTIONS.USERSDASHBOARD}
                         element={<UsersDashboard />}

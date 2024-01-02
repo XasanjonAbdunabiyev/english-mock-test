@@ -1,20 +1,13 @@
-import React, { lazy } from "react"
+import { lazy } from "react"
 
 import { Box, Button } from "@chakra-ui/react"
 import { wait } from "@/api/wait"
 import { useNavigate } from "react-router-dom"
 
-const AddSpeakingData = lazy(() =>
-    wait(1000)
-        .then(() => import("@/components/Containers/Dashboard/AddSpeakingData"))
-        .then((module) => {
-            return { default: module.AddSpeakingData }
-        })
-)
 
 const DashboardSpeakingTable = lazy(() =>
     wait(1000).then(() =>
-        import("@/components/Containers/Dashboard/DashboardSpeakingTable").then(
+        import("@/components/shared/Dashboard/DashboardSpeakingTable").then(
             (module) => {
                 return { default: module.DashboardSpeakingTable }
             }
@@ -22,13 +15,10 @@ const DashboardSpeakingTable = lazy(() =>
     )
 )
 
-const Layout = lazy(() =>
-    import("@/components/layouts/Layout").then((module) => {
-        return { default: module.Layout }
-    })
-)
 
 import { FaUsers } from "react-icons/fa"
+import { Layout } from "@/components/layouts/Layout"
+import { AddSpeakingData } from "@/components/shared/Dashboard/AddSpeakingData"
 
 export default function Dashboard() {
     const navigate = useNavigate()
@@ -36,6 +26,7 @@ export default function Dashboard() {
         <Box>
             <Layout>
                 <Button
+                    className="bg-gray-200"
                     leftIcon={<FaUsers />}
                     onClick={() => navigate("/dashboard/users")}
                 >

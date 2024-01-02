@@ -63,7 +63,7 @@ export const Login = () => {
 
     const onSubmit = async (data) => {
         // Login data for admin
-        loginData?.map(({ password, email }) => {
+        loginData?.map(async ({ password, email }) => {
             if (password === data?.password && email === data?.email) {
                 navigate("/dashboard")
                 toastNotify({
@@ -85,6 +85,18 @@ export const Login = () => {
             let registered_email = currentUser?.email
             let registered_password = userPassword
 
+            if (
+                registered_email === undefined &&
+                registered_password === undefined
+            ) {
+                toast({
+                    title: "Incorrect Email and Password",
+                    description: "This account does not exist",
+                    status: "error",
+                    duration: 3000,
+                    isClosable: true,
+                })
+            }
             if (
                 data?.email === registered_email &&
                 data?.password === registered_password
@@ -213,7 +225,13 @@ export const Login = () => {
                                 >
                                     You are new to this site
                                 </Heading>
-                                <Button className="bg-green-500" variant="outline" type="submit" width="100%" my={2}>
+                                <Button
+                                    className="bg-green-500"
+                                    variant="outline"
+                                    type="submit"
+                                    width="100%"
+                                    my={2}
+                                >
                                     Login
                                 </Button>
                             </form>

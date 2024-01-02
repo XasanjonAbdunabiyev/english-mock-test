@@ -3,7 +3,6 @@ import React, { lazy } from "react"
 import { wait } from "@/api/wait"
 import { Box } from "@chakra-ui/react"
 
-
 const Layout = lazy(() =>
     import("@/components/layouts/Layout").then((module) => {
         return { default: module.Layout }
@@ -12,13 +11,13 @@ const Layout = lazy(() =>
 
 const SpeakingTable = lazy(() =>
     wait(1000).then(() =>
-        import("@/components/Commons/Tables/SpeakingTable").then((module) => {
+        import("@/components/ui/Tables/SpeakingTable").then((module) => {
             return { default: module.SpeakingTable }
         })
     )
 )
 
-export const Speaking = () => {
+const Speaking = () => {
     return (
         <Box className="speaking-page">
             <Layout>
@@ -27,3 +26,5 @@ export const Speaking = () => {
         </Box>
     )
 }
+
+export default Speaking

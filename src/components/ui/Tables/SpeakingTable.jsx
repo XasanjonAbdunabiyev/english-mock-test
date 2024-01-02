@@ -5,11 +5,11 @@ import { Heading, Button, Wrap, WrapItem, Box } from "@chakra-ui/react"
 import { CiWarning } from "react-icons/ci"
 import { TbClockHour3 } from "react-icons/tb"
 
-
 import { useSpeakingTable } from "@/hooks/useSpeakingTable"
 
 import { SpeakingPaginationContext } from "@/context/SpeakingPaginationContext"
 import { Empty } from "@/components/ui/Empty"
+import { NotFound } from "@/pages/NotFound"
 
 const AudioPlay = lazy(() =>
     import("../AudioPlay").then((module) => {
@@ -21,9 +21,17 @@ export const SpeakingTable = function () {
     const { startTimeThink } = useSpeakingTable()
     const pagination_context = useContext(SpeakingPaginationContext)
 
+    if (
+        !pagination_context?.currentItems ||
+        pagination_context?.currentItems?.length <= 0
+    ) {
+        return <NotFound />
+    }
+
     return (
         <Box className="speaking__table">
-            {pagination_context?.currentItems.length <= 0 ? (
+            {pagination_context?.currentItems?.length <= 0 &&
+            !pagination_context?.currentItems ? (
                 <Empty />
             ) : (
                 <>
@@ -48,7 +56,6 @@ export const SpeakingTable = function () {
                                             <span className="text-[17] font-bold  my-3">
                                                 Time To Think
                                             </span>
-
                                             <CiWarning
                                                 fontSize={40}
                                                 className="mb-3"
@@ -56,7 +63,6 @@ export const SpeakingTable = function () {
                                             {question?.timeThink}
                                         </Heading>
                                     </Box>
-
                                     <Wrap className="w-[45%] flex items-center justify-center flex-col max-[800px]:w-full">
                                         <WrapItem>
                                             <Heading
@@ -68,7 +74,6 @@ export const SpeakingTable = function () {
                                             </Heading>
                                         </WrapItem>
                                     </Wrap>
-
                                     <Box>
                                         <Box className="flex items-center justify-center flex-col">
                                             <Heading

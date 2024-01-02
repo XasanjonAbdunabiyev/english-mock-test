@@ -1,6 +1,6 @@
-import { db } from "../firebase/config"
+import { db } from "@/firebase/config"
 
-import { getDocs, collection, getDoc, doc } from "firebase/firestore"
+import { getDocs, collection, getDoc, doc, deleteDoc } from "firebase/firestore"
 
 const collectionRef = collection(db, "mock_tests")
 const loginCollectionRef = collection(db, "login")
@@ -47,8 +47,14 @@ export async function getAllUsers() {
 
 export async function getAllPurchaseMockQuestions() {
     const res = await getDocs(paidMockQuestionsCollectionRef)
-
     const questions = res.docs?.map((doc) => ({ ...doc?.data(), id: doc.id }))
-
     return questions
+}
+
+export async function deleteUserFromUsersCollection(id) {
+    try {
+        return await deleteDoc(db, "users", id).then((res) => res)
+    } catch (error) {
+        console.error("error deleting user from users collection")
+    }
 }

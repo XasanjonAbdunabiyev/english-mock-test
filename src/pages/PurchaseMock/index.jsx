@@ -1,4 +1,4 @@
-import React, { lazy } from "react"
+import { lazy } from "react"
 
 import { Box } from "@chakra-ui/react"
 
@@ -8,14 +8,12 @@ import { Layout } from "@/components/layouts/Layout"
 
 const PurchaseMockTable = lazy(() =>
     wait(1000).then(() =>
-        import("@/components/Commons/Tables/PurchaseMockTable").then(
-            (module) => {
-                return { default: module.PurchaseMockTable }
-            }
-        )
+        import("@/components/ui/Tables/PurchaseMockTable").then((module) => {
+            return { default: module.PurchaseMockTable }
+        })
     )
 )
-export function PurchaseMock() {
+export default function PurchaseMock() {
     return (
         <Layout>
             <Box className="purchase_mock">
