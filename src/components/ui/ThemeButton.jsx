@@ -6,7 +6,6 @@ export function ThemeButton() {
 
     return (
         <IconButton
-            colorScheme="facebook"
             onClick={toggleColorMode}
             fontSize={22}
             color={colorMode === "dark" ? "white" : "white"}

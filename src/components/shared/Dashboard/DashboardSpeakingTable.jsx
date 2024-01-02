@@ -118,7 +118,6 @@ export const DashboardSpeakingTable = () => {
                                                     )
                                                 }
                                                 leftIcon={<RiDeleteBin5Fill />}
-                                                colorScheme="red"
                                             >
                                                 Delete
                                             </Button>
@@ -129,7 +128,6 @@ export const DashboardSpeakingTable = () => {
                                                     )
                                                 }
                                                 rightIcon={<FaEdit />}
-                                                colorScheme="green"
                                             >
                                                 Update
                                             </Button>

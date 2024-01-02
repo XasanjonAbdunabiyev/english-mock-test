@@ -49,7 +49,6 @@ export function Drobdown({ options }) {
                     {options.map((option) => (
                         <Button
                             key={option}
-                            colorScheme="grey"
                             onClick={() => handleOptionClick(option)}
                             className={`block text-left w-full px-2 py-2 text-sm 
                             } hover:bg-gray-200 focus:outline-none`}

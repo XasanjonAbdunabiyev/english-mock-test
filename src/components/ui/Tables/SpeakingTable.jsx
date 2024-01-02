@@ -97,7 +97,6 @@ export const SpeakingTable = function () {
                             startTimeThink()
                         }}
                         letterSpacing={1}
-                        colorScheme="green"
                         className="w-full my-2 uppercase font-bold"
                     >
                         Start
@@ -124,7 +123,6 @@ export const SpeakingTable = function () {
                         )}
 
                         <Button
-                            colorScheme="green"
                             onClick={() =>
                                 pagination_context?.handlePageChange(
                                     pagination_context?.currentPage + 1

@@ -32,7 +32,6 @@ export const Modal = memo(function ({
                     <Button
                         width="100%"
                         my={4}
-                        colorScheme="green"
                         onClick={() => navigate(navigateUrl)}
                     >
                         {navigateTitle}

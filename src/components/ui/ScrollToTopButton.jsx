@@ -32,7 +32,6 @@ export const ScrollToTopButton = () => {
             visibility={showButton ? "visible" : "hidden"}
             position="fixed"
             aria-label='Search database'
-            colorScheme="teal"
             bottom="4"
             size="lg"
             fontSize={20}

@@ -232,7 +232,6 @@ export const AddSpeakingData = () => {
 
                 {/* Upload Audio Button */}
                 <Button
-                    colorScheme="linkedin"
                     onClick={handleUpload}
                     isLoading={btnLoading}
                     transition="all 0.2s cubic-bezier(.08,.52,.52,1)"
@@ -266,7 +265,6 @@ export const AddSpeakingData = () => {
                 type="submit"
                 my={4}
                 rightIcon={<TbBrandTelegram />}
-                colorScheme="linkedin"
             >
                 Add Question
             </Button>
@@ -275,7 +273,6 @@ export const AddSpeakingData = () => {
                 type="reset"
                 mx={4}
                 rightIcon={<GrPowerReset />}
-                colorScheme="red"
             >
                 Reset
             </Button>

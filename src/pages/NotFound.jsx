@@ -6,7 +6,7 @@ export const NotFound = memo(({ errStatusText, errMessage }) => {
             <h1>Oops!</h1>
             <p>Sorry, an unexpected error has occurred.</p>
             <p>
-                <i>{errStatusText || errMessage}</i>
+                <i></i>
             </p>
         </div>
     )

@@ -40,7 +40,6 @@ export const PageHeader = () => {
                             <Drobdown options={["Profile settings 🧐", "Sign out"]}/>
                         ) : (
                             <Button
-                                colorScheme="telegram"
                                 onClick={() => navigate("/login")}
                             >
                                 Login

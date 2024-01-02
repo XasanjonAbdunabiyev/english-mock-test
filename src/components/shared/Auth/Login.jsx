@@ -164,14 +164,14 @@ export const Login = () => {
                     }}
                     bg={{
                         base: "transparent",
-                        sm: "bg.surface",
+                        sm: "bg.gray.100",
                     }}
                     boxShadow={{
-                        base: "none",
-                        sm: "lg",
+                        base: "1",
+                        sm: "xl",
                     }}
                     borderRadius={{
-                        base: "none",
+                        base: "1",
                         sm: "xl",
                     }}
                 >
@@ -213,7 +213,7 @@ export const Login = () => {
                                 >
                                     You are new to this site
                                 </Heading>
-                                <Button type="submit" width="100%" my={2}>
+                                <Button className="bg-green-500" variant="outline" type="submit" width="100%" my={2}>
                                     Login
                                 </Button>
                             </form>

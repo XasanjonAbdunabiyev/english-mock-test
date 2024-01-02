@@ -158,7 +158,7 @@ export const UpdateQuestionDashboard = () => {
     return (
         <Box className="my-3">
             <Container>
-                <Button colorScheme="green" my={2} onClick={() => navigate(-1)}>
+                <Button my={2} onClick={() => navigate(-1)}>
                     Back to Dashboard Page
                 </Button>
 
@@ -225,18 +225,10 @@ export const UpdateQuestionDashboard = () => {
                     </Box>
 
                     <Box className="flex items-center gap-x-5 my-3">
-                        <Button
-                            type="reset"
-                            onClick={() => reset()}
-                            colorScheme="red"
-                        >
+                        <Button type="reset" onClick={() => reset()}>
                             Reset Changes
                         </Button>
-                        <Button
-                            type="submit"
-                            leftIcon={<GrUpdate />}
-                            colorScheme="green"
-                        >
+                        <Button type="submit" leftIcon={<GrUpdate />}>
                             Submit
                         </Button>
                     </Box>

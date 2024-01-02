@@ -61,7 +61,7 @@ export const MockTable = () => {
                                                 color="gray"
                                                 className="my-3"
                                             />
-                                            <Button colorScheme="purple">
+                                            <Button>
                                                 Submission
                                             </Button>
                                         </Box>
@@ -84,7 +84,6 @@ export const MockTable = () => {
                                                         onOpen()
                                                     }
                                                 }}
-                                                colorScheme="telegram"
                                             >
                                                 Submission
                                             </Button>
@@ -97,7 +96,7 @@ export const MockTable = () => {
                                                 className="my-3"
                                                 color="gray"
                                             />
-                                            <Button colorScheme="yellow">
+                                            <Button>
                                                 Submission
                                             </Button>
                                         </Box>
