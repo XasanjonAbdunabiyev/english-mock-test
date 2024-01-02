@@ -1,7 +1,11 @@
-import { useContext } from "react"
-import { AuthContext } from "@/context/AuthContext"
+import { useLocalStorage } from "@/hooks/useLocalStorage"
 
 export const useAuth = function () {
-    const { user } = useContext(AuthContext)
-    return { user }
+    const { getItem } = useLocalStorage()
+    let user = getItem("login_user");
+    
+    if (user) {
+        return user
+    }
+    return null
 }
