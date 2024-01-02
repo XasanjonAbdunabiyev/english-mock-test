@@ -1,11 +1,18 @@
-import { Navigate, Outlet } from "react-router-dom"
-import { useAuth } from "@/hooks/auth/useAuth"
+import { useEffect } from "react"
+import { Outlet, useNavigate } from "react-router-dom"
+
+import { ROUTER_ACTIONS } from "./RouterActions"
 
 export const ProtectedRoute = function () {
-    const { user } = useAuth()
-    if (!user) {
-        // user is not authenticated
-        return <Navigate to="/login" />
-    }
-    return <Outlet />
+    let navigate = useNavigate()
+
+    let user = localStorage.getItem("login_user")
+
+    useEffect(() => {
+        if (!user) {
+            navigate(ROUTER_ACTIONS.LOGIN)
+        } else {
+            return <Outlet />
+        }
+    }, [])
 }

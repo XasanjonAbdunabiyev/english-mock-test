@@ -7,8 +7,8 @@ export function ThemeButton() {
     return (
         <IconButton
             onClick={toggleColorMode}
+            className="border"
             fontSize={22}
-            color={colorMode === "dark" ? "white" : "white"}
             icon={colorMode === "light" ? <FiSun /> : <FiMoon />}
         />
     )

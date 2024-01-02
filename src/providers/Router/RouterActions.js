@@ -6,4 +6,5 @@ export const ROUTER_ACTIONS = {
     SPEAKING: "/speaking",
     DASHBOARD: "/dashboard",
     ERRORPAGE: "*",
+    USERSDASHBOARD: "/dashboard/users"
 }

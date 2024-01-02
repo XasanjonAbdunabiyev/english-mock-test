@@ -36,7 +36,7 @@ export function Drobdown({ options }) {
                 onClick={toggleDropdown}
                 type="button"
                 icon={<SlUser />}
-                className="inline-flex justify-center text-sm font-medium text-white bg-indigo-600 rounded-md hover:bg-indigo-700 focus:outline-none focus-visible:ring focus-visible:ring-indigo-500 focus-visible:ring-opacity-75"
+                className="inline-flex justify-center text-sm font-medium  bg-indigo-600 rounded-md hover:bg-indigo-700 focus:outline-none focus-visible:ring focus-visible:ring-indigo-500 focus-visible:ring-opacity-75"
             />
 
             {/* Dropdown panel, show/hide with the 'hidden' class */}
@@ -51,7 +51,7 @@ export function Drobdown({ options }) {
                             key={option}
                             onClick={() => handleOptionClick(option)}
                             className={`block text-left w-full px-2 py-2 text-sm 
-                            } hover:bg-gray-200 focus:outline-none`}
+                            } hover:bg-gray-200 focus:outline-none text-black`}
                         >
                             {option}
                         </Button>

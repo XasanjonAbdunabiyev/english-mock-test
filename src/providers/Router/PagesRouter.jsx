@@ -13,6 +13,14 @@ const DashboardPage = lazy(() =>
     wait(1000).then(() => import("@/pages/Dashboard/Dashboard"))
 )
 
+const UsersDashboard = lazy(() =>
+    wait(1000).then(() =>
+        import("@/pages/Dashboard/Users").then(() => (module) => {
+            return { default: module.Users }
+        })
+    )
+)
+
 import { ROUTER_ACTIONS } from "./RouterActions"
 
 import { LoginPage } from "@/pages/Auth/LoginPage"
@@ -28,10 +36,20 @@ export const router = createBrowserRouter(
             <Route element={<RootOutlet />}>
                 <Route path={ROUTER_ACTIONS.HOME} element={<HomePage />} />
                 <Route path={ROUTER_ACTIONS.LOGIN} element={<LoginPage />} />
-                <Route path={ROUTER_ACTIONS.ERRORPAGE} element={<ErrorPage />} />
+                <Route
+                    path={ROUTER_ACTIONS.ERRORPAGE}
+                    element={<ErrorPage />}
+                />
                 <Route path={ROUTER_ACTIONS.REGISTER} element={<Register />} />
                 <Route element={<ProtectedRoute />}>
-                    <Route path={ROUTER_ACTIONS.DASHBOARD} element={<DashboardPage />} />
+                    <Route
+                        path={ROUTER_ACTIONS.USERSDASHBOARD}
+                        element={<UsersDashboard />}
+                    />
+                    <Route
+                        path={ROUTER_ACTIONS.DASHBOARD}
+                        element={<DashboardPage />}
+                    />
                 </Route>
             </Route>
         </>
