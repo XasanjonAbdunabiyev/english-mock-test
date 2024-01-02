@@ -1,8 +1,8 @@
-import React from 'react'
-
+import { useLocalStorage } from "@/hooks/useLocalStorage"
 
 export const Profile = () => {
-  return (
-    <div>Profile</div>
-  )
+    const { getItem } = useLocalStorage();
+    
+    const user = getItem("login_user");
+    return <div>Profile</div>
 }

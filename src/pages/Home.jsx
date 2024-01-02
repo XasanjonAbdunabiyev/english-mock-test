@@ -7,7 +7,7 @@ import { ScrollToTopButton } from "@/components/ui/ScrollToTopButton"
 import { FullImageCarousel } from "@/components/ui/FullImageCarousel"
 
 const Alert = lazy(() =>
-    import("@/components/ui/Alert").then((module) => {
+    import("@/components/ui/Message/Alert").then((module) => {
         return { default: module.Alert }
     })
 )

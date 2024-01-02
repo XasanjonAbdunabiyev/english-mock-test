@@ -1,6 +1,6 @@
-import React from "react"
+import { memo } from "react"
 
-export const NotFound = React.memo(({errStatusText, errMessage}) => {
+export const NotFound = memo(({ errStatusText, errMessage }) => {
     return (
         <div id="error-page">
             <h1>Oops!</h1>

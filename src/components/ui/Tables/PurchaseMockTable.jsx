@@ -1,10 +1,8 @@
 import React, { lazy, useContext } from "react"
 
-import {
-    Box, 
-} from "@chakra-ui/react"
+import { Box } from "@chakra-ui/react"
 
-import { Empty } from "@/components/Views/Empty"
+import { Empty } from "@/components/ui/Empty"
 
 import { wait } from "@/api/wait"
 
@@ -16,7 +14,7 @@ const AudioPlay = lazy(() =>
     )
 )
 
-import {PaidMockTestQuestionContext} from "@/context/PaidMockTestQuestionContext";
+import { PaidMockTestQuestionContext } from "@/context/PaidMockTestQuestionContext"
 
 export const PurchaseMockTable = () => {
     const purchase_mock_tests = useContext(PaidMockTestQuestionContext)
@@ -50,11 +48,7 @@ export const PurchaseMockTable = () => {
                                                 className="mb-3"
                                             />
 
-                                            <TimeThink
-                                                initialState={
-                                                    question?.timeThink
-                                                }
-                                            />
+                                            {question?.timeThink}
                                         </Heading>
                                     </Box>
 
@@ -85,11 +79,7 @@ export const PurchaseMockTable = () => {
                                                     className="mb-3"
                                                 />
                                             </Heading>
-                                            <TimeAnswer
-                                                initialState={
-                                                    question?.timeAnswer
-                                                }
-                                            />
+                                            {question?.timeAnswer}
                                         </Box>
                                     </Box>
                                 </Box>

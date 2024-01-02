@@ -6,7 +6,6 @@ let root = createRoot(container)
 // Global style
 import("./assets/styles/globals.css")
 
-
 // Ui Provider
 import { UiProvider } from "@/providers/UIProvider/UiProvider"
 
@@ -16,10 +15,15 @@ import { RoutesProvider } from "@/providers/Router/RouterProvider"
 // Query Provider
 import QueryProvider from "./providers/QueryClientProvider"
 
+// Main React Context Provider
+import MainContextProvider from "./context/MainContextProvider"
+
 root.render(
     <UiProvider>
         <QueryProvider>
-            <RoutesProvider />
+            <MainContextProvider>
+                <RoutesProvider />
+            </MainContextProvider>
         </QueryProvider>
     </UiProvider>
 )

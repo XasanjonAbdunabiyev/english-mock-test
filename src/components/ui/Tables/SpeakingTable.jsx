@@ -2,15 +2,14 @@ import React, { lazy, useContext } from "react"
 
 import { Heading, Button, Wrap, WrapItem, Box } from "@chakra-ui/react"
 
-import { TimeAnswer } from "@/components/Views/TimeAnswer"
 import { CiWarning } from "react-icons/ci"
 import { TbClockHour3 } from "react-icons/tb"
 
-import { TimeThink } from "@/components/Views/TimeThink"
+
 import { useSpeakingTable } from "@/hooks/useSpeakingTable"
 
 import { SpeakingPaginationContext } from "@/context/SpeakingPaginationContext"
-import { Empty } from "@/components/Views/Empty"
+import { Empty } from "@/components/ui/Empty"
 
 const AudioPlay = lazy(() =>
     import("../AudioPlay").then((module) => {
@@ -54,12 +53,7 @@ export const SpeakingTable = function () {
                                                 fontSize={40}
                                                 className="mb-3"
                                             />
-
-                                            <TimeThink
-                                                initialState={
-                                                    question?.timeThink
-                                                }
-                                            />
+                                            {question?.timeThink}
                                         </Heading>
                                     </Box>
 
@@ -90,11 +84,7 @@ export const SpeakingTable = function () {
                                                     className="mb-3"
                                                 />
                                             </Heading>
-                                            <TimeAnswer
-                                                initialState={
-                                                    question?.timeAnswer
-                                                }
-                                            />
+                                            {question?.timeAnswer}
                                         </Box>
                                     </Box>
                                 </Box>
