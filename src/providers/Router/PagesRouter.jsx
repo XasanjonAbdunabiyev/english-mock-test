@@ -29,11 +29,12 @@ import { ROUTER_ACTIONS } from "./RouterActions"
 
 import { LoginPage } from "@/pages/Auth/LoginPage"
 import { Register } from "@/pages/Auth/Register"
+import { Profile } from "@/pages/Profile"
+import Tests from "@pages/__tests__/Tests"
 
 import { RootOutlet } from "./RootOutlet"
 import { ProtectedRoute } from "./ProtectedRoute"
 import { CheckAdmin } from "./CheckAdmin"
-import { Profile } from "@/pages/Profile"
 
 export const router = createBrowserRouter(
     createRoutesFromElements(
@@ -59,6 +60,8 @@ export const router = createBrowserRouter(
                     element={<SpeakingPage />}
                 />
 
+                {/* Tests Page */}
+                <Route path="/tests" element={<Tests />} />
                 {/* Dashboards Route */}
                 <Route element={<CheckAdmin />}>
                     <Route

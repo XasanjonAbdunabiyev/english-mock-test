@@ -9,10 +9,16 @@ import { auth, db } from "@/firebase/config"
 import { useNavigate } from "react-router-dom"
 
 import { deleteDoc, doc } from "firebase/firestore"
+import { useLocalStorage } from "@/hooks/useLocalStorage"
+
+let drob_downOptions = {
+    signOut: "Sign out",
+    profileSettings: "Profile settings 🧐",
+}
 
 export function Drobdown({ options }) {
     const [selectedOption, setSelectedOption] = useState(null)
-
+    const { getItem } = useLocalStorage()
     const navigate = useNavigate()
     const [isOpen, setIsOpen] = useState(false)
 
@@ -24,15 +30,21 @@ export function Drobdown({ options }) {
         setSelectedOption(option)
         setIsOpen(false)
 
-        if (selectedOption === "Sign out") {
-            // Remove the user from login
-            window.localStorage.removeItem("login_user")
-            signOut(auth).then(() => {
-                navigate("/login", { replace: true })
-            })
-        } else if (selectedOption === "Profile settings 🧐") {
-            navigate("/profile", { replace: true })
+        if (option === drob_downOptions.signOut) {
+            let login_user = getItem("login_user")
+
+            console.log(login_user.id)
+        } else if (option === drob_downOptions.profileSettings) {
         }
+        // if (selectedOption === "Sign out") {
+        //     // Remove the user from login
+        //     window.localStorage.removeItem("login_user")
+        //     signOut(auth).then(() => {
+        //         navigate("/login", { replace: true })
+        //     })
+        // } else if (selectedOption === "Profile settings 🧐") {
+        //     navigate("/profile", { replace: true })
+        // }
     }
 
     return (
@@ -40,7 +52,7 @@ export function Drobdown({ options }) {
             <IconButton
                 onClick={toggleDropdown}
                 type="button"
-                icon={<SlUser />}
+                icon={<SlUser fontSize={20} />}
                 className="inline-flex justify-center text-sm font-bold rounded-md border focus:outline-none focus-visible:ring focus-visible:ring-indigo-500 focus-visible:ring-opacity-75"
             />
 

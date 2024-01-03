@@ -12,7 +12,9 @@ export default function Users() {
     const { data, isError, error, isLoading } = useQuery({
         queryKey: ["users"],
         queryFn: getAllUsers,
-    })
+    });
+    
+  
 
     if (isError) {
         return (

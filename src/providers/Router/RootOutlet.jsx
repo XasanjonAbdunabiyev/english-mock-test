@@ -8,7 +8,7 @@ export function RootOutlet() {
     const outlet = useOutlet()
     return (
         <Suspense fallback={<PageLoading />}>
-            <div className="router_root detail-root">{outlet}</div>
+            <div className="router_root detail-root text-lg">{outlet}</div>
         </Suspense>
     )
 }

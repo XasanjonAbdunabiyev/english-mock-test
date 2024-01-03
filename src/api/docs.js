@@ -33,6 +33,15 @@ export const getQuestionById = async (id) => {
     }
 }
 
+export const getUserById = async function (id) {
+    const detailedUserCollection = doc(db, "users", id)
+    const res = await getDoc(detailedUserCollection)
+
+    if (res.exists()) {
+        return res.data()
+    }
+}
+
 export async function getAllUsers() {
     const res = await getDocs(usersCollectionRef)
     const users = res.docs?.map((doc) => ({ ...doc?.data(), id: doc.id }))
