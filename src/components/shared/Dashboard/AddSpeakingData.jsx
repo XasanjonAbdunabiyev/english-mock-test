@@ -109,8 +109,6 @@ export const AddSpeakingData = () => {
     }
 
     const onSubmit = async (data) => {
-        let initialState
-
         const addquestions_data = {
             question_title: data?.first_question,
             timeAnswer: parseInt(data?.timeAnswer),
@@ -118,41 +116,44 @@ export const AddSpeakingData = () => {
             questionAudio: audioUrl,
         }
 
-        let newQuestions = { ...addquestions_data }
+        const currentPart = partChanges
 
-        // if (partQuestions)
-
-        if (partQuestions[partChanges].length <= 0) {
-            setPartQuestions({ [partChanges]: [newQuestions] })
+        const newQuestions = {
+            ...partQuestions,
+            [currentPart]: [...partQuestions[currentPart], addquestions_data],
         }
-        // await addDoc(main_questions_collection, partQuestions)
-        //     .then((_response) => {
-        //         toastNotify({
-        //             title: "success",
-        //             message: "Question Added Successfully",
-        //         })
-
-        //         queryClient.invalidateQueries({
-        //             queryKey: ["dashboardQuestions"],
-        //         })
-
-        //         reset()
-        //         setAudioUrl(null)
-        //     })
-        //     .catch((_error) => {
-        //         console.error("Fetching Error", _error)
-        //         toastNotify({
-        //             title: "error",
-        //             message: "Something went wrong",
-        //         })
-        //     });
+        
+        postQuestionsByPartChanges(newQuestions)
     }
-    
+
+    async function postQuestionsByPartChanges(newQuestions) {
+        await addDoc(main_questions_collection, newQuestions)
+            .then((_response) => {
+                chakraToast({
+                    title: "Question Added Successfully",
+                    status: "success",
+                    isClosable: true,
+                    duration: 3000,
+                })
+
+                queryClient.invalidateQueries({
+                    queryKey: ["dashboardQuestions"],
+                })
+
+                reset()
+                setAudioUrl(null)
+            })
+            .catch((_error) => {
+                console.error("Fetching Error", _error)
+                chakraToast({
+                    status: "error",
+                    title: "Something went wrong",
+                })
+            })
+    }
 
     return (
         <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
-            {/* Question title */}
-
             {/* Select Part Question */}
             <Box my={5}>
                 <select
@@ -183,7 +184,7 @@ export const AddSpeakingData = () => {
             {/* Time to think */}
             <Input
                 className="my-3"
-                {...register("timeThink", { required: true })}
+                {...register("timeThink")}
                 placeholder={"Enter question time to think"}
                 type="number"
             />
@@ -198,7 +199,7 @@ export const AddSpeakingData = () => {
             {/* Time Answer */}
             <Input
                 className="my-3"
-                {...register("timeAnswer", { required: true })}
+                {...register("timeAnswer")}
                 placeholder={"Enter question time to answer"}
                 type="number"
             />
@@ -213,10 +214,7 @@ export const AddSpeakingData = () => {
             {/* Audio file Input */}
             <Box className="my-3 flex items-center gap-5">
                 <Input
-                    {...register(
-                        "auidioUrl"
-                        // { required: true }
-                    )}
+                    {...register("auidioUrl")}
                     type="file"
                     onChange={handleFileChange}
                     accept="audio/*"
