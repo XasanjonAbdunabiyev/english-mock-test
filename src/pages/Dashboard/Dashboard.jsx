@@ -26,7 +26,7 @@ export default function Dashboard() {
         <Box>
             <Layout>
                 <Button
-                    className="bg-gray-200"
+                    className="bg-gray-600 text-white"
                     leftIcon={<FaUsers />}
                     onClick={() => navigate("/dashboard/users")}
                 >

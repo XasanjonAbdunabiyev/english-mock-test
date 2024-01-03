@@ -51,6 +51,7 @@ export const UpdateQuestionDashboard = () => {
 
     const { handleSubmit, register, setValue, reset } = useForm()
 
+    // Input Default Value
     useEffect(() => {
         if (data) {
             Object.keys(data)?.forEach((key) => {
@@ -68,6 +69,8 @@ export const UpdateQuestionDashboard = () => {
         setAudioFile(file)
     }
 
+    // Handle File Upload function
+    
     const handleUplaoding = () => {
         //  Create an pendingPromise promise that resolves in 5s
         const pendingPromise = new Promise((resolve, reject) => {
