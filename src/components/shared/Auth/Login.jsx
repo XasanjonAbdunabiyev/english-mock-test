@@ -76,31 +76,12 @@ export const Login = () => {
 
         const registerItem = getItem("register_user")
         const { userPassword, currentUser } = registerItem
+    console.log({ userPassword, currentUser })
 
-        await signInWithEmailAndPassword(
-            auth,
-            data?.email,
-            data?.password
-        ).then((res) => {
-            let registered_email = currentUser?.email
-            let registered_password = userPassword
-
+        if (currentUser && userPassword) {
             if (
-                registered_email === undefined &&
-                registered_password === undefined
-            ) {
-                toast({
-                    title: "Incorrect Email and Password",
-                    description: "This account does not exist",
-                    status: "error",
-                    duration: 3000,
-                    isClosable: true,
-                })
-            }
-            
-            if (
-                data?.email === registered_email &&
-                data?.password === registered_password
+                data?.email === currentUser?.email &&
+                data?.password === userPassword
             ) {
                 // push logged in user to db users collection
                 addDoc(usersCollection, {
@@ -119,6 +100,12 @@ export const Login = () => {
                     navigate("/")
                     setItem("login_user", JSON.stringify(res.user))
                 })
+
+                await signInWithEmailAndPassword(
+                    auth,
+                    data?.email,
+                    data?.password
+                )
             } else {
                 toast({
                     title: "Incorrect Email and Password",
@@ -129,7 +116,9 @@ export const Login = () => {
                 })
                 removeItem("register_user")
             }
-        })
+        }else if (data.email !== currentUser?.email && data?.password !== userPassword)  {
+            console.log(true)
+        }
     }
 
     return (
