@@ -32,6 +32,8 @@ export const DashboardSpeakingTable = () => {
         return <Empty />
     }
 
+
+    // Handle Delete Question
     const handleDeleteQuestion = async (id) => {
         try {
             await deleteDoc(doc(db, "mock_tests", id)).then(() => {
@@ -49,6 +51,7 @@ export const DashboardSpeakingTable = () => {
             })
         }
     }
+    
 
     return (
         <Box className="flex items-center justify-between px-2">
@@ -60,21 +63,7 @@ export const DashboardSpeakingTable = () => {
                 </TabList>
 
                 <TabPanels>
-                    <TabPanel>
-                        {data?.map((prtQs) => {
-                            console.log(prtQs)
-                        })}
-                    </TabPanel>
-                    {/* <TabPanel>
-                        {data?.map((prtQs) => {
-                            return <div key={prtQs.id}>Two</div>
-                        })}
-                    </TabPanel>
-                    <TabPanel>
-                        {data?.map((prtQs) => {
-                            return <div key={prtQs.id}>Three</div>
-                        })}
-                    </TabPanel> */}
+                    
                 </TabPanels>
             </Tabs>
         </Box>

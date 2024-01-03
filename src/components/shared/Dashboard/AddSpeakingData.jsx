@@ -6,7 +6,14 @@ import { Box, Button, Input, Textarea, useToast } from "@chakra-ui/react"
 /** Firebase */
 import { db, storage } from "@/firebase/config"
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage"
-import { addDoc, collection } from "firebase/firestore"
+import {
+    addDoc,
+    arrayUnion,
+    collection,
+    setDoc,
+    updateDoc,
+    doc,
+} from "firebase/firestore"
 const main_questions_collection = collection(db, "mock_tests")
 
 /** Icons */
@@ -118,17 +125,23 @@ export const AddSpeakingData = () => {
 
         const currentPart = partChanges
 
-        const newQuestions = {
-            ...partQuestions,
+        setPartQuestions((prevQuestions) => ({
+            ...prevQuestions,
+            [currentPart]: [...prevQuestions[currentPart], addquestions_data],
+        }))
+
+        // Post questions to the database
+        const newQuestionsObject = {
             [currentPart]: [...partQuestions[currentPart], addquestions_data],
         }
-
-        postQuestionsByPartChanges(newQuestions)
+        await postQuestionsByPartChanges(newQuestionsObject)
     }
 
     async function postQuestionsByPartChanges(newQuestions) {
-        await addDoc(main_questions_collection, newQuestions)
-            .then((_response) => {
+        try {
+            await updateDoc(main_questions_collection, {
+                questions: newQuestions,
+            }).then((_response) => {
                 chakraToast({
                     title: "Question Added Successfully",
                     status: "success",
@@ -143,13 +156,12 @@ export const AddSpeakingData = () => {
                 reset()
                 setAudioUrl(null)
             })
-            .catch((_error) => {
-                console.error("Fetching Error", _error)
-                chakraToast({
-                    status: "error",
-                    title: "Something went wrong",
-                })
+        } catch (error) {
+            chakraToast({
+                status: "error",
+                title: "Something went wrong",
             })
+        }
     }
 
     return (
