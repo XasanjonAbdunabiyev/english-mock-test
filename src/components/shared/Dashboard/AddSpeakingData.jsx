@@ -122,7 +122,7 @@ export const AddSpeakingData = () => {
             ...partQuestions,
             [currentPart]: [...partQuestions[currentPart], addquestions_data],
         }
-        
+
         postQuestionsByPartChanges(newQuestions)
     }
 
@@ -162,7 +162,7 @@ export const AddSpeakingData = () => {
                 >
                     <option value="part_one">Question Part One</option>
                     <option value="part_two">Question Part Two</option>
-                    <option value="part_two">Question Part Three</option>
+                    <option value="part_three">Question Part Three</option>
                 </select>
             </Box>
             {/* Select Part Question */}
