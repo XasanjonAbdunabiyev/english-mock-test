@@ -76,7 +76,6 @@ export const Login = () => {
 
         const registerItem = getItem("register_user")
         const { userPassword, currentUser } = registerItem
-    console.log({ userPassword, currentUser })
 
         if (currentUser && userPassword) {
             if (
@@ -89,7 +88,7 @@ export const Login = () => {
                     email: data?.email,
                     password: data?.password,
                     isPaid: false,
-                }).then(() => {
+                }).then((res) => {
                     toast({
                         title: "Correct Email and Password",
                         status: "success",
@@ -105,7 +104,10 @@ export const Login = () => {
                     auth,
                     data?.email,
                     data?.password
-                )
+                ).then((res) => {
+                    navigate("/")
+                    setItem("login_user", JSON.stringify(res.user))
+                })
             } else {
                 toast({
                     title: "Incorrect Email and Password",
@@ -116,7 +118,10 @@ export const Login = () => {
                 })
                 removeItem("register_user")
             }
-        }else if (data.email !== currentUser?.email && data?.password !== userPassword)  {
+        } else if (
+            data.email !== currentUser?.email &&
+            data?.password !== userPassword
+        ) {
             console.log(true)
         }
     }

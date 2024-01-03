@@ -24,12 +24,6 @@ export const getLoginData = async () => {
     return loginData
 }
 
-/**
- *
- * @param id type string
- * @returns promise single question
- */
-
 export const getQuestionById = async (id) => {
     const singleQuestionCollectionRef = doc(db, "mock_tests", id)
     const res = await getDoc(singleQuestionCollectionRef)

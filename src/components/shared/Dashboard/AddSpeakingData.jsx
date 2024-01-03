@@ -30,7 +30,7 @@ export const AddSpeakingData = () => {
         part_one: [],
         part_two: [],
         part_three: [],
-    });
+    })
 
     const chakraToast = useToast()
 
@@ -46,6 +46,7 @@ export const AddSpeakingData = () => {
         setAudioFile(file)
     }
 
+    // Handle file Upload
     const handleUpload = async () => {
         if (audioFile) {
             const storageRef = ref(storage, `audio/${audioFile.name}`)
@@ -108,6 +109,8 @@ export const AddSpeakingData = () => {
     }
 
     const onSubmit = async (data) => {
+        let initialState
+
         const addquestions_data = {
             question_title: data?.first_question,
             timeAnswer: parseInt(data?.timeAnswer),
@@ -116,8 +119,12 @@ export const AddSpeakingData = () => {
         }
 
         let newQuestions = { ...addquestions_data }
-        
 
+        // if (partQuestions)
+
+        if (partQuestions[partChanges].length <= 0) {
+            setPartQuestions({ [partChanges]: [newQuestions] })
+        }
         // await addDoc(main_questions_collection, partQuestions)
         //     .then((_response) => {
         //         toastNotify({
@@ -141,6 +148,7 @@ export const AddSpeakingData = () => {
         //     });
     }
     
+
     return (
         <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
             {/* Question title */}
