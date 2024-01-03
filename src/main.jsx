@@ -13,7 +13,7 @@ import { UiProvider } from "@/providers/UIProvider/UiProvider"
 import { RoutesProvider } from "@/providers/Router/RouterProvider"
 
 // Query Provider
-import QueryProvider from "./providers/QueryClientProvider"
+import QueryProvider from "./providers/Query/QueryClientProvider"
 
 // Main React Context Provider
 import MainContextProvider from "./context/MainContextProvider"

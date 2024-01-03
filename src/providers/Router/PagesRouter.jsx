@@ -33,6 +33,7 @@ import { Register } from "@/pages/Auth/Register"
 import { RootOutlet } from "./RootOutlet"
 import { ProtectedRoute } from "./ProtectedRoute"
 import { CheckAdmin } from "./CheckAdmin"
+import { Profile } from "@/pages/Profile"
 
 export const router = createBrowserRouter(
     createRoutesFromElements(
@@ -47,12 +48,18 @@ export const router = createBrowserRouter(
                         path={ROUTER_ACTIONS.PURCHASEMOCK}
                         element={<PurchaseMock />}
                     />
+                    <Route
+                        path={ROUTER_ACTIONS.ACCOUNT}
+                        element={<Profile />}
+                    />
                 </Route>
 
                 <Route
                     path={ROUTER_ACTIONS.SPEAKING}
                     element={<SpeakingPage />}
                 />
+
+                {/* Dashboards Route */}
                 <Route element={<CheckAdmin />}>
                     <Route
                         path={ROUTER_ACTIONS.USERSDASHBOARD}

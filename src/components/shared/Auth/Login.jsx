@@ -97,6 +97,7 @@ export const Login = () => {
                     isClosable: true,
                 })
             }
+            
             if (
                 data?.email === registered_email &&
                 data?.password === registered_password

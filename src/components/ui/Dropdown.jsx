@@ -5,8 +5,10 @@ import { SlUser } from "react-icons/sl"
 
 // SignOut fuction
 import { signOut } from "firebase/auth"
-import { auth } from "@/firebase/config"
+import { auth, db } from "@/firebase/config"
 import { useNavigate } from "react-router-dom"
+
+import { deleteDoc, doc } from "firebase/firestore"
 
 export function Drobdown({ options }) {
     const [selectedOption, setSelectedOption] = useState(null)
@@ -18,15 +20,18 @@ export function Drobdown({ options }) {
         setIsOpen(!isOpen)
     }
 
-    const handleOptionClick = (option) => {
+    const handleOptionClick = async (option) => {
         setSelectedOption(option)
         setIsOpen(false)
 
         if (selectedOption === "Sign out") {
+            // Remove the user from login
             window.localStorage.removeItem("login_user")
             signOut(auth).then(() => {
                 navigate("/login", { replace: true })
             })
+        } else if (selectedOption === "Profile settings 🧐") {
+            navigate("/profile", { replace: true })
         }
     }
 
@@ -36,7 +41,7 @@ export function Drobdown({ options }) {
                 onClick={toggleDropdown}
                 type="button"
                 icon={<SlUser />}
-                className="inline-flex justify-center text-sm font-medium  bg-indigo-600 rounded-md hover:bg-indigo-700 focus:outline-none focus-visible:ring focus-visible:ring-indigo-500 focus-visible:ring-opacity-75"
+                className="inline-flex justify-center text-sm font-bold rounded-md border focus:outline-none focus-visible:ring focus-visible:ring-indigo-500 focus-visible:ring-opacity-75"
             />
 
             {/* Dropdown panel, show/hide with the 'hidden' class */}
