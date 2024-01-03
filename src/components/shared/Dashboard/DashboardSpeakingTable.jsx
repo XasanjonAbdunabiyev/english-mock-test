@@ -2,6 +2,8 @@ import { Button, Text, Box, useToast } from "@chakra-ui/react"
 import { RiDeleteBin5Fill } from "react-icons/ri"
 import { FaEdit } from "react-icons/fa"
 
+import { Tabs, TabList, TabPanels, Tab, TabPanel } from "@chakra-ui/react"
+
 import { deleteDoc, doc } from "firebase/firestore"
 import { useQuery } from "@tanstack/react-query"
 import { db } from "@/firebase/config"
@@ -50,9 +52,31 @@ export const DashboardSpeakingTable = () => {
 
     return (
         <Box className="flex items-center justify-between px-2">
-            {data?.map(() => {
-                return <></>
-            })}
+            <Tabs className="w-full" variant="enclosed">
+                <TabList>
+                    <Tab className="font-bold">Part One</Tab>
+                    <Tab className="font-bold">Part Two</Tab>
+                    <Tab className="font-bold">Part Three</Tab>
+                </TabList>
+
+                <TabPanels>
+                    <TabPanel>
+                        {data?.map((prtQs) => {
+                            console.log(prtQs)
+                        })}
+                    </TabPanel>
+                    {/* <TabPanel>
+                        {data?.map((prtQs) => {
+                            return <div key={prtQs.id}>Two</div>
+                        })}
+                    </TabPanel>
+                    <TabPanel>
+                        {data?.map((prtQs) => {
+                            return <div key={prtQs.id}>Three</div>
+                        })}
+                    </TabPanel> */}
+                </TabPanels>
+            </Tabs>
         </Box>
     )
 }

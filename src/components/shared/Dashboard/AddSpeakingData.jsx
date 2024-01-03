@@ -184,7 +184,7 @@ export const AddSpeakingData = () => {
             {/* Time to think */}
             <Input
                 className="my-3"
-                {...register("timeThink")}
+                {...register("timeThink", { required: true })}
                 placeholder={"Enter question time to think"}
                 type="number"
             />
@@ -199,7 +199,7 @@ export const AddSpeakingData = () => {
             {/* Time Answer */}
             <Input
                 className="my-3"
-                {...register("timeAnswer")}
+                {...register("timeAnswer", { required: true })}
                 placeholder={"Enter question time to answer"}
                 type="number"
             />
@@ -214,7 +214,7 @@ export const AddSpeakingData = () => {
             {/* Audio file Input */}
             <Box className="my-3 flex items-center gap-5">
                 <Input
-                    {...register("auidioUrl")}
+                    {...register("auidioUrl", { required: true })}
                     type="file"
                     onChange={handleFileChange}
                     accept="audio/*"
