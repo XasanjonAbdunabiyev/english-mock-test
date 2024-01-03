@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 
 import {
     Box,
@@ -26,10 +26,14 @@ export function UsersTable({ tableData }) {
 
     const handleUpdateUserIsPaid = async (user_db) => {
         const updateUserIsPaidCollection = doc(db, "users", user_db?.id)
+        let initialState;
+        if (user_db.isPaid === true) {
+            initialState = { ...user_db, isPaid: false }
+        } else {
+            initialState = { ...user_db, isPaid: true }
+        }
 
-        let result = { ...user_db, isPaid: true }
-
-        await updateDoc(updateUserIsPaidCollection, result)
+        await updateDoc(updateUserIsPaidCollection, initialState)
             .then(() => {
                 toast({
                     title: "Update user is paid",
@@ -66,7 +70,6 @@ export function UsersTable({ tableData }) {
                     </Thead>
                     <Tbody>
                         {tableData?.map((userTable) => {
-                        console.log(userTable?.isPaid)
                             return (
                                 <Tr key={userTable?.appId}>
                                     <Td>{userTable?.email}</Td>

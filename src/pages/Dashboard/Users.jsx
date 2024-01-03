@@ -1,4 +1,4 @@
-import { UsersTable } from "@/components/ui/Tables/UsersTable"
+
 import { Layout } from "@/components/layouts/Layout"
 import { Box, Heading } from "@chakra-ui/react"
 
@@ -6,6 +6,7 @@ import { useQuery } from "@tanstack/react-query"
 
 import { getAllUsers } from "@/api/docs"
 import { PageLoading } from "@/components/ui/Loading"
+import { UsersTable } from "@/components/ui/Tables/UsersTable"
 
 export default function Users() {
     const { data, isError, error, isLoading } = useQuery({

@@ -30,7 +30,7 @@ export const AddSpeakingData = () => {
         part_one: [],
         part_two: [],
         part_three: [],
-    })
+    });
 
     const chakraToast = useToast()
 
@@ -101,6 +101,7 @@ export const AddSpeakingData = () => {
         }
     }
 
+    // Handle Select Part Questions
     const handleSelectChange = (event) => {
         // Selected part changes
         setPartChanges(event?.target?.value)
@@ -115,17 +116,7 @@ export const AddSpeakingData = () => {
         }
 
         let newQuestions = { ...addquestions_data }
-
-        if (partQuestions[partChanges].length === 0) {
-            setPartQuestions({ [partChanges]: [newQuestions] })
-        } else {
-            setPartQuestions((prevQuestions) => ({
-                ...prevQuestions,
-                [partChanges]: [...prevQuestions[partChanges], newQuestions],
-            }))
-        }
-
-        console.log(partQuestions["part_two"])
+        
 
         // await addDoc(main_questions_collection, partQuestions)
         //     .then((_response) => {
@@ -147,9 +138,9 @@ export const AddSpeakingData = () => {
         //             title: "error",
         //             message: "Something went wrong",
         //         })
-        //     })
+        //     });
     }
-
+    
     return (
         <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
             {/* Question title */}
@@ -214,7 +205,10 @@ export const AddSpeakingData = () => {
             {/* Audio file Input */}
             <Box className="my-3 flex items-center gap-5">
                 <Input
-                    {...register("auidioUrl", { required: true })}
+                    {...register(
+                        "auidioUrl"
+                        // { required: true }
+                    )}
                     type="file"
                     onChange={handleFileChange}
                     accept="audio/*"
@@ -225,8 +219,6 @@ export const AddSpeakingData = () => {
                         This is field reqiired
                     </span>
                 )}
-
-                {/* Audio file Input */}
 
                 {/* Upload Audio Button */}
                 <Button

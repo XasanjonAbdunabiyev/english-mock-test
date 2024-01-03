@@ -9,7 +9,8 @@ import ("swiper/css/navigation")
 
 // Slides static data
 import { slides } from "@/db/carusel-data"
-import { Image } from "@chakra-ui/react"
+import { Image } from "@chakra-ui/react";
+
 export const FullImageCarousel = () => {
     return (
         <Swiper
