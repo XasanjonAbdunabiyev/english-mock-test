@@ -23,7 +23,8 @@ import { FaUpload } from "react-icons/fa"
 
 import { useForm } from "react-hook-form"
 
-import { useQueryClient } from "@tanstack/react-query"
+import { useQuery, useQueryClient } from "@tanstack/react-query"
+import { getQuestionById } from "@/api/docs"
 
 export const AddSpeakingData = () => {
     const queryClient = useQueryClient()
@@ -32,7 +33,7 @@ export const AddSpeakingData = () => {
     const [btnLoading, setBtnLoading] = useState(false)
 
     const [partChanges, setPartChanges] = useState("part_one")
-
+    let [counter, setCounter] = useState(0)
     const [partQuestions, setPartQuestions] = useState({
         part_one: [],
         part_two: [],
@@ -135,13 +136,13 @@ export const AddSpeakingData = () => {
             [currentPart]: [...partQuestions[currentPart], addquestions_data],
         }
         await postQuestionsByPartChanges(newQuestionsObject)
+
+        setCounter((prev) => prev + 1)
     }
 
     async function postQuestionsByPartChanges(newQuestions) {
-        try {
-            await updateDoc(main_questions_collection, {
-                questions: newQuestions,
-            }).then((_response) => {
+        await addDoc(main_questions_collection, newQuestions)
+            .then((_response) => {
                 chakraToast({
                     title: "Question Added Successfully",
                     status: "success",
@@ -153,15 +154,17 @@ export const AddSpeakingData = () => {
                     queryKey: ["dashboardQuestions"],
                 })
 
+                localStorage.setItem("dashboardQuestionsId", _response.id)
                 reset()
                 setAudioUrl(null)
             })
-        } catch (error) {
-            chakraToast({
-                status: "error",
-                title: "Something went wrong",
+            .catch((_error) => {
+                console.error("Fetching Error", _error)
+                chakraToast({
+                    status: "error",
+                    title: "Something went wrong",
+                })
             })
-        }
     }
 
     return (

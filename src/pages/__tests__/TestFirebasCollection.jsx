@@ -1,60 +1,40 @@
-import { useState } from "react"
+import { addDoc, arrayUnion, doc, updateDoc } from "firebase/firestore"
+import { db } from "@/firebase/config" // Firebase konfiguratsiyasi
 
-import { db } from "@/firebase/config"
-import { doc, setDoc, arrayUnion, collection } from "firebase/firestore"
-export default function TestFirebasCollection() {
-    const [newItem, setNewItem] = useState({
-        title: "",
-        description: "",
-    })
+const App = () => {
+    const handleButtonClick = async () => {
+        let docRef
 
-    const handleInputChange = (e) => {
-        const { name, value } = e.target
-        setNewItem((prevItem) => ({
-            ...prevItem,
-            [name]: value,
-        }))
-    }
-
-    const handleAddItem = async () => {
         try {
             const newItem = {
                 // Yangi savol ma'lumotlari
-                question_title: "New Question",
+                question_title: "lorem ipsum",
                 timeAnswer: 10,
-                timeThink: 5,
-                questionAudio: "audio-url.mp3",
             }
 
-            const docRef = doc(db, "yourCollection")
+            docRef = doc(db, "tests", "9wX8FQYUKYRQQrx4CK9d")
 
-            // Birinchi marta push qilish
-            await setDoc(docRef, { questions: [newItem] })
+            // Birinchi marta qo'shilganda
+            await addDoc(docRef, {
+                part_one: [newItem],
+            })
 
             console.log("First item added successfully!")
         } catch (error) {
             console.error("Error adding first item:", error)
         }
-    }
 
-    const handleAddAnotherItem = async () => {
         try {
-            const newItem = {
+            const anotherNewItem = {
                 // Yangi savol ma'lumotlari
-                question_title: "Another New Question",
+                question_title: "Another lorem ipsum",
                 timeAnswer: 15,
-                timeThink: 8,
-                questionAudio: "another-audio-url.mp3",
             }
 
-            const docRef = doc(db, "yourCollection")
-
-            // Keyingi marta push qilish (Yangi obyektni o'zgartiramiz)
-            await setDoc(
-                docRef,
-                { questions: arrayUnion(newItem) },
-                { merge: true }
-            )
+            // Keyingi marta push qilganda
+            await updateDoc(docRef, {
+                part_one: arrayUnion(anotherNewItem),
+            })
 
             console.log("Another item added successfully!")
         } catch (error) {
@@ -64,25 +44,9 @@ export default function TestFirebasCollection() {
 
     return (
         <div>
-            <label>
-                Title:
-                <input
-                    type="text"
-                    name="title"
-                    value={newItem.title}
-                    onChange={handleInputChange}
-                />
-            </label>
-            <label>
-                Description:
-                <input
-                    type="text"
-                    name="description"
-                    value={newItem.description}
-                    onChange={handleInputChange}
-                />
-            </label>
-            <button onClick={handleAddItem}>Add Item</button>
+            <button onClick={handleButtonClick}>Add Questions</button>
         </div>
     )
 }
+
+export default App

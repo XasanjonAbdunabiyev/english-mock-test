@@ -42,6 +42,7 @@ export const getUserById = async function (id) {
     }
 }
 
+
 export async function getAllUsers() {
     const res = await getDocs(usersCollectionRef)
     const users = res.docs?.map((doc) => ({ ...doc?.data(), id: doc.id }))
