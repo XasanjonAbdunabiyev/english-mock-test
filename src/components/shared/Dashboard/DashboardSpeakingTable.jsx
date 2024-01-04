@@ -5,32 +5,22 @@ import { FaEdit } from "react-icons/fa"
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from "@chakra-ui/react"
 
 import { deleteDoc, doc } from "firebase/firestore"
-import { useQuery } from "@tanstack/react-query"
 import { db } from "@/firebase/config"
 
-import { getQuestionById } from "@/api/docs"
+import { getQuestions } from "@/api/docs"
 import { useQueryClient } from "@tanstack/react-query"
 import { useNavigate } from "react-router-dom"
 import { Empty } from "@/components/ui/Empty"
 import { useLocalStorage } from "@/hooks/useLocalStorage"
+import { useGet } from "@/hooks/request/useGet"
 
 export const DashboardSpeakingTable = () => {
     // Navigate to ...
     const navigate = useNavigate()
     const queryClient = useQueryClient()
-    const { getItem } = useLocalStorage()
     const toast = useToast()
-    let latestQuestionId = getItem("dashboardQuestionsId")
 
-    const { data, isError, isLoading } = useQuery({
-        queryKey: ["dashboardQuestions"],
-        queryFn: () => getQuestionById(latestQuestionId?.id),
-    })
-
-    if (isLoading) {
-        return <p className="font-bold my-4 text-lg">Loading...</p>
-    }
-
+    const { data } = useGet(["dashboard"], getQuestions)
 
     // Handle Delete Question
     const handleDeleteQuestion = async (id) => {
@@ -50,29 +40,50 @@ export const DashboardSpeakingTable = () => {
             })
         }
     }
-
-    let changes = latestQuestionId?.partChanges
-
-    if (changes === data?.changes) {
-        console.log(changes)
-    }
+    
 
     return (
         <Box className="flex items-center justify-between px-2">
             <Tabs className="w-full" variant="enclosed">
                 <TabList>
-                    <Tab>One</Tab>
-                    <Tab>Two</Tab>
-                    <Tab>Three</Tab>
+                    <Tab>Part One</Tab>
+                    <Tab>Part Two</Tab>
+                    <Tab> PartThree</Tab>
                 </TabList>
                 <TabPanels>
-                    <TabPanel></TabPanel>
-                    <TabPanel>
-                        <p>two!</p>
-                    </TabPanel>
-                    <TabPanel>
-                        <p>three!</p>
-                    </TabPanel>
+                    {data?.map((panelTab) => {
+                        return (
+                            <Box key={panelTab?.id}>
+                                <TabPanel>
+                                    {panelTab?.part_one?.map((item) => {
+                                        return (
+                                            <div className="block">
+                                                {item?.question_title}
+                                            </div>
+                                        )
+                                    })}
+                                </TabPanel>
+                                <TabPanel>
+                                    {panelTab?.part_two?.map((item) => {
+                                        return (
+                                            <div className="block">
+                                                {item?.question_title}
+                                            </div>
+                                        )
+                                    })}
+                                </TabPanel>
+                                <TabPanel>
+                                    {panelTab?.part_three?.map((item) => {
+                                        return (
+                                            <div className="block">
+                                                {item?.question_title}
+                                            </div>
+                                        )
+                                    })}
+                                </TabPanel>
+                            </Box>
+                        )
+                    })}
                 </TabPanels>
             </Tabs>
         </Box>

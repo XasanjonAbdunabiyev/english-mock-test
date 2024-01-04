@@ -6,7 +6,7 @@ import { Box, Button, Input, Textarea, useToast } from "@chakra-ui/react"
 /** Firebase */
 import { db, storage } from "@/firebase/config"
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage"
-import { addDoc, collection } from "firebase/firestore"
+import { updateDoc, collection, doc } from "firebase/firestore"
 const main_questions_collection = collection(db, "mock_tests")
 
 /** Icons */
@@ -46,7 +46,7 @@ export const AddSpeakingData = () => {
         setAudioFile(file)
     }
 
-    const { setItem } = useLocalStorage()
+    const { getItem } = useLocalStorage()
 
     // Handle file Upload
     const handleUpload = async () => {
@@ -129,39 +129,30 @@ export const AddSpeakingData = () => {
         const newQuestionsObject = {
             [currentPart]: [...partQuestions[currentPart], addquestions_data],
         }
-        await postQuestionsByPartChanges(newQuestionsObject)
 
-        setCounter((prev) => prev + 1)
+        let id = localStorage.getItem("dashboardQuestionsId")
+        await postQuestionsByPartChanges(newQuestionsObject, id)
     }
 
-    async function postQuestionsByPartChanges(newQuestions) {
-        await addDoc(main_questions_collection, newQuestions)
-            .then((_response) => {
+    async function postQuestionsByPartChanges(newQuestions, id) {
+        const updateDocCollection = doc(db, "mock_tests", "hdo7PxoRaNZMmkahxgK2")
+        await updateDoc(updateDocCollection, newQuestions)
+            .then(() => {
+                queryClient.invalidateQueries({ queryKey: ["dashboard"] })
+
                 chakraToast({
-                    title: "Question Added Successfully",
                     status: "success",
+                    title: "Added Question",
                     isClosable: true,
                     duration: 3000,
                 })
-
-                queryClient.invalidateQueries({
-                    queryKey: ["dashboardQuestions"],
-                })
-
-                setItem(
-                    "latestDashboardQuestionsData",
-                    JSON.stringify({id: _response.id, partChanges: partChanges})
-                );
-                
-                reset()
-                
-                setAudioUrl(null)
             })
-            .catch((_error) => {
-                console.error("Fetching Error", _error)
+            .catch(function (_error) {
                 chakraToast({
                     status: "error",
+                    isClosable: true,
                     title: "Something went wrong",
+                    duration: 3000,
                 })
             })
     }

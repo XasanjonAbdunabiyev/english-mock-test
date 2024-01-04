@@ -8,13 +8,9 @@ const usersCollectionRef = collection(db, "users")
 const paidMockQuestionsCollectionRef = collection(db, "purchase_mock_tests")
 
 export const getQuestions = async () => {
-    try {
-        const db = await getDocs(collectionRef)
-        const tasks = db?.docs?.map((doc) => ({ ...doc.data(), id: doc.id }))
-        return tasks
-    } catch (error) {
-        console.error(error)
-    }
+    const db = await getDocs(collectionRef)
+    const tasks = db?.docs?.map((doc) => ({ ...doc.data(), id: doc.id }))
+    return tasks
 }
 
 export const getLoginData = async () => {
@@ -41,7 +37,6 @@ export const getUserById = async function (id) {
         return res.data()
     }
 }
-
 
 export async function getAllUsers() {
     const res = await getDocs(usersCollectionRef)
