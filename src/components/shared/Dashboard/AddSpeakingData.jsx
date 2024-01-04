@@ -6,14 +6,7 @@ import { Box, Button, Input, Textarea, useToast } from "@chakra-ui/react"
 /** Firebase */
 import { db, storage } from "@/firebase/config"
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage"
-import {
-    addDoc,
-    arrayUnion,
-    collection,
-    setDoc,
-    updateDoc,
-    doc,
-} from "firebase/firestore"
+import { addDoc, collection } from "firebase/firestore"
 const main_questions_collection = collection(db, "mock_tests")
 
 /** Icons */
@@ -24,7 +17,7 @@ import { FaUpload } from "react-icons/fa"
 import { useForm } from "react-hook-form"
 
 import { useQuery, useQueryClient } from "@tanstack/react-query"
-import { getQuestionById } from "@/api/docs"
+import { useLocalStorage } from "@/hooks/useLocalStorage"
 
 export const AddSpeakingData = () => {
     const queryClient = useQueryClient()
@@ -33,7 +26,6 @@ export const AddSpeakingData = () => {
     const [btnLoading, setBtnLoading] = useState(false)
 
     const [partChanges, setPartChanges] = useState("part_one")
-    let [counter, setCounter] = useState(0)
     const [partQuestions, setPartQuestions] = useState({
         part_one: [],
         part_two: [],
@@ -53,6 +45,8 @@ export const AddSpeakingData = () => {
         const file = e.target.files[0]
         setAudioFile(file)
     }
+
+    const { setItem } = useLocalStorage()
 
     // Handle file Upload
     const handleUpload = async () => {
@@ -154,8 +148,13 @@ export const AddSpeakingData = () => {
                     queryKey: ["dashboardQuestions"],
                 })
 
-                localStorage.setItem("dashboardQuestionsId", _response.id)
+                setItem(
+                    "latestDashboardQuestionsData",
+                    JSON.stringify({id: _response.id, partChanges: partChanges})
+                );
+                
                 reset()
+                
                 setAudioUrl(null)
             })
             .catch((_error) => {

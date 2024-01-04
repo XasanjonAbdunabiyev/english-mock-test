@@ -8,28 +8,27 @@ import { deleteDoc, doc } from "firebase/firestore"
 import { useQuery } from "@tanstack/react-query"
 import { db } from "@/firebase/config"
 
-import { getQuestions } from "@/api/docs"
+import { getQuestionById } from "@/api/docs"
 import { useQueryClient } from "@tanstack/react-query"
 import { useNavigate } from "react-router-dom"
 import { Empty } from "@/components/ui/Empty"
+import { useLocalStorage } from "@/hooks/useLocalStorage"
 
 export const DashboardSpeakingTable = () => {
     // Navigate to ...
     const navigate = useNavigate()
     const queryClient = useQueryClient()
+    const { getItem } = useLocalStorage()
     const toast = useToast()
-    const { data, error, isError, isLoading } = useQuery({
+    let latestQuestionId = getItem("dashboardQuestionsId")
+
+    const { data, isError, isLoading } = useQuery({
         queryKey: ["dashboardQuestions"],
-        queryFn: getQuestions,
+        queryFn: () => getQuestionById(latestQuestionId?.id),
     })
 
     if (isLoading) {
         return <p className="font-bold my-4 text-lg">Loading...</p>
-    }
-
-    if (isError) {
-        console.error(`Error ${error.message}`)
-        return <Empty />
     }
 
 
@@ -42,7 +41,7 @@ export const DashboardSpeakingTable = () => {
                     status: "success",
                 })
             })
-            queryClient.invalidateQueries({ queryKey: ["dashboardQuestions"] })
+            queryClient.invalidateQueries({ queryKey: ["dashboard"] })
         } catch (error) {
             toast({
                 status: "error",
@@ -51,19 +50,29 @@ export const DashboardSpeakingTable = () => {
             })
         }
     }
-    
+
+    let changes = latestQuestionId?.partChanges
+
+    if (changes === data?.changes) {
+        console.log(changes)
+    }
 
     return (
         <Box className="flex items-center justify-between px-2">
             <Tabs className="w-full" variant="enclosed">
                 <TabList>
-                    <Tab className="font-bold">Part One</Tab>
-                    <Tab className="font-bold">Part Two</Tab>
-                    <Tab className="font-bold">Part Three</Tab>
+                    <Tab>One</Tab>
+                    <Tab>Two</Tab>
+                    <Tab>Three</Tab>
                 </TabList>
-
                 <TabPanels>
-                    
+                    <TabPanel></TabPanel>
+                    <TabPanel>
+                        <p>two!</p>
+                    </TabPanel>
+                    <TabPanel>
+                        <p>three!</p>
+                    </TabPanel>
                 </TabPanels>
             </Tabs>
         </Box>
