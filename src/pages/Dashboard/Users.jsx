@@ -1,5 +1,3 @@
-
-import { Layout } from "@/components/layouts/Layout"
 import { Box, Heading } from "@chakra-ui/react"
 
 import { useQuery } from "@tanstack/react-query"
@@ -12,9 +10,7 @@ export default function Users() {
     const { data, isError, error, isLoading } = useQuery({
         queryKey: ["users"],
         queryFn: getAllUsers,
-    });
-    
-  
+    })
 
     if (isError) {
         return (
@@ -34,12 +30,10 @@ export default function Users() {
 
     return (
         <Box className="users">
-            <Layout>
-                <Heading fontSize={23}>Users Dashboard</Heading>
-                <Box className="my-3">
-                    <UsersTable tableData={data} />
-                </Box>
-            </Layout>
+            <Heading fontSize={23}>Users Dashboard</Heading>
+            <Box className="my-3">
+                <UsersTable tableData={data} />
+            </Box>
         </Box>
     )
 }

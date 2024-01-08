@@ -20,20 +20,22 @@ import { FaUsers } from "react-icons/fa"
 import { Layout } from "@/components/layouts/Layout"
 import { AddSpeakingData } from "@/components/shared/Dashboard/AddSpeakingData"
 
+import Users from "./Users"
 export default function Dashboard() {
     const navigate = useNavigate()
     return (
         <Box>
             <Layout>
-                <Button
+                {/* <Button
                     className="bg-gray-600 text-white"
                     leftIcon={<FaUsers />}
                     onClick={() => navigate("/dashboard/users")}
                 >
                     Users dashboard
-                </Button>
-                <AddSpeakingData />
-                <DashboardSpeakingTable />
+                </Button> */}
+                {/* <AddSpeakingData />
+                <DashboardSpeakingTable /> */}
+                <Users/>
             </Layout>
         </Box>
     )

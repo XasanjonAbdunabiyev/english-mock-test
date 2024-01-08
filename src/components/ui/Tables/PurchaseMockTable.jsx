@@ -41,7 +41,12 @@ export const PurchaseMockTable = ({ tableData }) => {
                     })}
                 </Box>
             </Box>
-            <Button className="bg-green-800 text-white font-bold w-full my-3 uppercase hover:bg-green-600">
+            <Button
+                onClick={() => {
+                    console.log("click")
+                }}
+                className="bg-green-800 text-white font-bold w-full my-3 uppercase hover:bg-green-600"
+            >
                 Start
             </Button>
         </Box>
