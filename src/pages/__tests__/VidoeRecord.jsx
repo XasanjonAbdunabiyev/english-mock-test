@@ -1,5 +1,5 @@
 import AudioRecorder from "@/components/shared/Record/AudioRecorder"
-import VideoRecorder from "@/components/shared/Record/VideoRecord"
+import VideoRecorder from "@/components/shared/Record/VoiceRecord"
 import { useState, useRef } from "react"
 import React from "react"
 

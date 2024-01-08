@@ -15,15 +15,10 @@ import { RoutesProvider } from "@/providers/Router/RouterProvider"
 // Query Provider
 import QueryProvider from "./providers/Query/QueryClientProvider"
 
-// Main React Context Provider
-import MainContextProvider from "./context/MainContextProvider"
-
 root.render(
     <UiProvider>
         <QueryProvider>
-            <MainContextProvider>
                 <RoutesProvider />
-            </MainContextProvider>
         </QueryProvider>
     </UiProvider>
 )

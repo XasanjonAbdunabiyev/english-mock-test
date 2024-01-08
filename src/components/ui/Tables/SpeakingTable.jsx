@@ -1,15 +1,10 @@
-import React, { lazy, useContext } from "react"
+import React, { lazy, useState } from "react"
 
-import { Heading, Button, Wrap, WrapItem, Box } from "@chakra-ui/react"
-
-import { CiWarning } from "react-icons/ci"
-import { TbClockHour3 } from "react-icons/tb"
+import { Button, Box } from "@chakra-ui/react"
 
 import { useSpeakingTable } from "@/hooks/useSpeakingTable"
 
-import { SpeakingPaginationContext } from "@/context/SpeakingPaginationContext"
 import { Empty } from "@/components/ui/Empty"
-import { NotFound } from "@/pages/NotFound"
 
 const AudioPlay = lazy(() =>
     import("../AudioPlay").then((module) => {
@@ -17,132 +12,29 @@ const AudioPlay = lazy(() =>
     })
 )
 
-export const SpeakingTable = function () {
-    const { startTimeThink } = useSpeakingTable()
-    const pagination_context = useContext(SpeakingPaginationContext)
+import { useSearchParams } from "react-router-dom"
+import VoiceRecorder from "@/components/shared/Record/VoiceRecord"
 
-    if (
-        !pagination_context?.currentItems ||
-        pagination_context?.currentItems?.length <= 0
-    ) {
-        return <NotFound />
-    }
+export const SpeakingTable = function ({ speakingTabe }) {
+    const { startTimeThink } = useSpeakingTable()
+    const [searchParams] = useSearchParams()
+
+    const moduleId = searchParams.get("module-id")
 
     return (
         <Box className="speaking__table">
-            {pagination_context?.currentItems?.length <= 0 &&
-            !pagination_context?.currentItems ? (
-                <Empty />
-            ) : (
-                <>
-                    {pagination_context?.currentItems?.map((question) => {
-                        return (
-                            <Box
-                                className="questions_table p-5"
-                                key={question?.id}
-                            >
-                                <Box className="my-5">
-                                    <AudioPlay
-                                        timeThinkStart={question?.timeThink}
-                                        src={question?.questionAudio}
-                                    />
-                                </Box>
-                                <Box className="flex items-center justify-between gap-20 max-[800px]:flex-col w-full">
-                                    <Box>
-                                        <Heading
-                                            className="flex items-center justify-center flex-col"
-                                            fontSize={17}
-                                        >
-                                            <span className="text-[17] font-bold  my-3">
-                                                Time To Think
-                                            </span>
-                                            <CiWarning
-                                                fontSize={40}
-                                                className="mb-3"
-                                            />
-                                            {question?.timeThink}
-                                        </Heading>
-                                    </Box>
-                                    <Wrap className="w-[45%] flex items-center justify-center flex-col max-[800px]:w-full">
-                                        <WrapItem>
-                                            <Heading
-                                                fontSize={16}
-                                                textAlign="center"
-                                                lineHeight={2}
-                                            >
-                                                {question?.question_title}
-                                            </Heading>
-                                        </WrapItem>
-                                    </Wrap>
-                                    <Box>
-                                        <Box className="flex items-center justify-center flex-col">
-                                            <Heading
-                                                className="flex items-center justify-center flex-col"
-                                                fontSize={17}
-                                            >
-                                                <span className="text-[17] my-3 font-bold">
-                                                    Time To Answer
-                                                </span>
-
-                                                <TbClockHour3
-                                                    fontSize={40}
-                                                    className="mb-3"
-                                                />
-                                            </Heading>
-                                            {question?.timeAnswer}
-                                        </Box>
-                                    </Box>
-                                </Box>
-                            </Box>
-                        )
-                    })}
-                    <Button
-                        fontSize={20}
-                        onClick={() => {
-                            startTimeThink()
-                        }}
-                        letterSpacing={1}
-                        className="w-full my-2 uppercase font-bold"
-                    >
-                        Start
-                    </Button>
-                    <Box className="flex items-center gap-x-5">
-                        {Array.from(
-                            { length: pagination_context?.totalPages },
-                            (_, index) => (
-                                <Button
-                                    key={index}
-                                    onClick={() =>
-                                        pagination_context?.handlePageChange(
-                                            index + 1
-                                        )
-                                    }
-                                    disabled={
-                                        pagination_context?.currentPage ===
-                                        index + 1
-                                    }
-                                >
-                                    {index + 1}
-                                </Button>
-                            )
-                        )}
-
-                        <Button
-                            onClick={() =>
-                                pagination_context?.handlePageChange(
-                                    pagination_context?.currentPage + 1
-                                )
-                            }
-                            disabled={
-                                pagination_context?.currentPage ===
-                                pagination_context?.totalPages
-                            }
-                        >
-                            Next Questions
-                        </Button>
-                    </Box>
-                </>
-            )}
+            <AudioPlay />
+            {/* <VoiceRecorder /> */}
+            <Button
+                fontSize={20}
+                onClick={() => {
+                    startTimeThink()
+                }}
+                letterSpacing={1}
+                className="w-full bg-green-800 hover:bg-green-600 text-white my-2 uppercase font-bold"
+            >
+                Start
+            </Button>
         </Box>
     )
 }

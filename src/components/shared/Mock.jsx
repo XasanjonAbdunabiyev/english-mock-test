@@ -32,7 +32,7 @@ export const Mock = () => {
             <MockTable />
 
             <Modal
-                navigateUrl="/speaking"
+                navigateUrl={`/speaking?module-id=${"M3J9K6ZoiMDjzp3u16o6"}`}
                 isOpen={isOpen}
                 navigateTitle="Enter"
                 size="md"
@@ -49,7 +49,7 @@ export const Mock = () => {
                 title="This mock test is not free"
                 onClose={onPaymentClose}
                 isOpen={isPaymentOpen}
-                navigateTitle="Get payment id"
+                navigateTitle="Go to Purchase Mock Tests"
                 navigateUrl={
                     appId
                         ? `/purchase-mock?module-id=${"05u5rMAjynCRgteUBNLJ"}`
