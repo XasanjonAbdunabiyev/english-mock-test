@@ -20,7 +20,7 @@ export const Mock = () => {
     const { isOpen, onClose } = useSpeakingModal()
     const { onPaymentClose, isPaymentOpen } = usePaymentModal()
 
-    const appId = JSON.parse(localStorage.getItem("login_user"))?.apiKey;
+    const appId = JSON.parse(localStorage.getItem("login_user"))?.apiKey
 
     return (
         <Box className="my-[36px]">
@@ -50,7 +50,11 @@ export const Mock = () => {
                 onClose={onPaymentClose}
                 isOpen={isPaymentOpen}
                 navigateTitle="Get payment id"
-                navigateUrl={appId ? "/purchase-mock" : "/not-found"}
+                navigateUrl={
+                    appId
+                        ? `/purchase-mock?module-id=${"05u5rMAjynCRgteUBNLJ"}`
+                        : "/not-found"
+                }
             >
                 <Text className="text-lg">
                     To access this Mock Test you will have to pay the prescribed
