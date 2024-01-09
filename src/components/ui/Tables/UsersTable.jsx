@@ -23,10 +23,10 @@ import { FaEdit } from "react-icons/fa"
 export function UsersTable({ tableData }) {
     const toast = useToast()
     const queryClient = useQueryClient()
-    
+
     const handleUpdateUserIsPaid = async (user_db) => {
         const updateUserIsPaidCollection = doc(db, "users", user_db?.id)
-        let initialState;
+        let initialState
         if (user_db.isPaid === true) {
             initialState = { ...user_db, isPaid: false }
         } else {

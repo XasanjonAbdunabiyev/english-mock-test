@@ -70,7 +70,7 @@ export const UpdateQuestionDashboard = () => {
     }
 
     // Handle File Upload function
-    
+
     const handleUplaoding = () => {
         //  Create an pendingPromise promise that resolves in 5s
         const pendingPromise = new Promise((resolve, reject) => {

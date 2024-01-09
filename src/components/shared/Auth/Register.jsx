@@ -20,7 +20,6 @@ import { createUserWithEmailAndPassword } from "firebase/auth"
 import { auth } from "@/firebase/config"
 import { useNavigate } from "react-router-dom"
 
-
 export const Register = () => {
     const {
         register,
@@ -90,7 +89,11 @@ export const Register = () => {
                             >
                                 <FormLabel htmlFor="email">Email</FormLabel>
                                 <Input
-                                    {...register("email", { required: true, min: 6, max: 99 })}
+                                    {...register("email", {
+                                        required: true,
+                                        min: 6,
+                                        max: 99,
+                                    })}
                                     id="email"
                                     type="email"
                                     my={3}

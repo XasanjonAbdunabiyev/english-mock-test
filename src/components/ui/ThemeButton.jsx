@@ -2,7 +2,7 @@ import { IconButton, useColorMode } from "@chakra-ui/react"
 import { FiSun, FiMoon } from "react-icons/fi"
 
 export function ThemeButton() {
-    const { colorMode, toggleColorMode } = useColorMode();
+    const { colorMode, toggleColorMode } = useColorMode()
 
     return (
         <IconButton

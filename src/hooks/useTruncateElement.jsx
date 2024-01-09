@@ -2,8 +2,8 @@ import { useState, useLayoutEffect } from "react"
 
 const useTruncateElement = ({ ref }) => {
     const [isTruncated, setIsTruncated] = useState(false)
-    const [isShowingMore, setIsShowingMore] = useState(false);
-    
+    const [isShowingMore, setIsShowingMore] = useState(false)
+
     useLayoutEffect(() => {
         const { offsetHeight, scrollHeight } = ref.current || {}
 
@@ -14,7 +14,7 @@ const useTruncateElement = ({ ref }) => {
         }
     }, [ref])
 
-    const toggleIsShowingMore = () => setIsShowingMore(prev => !prev);
+    const toggleIsShowingMore = () => setIsShowingMore((prev) => !prev)
 
     return {
         isTruncated,

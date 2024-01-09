@@ -1,11 +1,6 @@
 import { lazy } from "react"
 
-import {
-    Button,
-    Container,
-    useColorMode,
-    Box,
-} from "@chakra-ui/react"
+import { Button, Container, useColorMode, Box } from "@chakra-ui/react"
 
 import { useNavigate } from "react-router-dom"
 
@@ -37,11 +32,11 @@ export const PageHeader = () => {
                     </Box>
                     <nav className="flex items-center gap-x-6">
                         {getItem("login_user") ? (
-                            <Drobdown options={["Profile settings 🧐", "Sign out"]}/>
+                            <Drobdown
+                                options={["Profile settings 🧐", "Sign out"]}
+                            />
                         ) : (
-                            <Button
-                                onClick={() => navigate("/login")}
-                            >
+                            <Button onClick={() => navigate("/login")}>
                                 Login
                             </Button>
                         )}

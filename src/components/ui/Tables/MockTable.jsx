@@ -10,7 +10,6 @@ import {
     Button,
 } from "@chakra-ui/react"
 
-
 import { MdOutlineKeyboardVoice } from "react-icons/md"
 import { FaBookOpen, FaHeadphones } from "react-icons/fa"
 
@@ -61,9 +60,7 @@ export const MockTable = () => {
                                                 color="gray"
                                                 className="my-3"
                                             />
-                                            <Button>
-                                                Submission
-                                            </Button>
+                                            <Button>Submission</Button>
                                         </Box>
                                     </Td>
                                     <Td>
@@ -96,9 +93,7 @@ export const MockTable = () => {
                                                 className="my-3"
                                                 color="gray"
                                             />
-                                            <Button>
-                                                Submission
-                                            </Button>
+                                            <Button>Submission</Button>
                                         </Box>
                                     </Td>
                                 </Tr>

@@ -18,7 +18,7 @@ import QueryProvider from "./providers/Query/QueryClientProvider"
 root.render(
     <UiProvider>
         <QueryProvider>
-                <RoutesProvider />
+            <RoutesProvider />
         </QueryProvider>
     </UiProvider>
 )

@@ -31,7 +31,7 @@ export const ScrollToTopButton = () => {
             onClick={scrollToTop}
             visibility={showButton ? "visible" : "hidden"}
             position="fixed"
-            aria-label='Search database'
+            aria-label="Search database"
             bottom="4"
             size="lg"
             fontSize={20}

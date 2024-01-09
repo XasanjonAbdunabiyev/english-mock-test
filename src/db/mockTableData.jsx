@@ -27,26 +27,25 @@ export const tableTd = [
     },
 ]
 
-
 export const tableTh = [
     {
-        id: "1", 
-        moduleName: "Mock Test Modules", 
-    }, 
-    {
-        id: "2", 
-        moduleName: "Purchase", 
+        id: "1",
+        moduleName: "Mock Test Modules",
     },
     {
-        id: "3", 
-        moduleName: "LISTENING", 
+        id: "2",
+        moduleName: "Purchase",
     },
     {
-        id: "4", 
-        moduleName: "SPEAKING", 
+        id: "3",
+        moduleName: "LISTENING",
     },
     {
-        id: "5", 
-        moduleName: "READING", 
-    }
+        id: "4",
+        moduleName: "SPEAKING",
+    },
+    {
+        id: "5",
+        moduleName: "READING",
+    },
 ]

@@ -8,7 +8,6 @@ import { getQuestions } from "@/api/docs"
 import { useQuery } from "@tanstack/react-query"
 import { NotFound } from "./NotFound"
 
-
 const Layout = lazy(() =>
     import("@/components/layouts/Layout").then((module) => {
         return { default: module.Layout }
@@ -40,7 +39,6 @@ const Speaking = () => {
     return (
         <Box className="speaking-page">
             <Layout>
-        
                 <SpeakingTable speakingTabe={data} />
             </Layout>
         </Box>

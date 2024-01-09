@@ -12,8 +12,8 @@ export const ProtectedRoute = function () {
     useEffect(() => {
         if (!user) {
             navigate(ROUTER_ACTIONS.LOGIN)
-        };
-    }, [user, navigate]);
-    
+        }
+    }, [user, navigate])
+
     return <Outlet />
 }

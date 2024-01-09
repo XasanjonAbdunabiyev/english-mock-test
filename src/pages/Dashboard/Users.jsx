@@ -6,7 +6,6 @@ import { getAllUsers } from "@/api/docs"
 import { PageLoading } from "@/components/ui/Loading"
 import { UsersTable } from "@/components/ui/Tables/UsersTable"
 
-
 export function Users() {
     const { data, isError, error, isLoading } = useQuery({
         queryKey: ["users"],
@@ -38,4 +37,3 @@ export function Users() {
         </Box>
     )
 }
-

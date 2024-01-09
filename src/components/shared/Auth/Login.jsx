@@ -221,7 +221,7 @@ export const Login = () => {
                                     You are new to this site
                                 </Heading>
                                 <Button
-                                    className="bg-green-600 text-white hover:bg-green-500 font-bold text-lg" 
+                                    className="bg-green-600 text-white hover:bg-green-500 font-bold text-lg"
                                     variant="outline"
                                     type="submit"
                                     width="100%"

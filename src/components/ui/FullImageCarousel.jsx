@@ -4,12 +4,12 @@ import { Swiper, SwiperSlide } from "swiper/react"
 import { Navigation } from "swiper/modules"
 
 // Import Swiper Styles
-import ("swiper/css")
-import ("swiper/css/navigation")
+import("swiper/css")
+import("swiper/css/navigation")
 
 // Slides static data
 import { slides } from "@/db/carusel-data"
-import { Image } from "@chakra-ui/react";
+import { Image } from "@chakra-ui/react"
 
 export const FullImageCarousel = () => {
     return (

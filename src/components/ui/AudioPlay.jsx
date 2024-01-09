@@ -1,9 +1,8 @@
 import React, { memo, useRef } from "react"
 
-
 export const AudioPlay = memo(function ({ src, timeThinkStart }) {
-    const audioRef = useRef(null);
-    
+    const audioRef = useRef(null)
+
     if (timeThinkStart === true) {
         audioRef?.current?.play()
     }

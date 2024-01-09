@@ -135,7 +135,11 @@ export const AddSpeakingData = () => {
     }
 
     async function postQuestionsByPartChanges(newQuestions, id) {
-        const updateDocCollection = doc(db, "mock_tests", "hdo7PxoRaNZMmkahxgK2")
+        const updateDocCollection = doc(
+            db,
+            "mock_tests",
+            "hdo7PxoRaNZMmkahxgK2"
+        )
         await updateDoc(updateDocCollection, newQuestions)
             .then(() => {
                 queryClient.invalidateQueries({ queryKey: ["dashboard"] })

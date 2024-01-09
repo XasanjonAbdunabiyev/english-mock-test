@@ -18,8 +18,6 @@ const Layout = lazy(() =>
     })
 )
 
-
-
 const Mock = lazy(() =>
     import("@/components/shared/Mock").then((module) => {
         return {
